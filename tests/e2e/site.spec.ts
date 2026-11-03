@@ -88,6 +88,19 @@ test.describe('interactions', () => {
   });
 });
 
+test.describe('progressive enhancement', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('is fully readable without JavaScript', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page.locator('.hero__lede')).toBeVisible();
+    await expect(page.locator('.static-field')).toBeVisible();
+    await expect(page.locator('#work li').first()).toBeVisible();
+    await expect(page.locator('#contact a[href^="mailto:"]')).toBeVisible();
+  });
+});
+
 test.describe('accessibility', () => {
   for (const path of ['/', '/es/', '/work/pet-defense/', '/es/work/naruto-online-companion/']) {
     test(`${path} has no serious axe violations`, async ({ page }) => {

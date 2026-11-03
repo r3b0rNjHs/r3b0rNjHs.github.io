@@ -100,6 +100,12 @@ test.describe('writing', () => {
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   });
 
+  test('links each case study to its article', async ({ page }) => {
+    await page.goto('/es/work/aion2-companion/');
+    await page.locator('.story').click();
+    await expect(page).toHaveURL(/\/es\/writing\/shipping-a-desktop-app-to-gamers\/$/);
+  });
+
   test('shows the latest articles on the home page', async ({ page }) => {
     await page.goto('/es/');
     await expect(page.locator('#writing .article')).toHaveCount(3);
@@ -129,6 +135,17 @@ test.describe('cv', () => {
       await expect(page.getByRole('heading', { name: heading })).toBeVisible();
       await expect(page.locator('body')).not.toContainText('+34');
     }
+  });
+
+  test('can be closed to go back where the visitor came from', async ({ page }) => {
+    await page.goto('/es/');
+    await page.locator('.about__cv a[href="/es/cv/"]').click();
+    await expect(page).toHaveURL(/\/es\/cv\/$/);
+    await page.locator('.cv-close').click();
+    await expect(page).toHaveURL(/\/es\/(#about)?$/);
+    await page.goto('/cv/');
+    await page.keyboard.press('Escape');
+    await expect(page).toHaveURL(/\/(#about)?$/);
   });
 
   test('serves the generated PDFs', async ({ request }) => {

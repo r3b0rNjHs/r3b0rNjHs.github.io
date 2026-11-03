@@ -9,6 +9,8 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const otherLang: Lang = lang === 'en' ? 'es' : 'en';
 const path = stripLang(Astro.url.pathname);
+// Pages that only exist once (the 404) switch language by going to the other language's home page.
+const switchPath = /^\/404(\.html)?\/?$/.test(path) ? '/' : path;
 
 const links = [
   { href: localePath(lang, '/#work'), label: t('nav.work') },
@@ -56,7 +58,7 @@ const links = [
         <kbd>K</kbd>
         <span class="visually-hidden">{t('cmd.open')}</span>
       </button>
-      <a class="nav__icon mono" href={localePath(otherLang, path)} hreflang={otherLang} lang={otherLang} title={t('lang.switch')}>
+      <a class="nav__icon mono" href={localePath(otherLang, switchPath)} hreflang={otherLang} lang={otherLang} title={t('lang.switch')}>
         {t('lang.short')}
         <span class="visually-hidden">({t('lang.switch')})</span>
       </a>

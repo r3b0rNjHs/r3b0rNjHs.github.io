@@ -1,4 +1,4 @@
-# 0002 — Typed bilingual content as the single source of truth
+# 0002. Typed bilingual content as the single source of truth
 
 - **Status:** Accepted
 - **Date:** 2026-11-03

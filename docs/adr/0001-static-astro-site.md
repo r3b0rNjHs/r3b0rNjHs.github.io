@@ -1,4 +1,4 @@
-# 0001 — Static Astro site on GitHub Pages
+# 0001. Static Astro site on GitHub Pages
 
 - **Status:** Accepted
 - **Date:** 2026-11-03

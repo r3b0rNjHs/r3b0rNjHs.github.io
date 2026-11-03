@@ -2,19 +2,19 @@
 
 [![CI/CD](https://github.com/r3b0rNjHs/r3b0rNjHs.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/r3b0rNjHs/r3b0rNjHs.github.io/actions/workflows/ci.yml)
 
-Personal site of **Jorge Hernández Suárez** — AI Engineer & Systems Architect.
+Personal site of **Jorge Hernández Suárez**, AI Engineer & Systems Architect.
 Live at **[r3b0rnjhs.github.io](https://r3b0rnjhs.github.io)** · English by default, Spanish at [`/es/`](https://r3b0rnjhs.github.io/es/).
 
 ![Social preview](public/og.png)
 
 ## Highlights
 
-- **Interactive WebGL hero** — a "neural field" of ~7k nodes rendered with custom GLSL shaders. It bends towards the pointer, ripples on click and disperses on scroll. It loads after first paint, pauses off-screen and frees all GPU resources on navigation.
-- **Bilingual by design** — typed EN/ES dictionaries with compile-time key parity, `hreflang` alternates, a language switch that keeps the current page, and a localised sitemap.
-- **Case studies, not thumbnails** — each project has its own page covering the challenge, the approach, the outcome and an _AI in the loop_ section.
-- **Keyboard-first** — a `⌘K` command palette with fuzzy search, plus a skip link and visible focus states.
-- **Accessible and respectful** — WCAG 2.1 AA checked with axe in CI, `prefers-reduced-motion` and `prefers-color-scheme` honoured, and light/dark themes with no flash.
-- **Fast** — static HTML, responsive WebP images, self-hosted variable fonts and zero runtime framework. The only heavy dependency (three.js) is loaded lazily.
+- **Interactive WebGL hero**: A "neural field" of ~7k nodes rendered with custom GLSL shaders. It bends towards the pointer, ripples on click and disperses on scroll. It loads after first paint, pauses off-screen and frees all GPU resources on navigation.
+- **Bilingual by design**: Typed EN/ES dictionaries with compile-time key parity, `hreflang` alternates, a language switch that keeps the current page, and a localised sitemap.
+- **Case studies, not thumbnails**: Each project has its own page covering the challenge, the approach, the outcome and an _AI in the loop_ section.
+- **Keyboard-first**: A `⌘K` command palette with fuzzy search, plus a skip link and visible focus states.
+- **Accessible and respectful**: WCAG 2.1 AA checked with axe in CI, `prefers-reduced-motion` and `prefers-color-scheme` honoured, and light/dark themes with no flash.
+- **Fast**: Static HTML, responsive WebP images, self-hosted variable fonts and zero runtime framework. The only heavy dependency (three.js) is loaded lazily.
 
 ## Stack
 
@@ -32,14 +32,14 @@ Live at **[r3b0rnjhs.github.io](https://r3b0rnjhs.github.io)** · English by def
 
 ```
 src/
-├─ lib/          Pure, framework-free logic (math, geometry, fuzzy search, time, portrait field) — fully unit-tested
+├─ lib/          Pure, framework-free logic (math, geometry, fuzzy search, time, portrait field), fully unit-tested
 ├─ i18n/         Dictionaries + locale routing helpers
 ├─ data/         Typed content: profile, experience, projects (single source of truth for both languages)
 ├─ scripts/      Progressive-enhancement behaviour (hero scene, interactions, command palette)
 ├─ components/   Presentational Astro components (one section each)
 ├─ views/        Page compositions shared by both locales
 ├─ layouts/      Document shell: SEO, theming, navigation
-└─ pages/        Thin route files — `/` and `/es/` render the same views with a different `lang`
+└─ pages/        Thin route files: `/` and `/es/` render the same views with a different `lang`
 ```
 
 The rules that keep it maintainable:
@@ -61,7 +61,7 @@ npm run dev          # http://localhost:4321
 
 | Script             | What it does                                                                     |
 | ------------------ | -------------------------------------------------------------------------------- |
-| `npm run verify`   | Formatting, type-check, unit tests and build — same gate as CI                   |
+| `npm run verify`   | Formatting, type-check, unit tests and build (same gate as CI)                   |
 | `npm test`         | Unit tests (Vitest)                                                              |
 | `npm run test:e2e` | Playwright e2e + accessibility tests against `dist/` (run `npm run build` first) |
 | `npm run og`       | Regenerates `public/og.png` from code                                            |
@@ -71,9 +71,9 @@ npm run dev          # http://localhost:4321
 
 Every push and pull request runs [`ci.yml`](.github/workflows/ci.yml):
 
-1. **Verify** — formatting, `astro check`, unit tests and production build.
-2. **End-to-end & accessibility** — Playwright on desktop and mobile viewports against the built site, including axe WCAG 2.1 AA scans.
-3. **Deploy** — only from `main`, and only when both previous jobs are green.
+1. **Verify**: formatting, `astro check`, unit tests and production build.
+2. **End-to-end & accessibility**: Playwright on desktop and mobile viewports against the built site, including axe WCAG 2.1 AA scans.
+3. **Deploy**: only from `main`, and only when both previous jobs are green.
 
 ## Working with AI
 

@@ -1,4 +1,4 @@
-# 0004 — Deploys gated by tests and accessibility checks
+# 0004. Deploys gated by tests and accessibility checks
 
 - **Status:** Accepted
 - **Date:** 2026-11-03

@@ -1,4 +1,4 @@
-# 0003 — WebGL hero as a progressive enhancement
+# 0003. WebGL hero as a progressive enhancement
 
 - **Status:** Accepted
 - **Date:** 2026-11-03

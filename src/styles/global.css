@@ -316,8 +316,9 @@ body::after {
 .split-line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+  /* Room for descenders and italic overhangs so glyphs are never clipped. */
+  padding: 0 0.12em 0.16em 0;
+  margin: 0 -0.12em -0.16em 0;
 }
 .split-line > span {
   display: inline-block;

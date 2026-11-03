@@ -36,6 +36,8 @@ jobs:
         run: |
           npx playwright install --with-deps chromium
           npm run cv
+      - name: Check internal links
+        run: npm run links
       - uses: actions/upload-artifact@v7
         with:
           name: dist

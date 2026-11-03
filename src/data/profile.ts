@@ -44,18 +44,6 @@ export interface Role {
 
 export const experience: Role[] = [
   {
-    company: 'Yoqze',
-    role: { en: 'Founder & AI Engineer', es: 'Fundador & AI Engineer' },
-    period: { en: '2026 — Now', es: '2026 — Hoy' },
-    start: 2026,
-    end: null,
-    summary: {
-      en: 'Building AI-native products end to end with a tiny team: a live Roblox game shipped by two people, the agent platform that supports it, and an AI-powered developer API — with Claude Code, MCP and agentic pipelines as the engineering backbone.',
-      es: 'Construyo productos nativos de IA de principio a fin con un equipo mínimo: un juego de Roblox en producción hecho por dos personas, la plataforma de agentes que le da soporte y una API para developers impulsada por IA — con Claude Code, MCP y pipelines agénticos como columna vertebral de la ingeniería.',
-    },
-    tags: ['AI agents', 'Claude Code', 'MCP', 'TypeScript', 'Python', 'Luau'],
-  },
-  {
     company: 'Trenddi',
     role: { en: 'AI & Platform Engineer', es: 'AI & Platform Engineer' },
     period: { en: 'Nov 2024 — May 2026', es: 'Nov 2024 — May 2026' },

@@ -14,9 +14,21 @@ const other: Lang = lang === 'en' ? 'es' : 'en';
 const commands: Command[] = [
   { id: 'home', group: t('cmd.group.nav'), label: t('cmd.home'), hint: '/', action: { type: 'go', href: localePath(lang) } },
   { id: 'work', group: t('cmd.group.nav'), label: t('nav.work'), hint: '#work', action: { type: 'go', href: localePath(lang, '/#work') } },
-  { id: 'about', group: t('cmd.group.nav'), label: t('nav.about'), hint: '#about', action: { type: 'go', href: localePath(lang, '/#about') } },
+  {
+    id: 'about',
+    group: t('cmd.group.nav'),
+    label: t('nav.about'),
+    hint: '#about',
+    action: { type: 'go', href: localePath(lang, '/#about') },
+  },
   { id: 'path', group: t('cmd.group.nav'), label: t('nav.path'), hint: '#path', action: { type: 'go', href: localePath(lang, '/#path') } },
-  { id: 'contact', group: t('cmd.group.nav'), label: t('nav.contact'), hint: '#contact', action: { type: 'go', href: localePath(lang, '/#contact') } },
+  {
+    id: 'contact',
+    group: t('cmd.group.nav'),
+    label: t('nav.contact'),
+    hint: '#contact',
+    action: { type: 'go', href: localePath(lang, '/#contact') },
+  },
   ...projects.map<Command>((p) => ({
     id: `project-${p.slug}`,
     group: t('work.kicker'),
@@ -25,8 +37,20 @@ const commands: Command[] = [
     action: { type: 'go', href: localePath(lang, `/work/${p.slug}`) },
   })),
   { id: 'theme', group: t('cmd.group.actions'), label: t('cmd.theme'), hint: '☾ / ☀', action: { type: 'theme' } },
-  { id: 'lang', group: t('cmd.group.actions'), label: t('cmd.lang'), hint: other.toUpperCase(), action: { type: 'go', href: localePath(other, stripLang(Astro.url.pathname)) } },
-  { id: 'email', group: t('cmd.group.actions'), label: t('cmd.email'), hint: profile.email, action: { type: 'copy', value: profile.email, message: t('contact.copied') } },
+  {
+    id: 'lang',
+    group: t('cmd.group.actions'),
+    label: t('cmd.lang'),
+    hint: other.toUpperCase(),
+    action: { type: 'go', href: localePath(other, stripLang(Astro.url.pathname)) },
+  },
+  {
+    id: 'email',
+    group: t('cmd.group.actions'),
+    label: t('cmd.email'),
+    hint: profile.email,
+    action: { type: 'copy', value: profile.email, message: t('contact.copied') },
+  },
   ...profile.socials.map<Command>((s) => ({
     id: `link-${s.label.toLowerCase()}`,
     group: t('cmd.group.links'),
@@ -40,13 +64,10 @@ const commands: Command[] = [
 <dialog class="cmd" data-cmd aria-label={t('cmd.placeholder')}>
   <div class="cmd__panel">
     <div class="cmd__search">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
-        ><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path
-          d="m16 16 4 4"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"></path></svg
-      >
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+        <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+      </svg>
       <input
         type="text"
         data-cmd-input
@@ -61,10 +82,17 @@ const commands: Command[] = [
       <kbd class="mono">esc</kbd>
     </div>
     <ul class="cmd__list" id="cmd-list" role="listbox" data-cmd-list></ul>
-    <p class="cmd__empty mono" data-cmd-empty hidden>{t('cmd.empty')}</p>
+    <p class="cmd__empty mono" data-cmd-empty hidden>
+      {t('cmd.empty')}
+    </p>
     <footer class="cmd__foot mono">
-      <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
-      <span><kbd>↵</kbd> select</span>
+      <span>
+        <kbd>↑</kbd>
+        <kbd>↓</kbd> navigate
+      </span>
+      <span>
+        <kbd>↵</kbd> select
+      </span>
       <span class="cmd__brand">jh://palette</span>
     </footer>
   </div>

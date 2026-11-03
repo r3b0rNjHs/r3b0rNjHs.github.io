@@ -60,6 +60,10 @@ const t = useTranslations(lang);
     top: 7rem;
     align-self: start;
   }
+  /* Narrower column than the other sections: scale the title down so long translations stay balanced. */
+  .path__head .section-title {
+    font-size: clamp(2.2rem, 1.5rem + 2.8vw, 4.75rem);
+  }
   .timeline {
     position: relative;
     display: grid;

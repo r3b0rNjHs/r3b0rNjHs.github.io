@@ -397,6 +397,11 @@ const ogImage = lead ? lead.src.src : undefined;
   .gallery .frame {
     aspect-ratio: 16 / 10;
   }
+  /* An odd last image spans the full row instead of leaving a hole in the grid. */
+  .gallery .frame:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    aspect-ratio: 21 / 9;
+  }
   .gallery figcaption {
     position: absolute;
     left: 1rem;

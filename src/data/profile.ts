@@ -24,6 +24,14 @@ export const profile = {
       'Mi base es Clean Architecture, DDD y TDD. En los últimos dos años casi todo mi trabajo ha girado en torno a usar la IA en la ingeniería del día a día: programar con agentes, construir integraciones MCP y llevar funcionalidades con LLMs a usuarios reales.',
     ],
   } satisfies Record<string, string[]>,
+  languages: {
+    en: 'Spanish (native) · English (C1, professional working proficiency)',
+    es: 'Español (nativo) · Inglés (C1, nivel profesional)',
+  } satisfies L,
+  availability: {
+    en: 'Available now · Open to remote, hybrid and relocation',
+    es: 'Disponibilidad inmediata · Abierto a remoto, híbrido y reubicación',
+  } satisfies L,
   stats: [
     { value: 7, suffix: '+', key: 'about.stat.years' },
     { value: 5, suffix: '', prefix: '<', key: 'about.stat.cto' },

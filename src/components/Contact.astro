@@ -1,6 +1,7 @@
 ---
 import { profile } from '@/data/profile';
 import { useTranslations, type Lang } from '@/i18n/ui';
+import { cvPdfPath } from '@/lib/cv';
 
 interface Props {
   lang: Lang;
@@ -38,13 +39,27 @@ const t = useTranslations(lang);
             ↗
           </span>
         </a>
-        <button class="btn btn--ghost copy" type="button" data-copy={profile.email} data-copied={t('contact.copied')}>
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-            <rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"></rect>
-            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.5"></path>
-          </svg>
-          {t('contact.copy')}
-        </button>
+        <div class="contact__buttons">
+          <button class="btn btn--ghost copy" type="button" data-copy={profile.email} data-copied={t('contact.copied')}>
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"></rect>
+              <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+            </svg>
+            {t('contact.copy')}
+          </button>
+          <a class="btn btn--ghost copy" href={cvPdfPath(lang)} download>
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path
+                d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              ></path>
+            </svg>
+            {t('cv.download')}
+          </a>
+        </div>
         <ul class="socials" role="list">
           {profile.socials.map((s) => (
             <li>
@@ -86,6 +101,11 @@ const t = useTranslations(lang);
     font-size: var(--step-1);
     color: var(--fg-soft);
     max-width: 30rem;
+  }
+  .contact__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
   .contact__actions {
     display: grid;

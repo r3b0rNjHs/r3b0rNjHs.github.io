@@ -3,6 +3,7 @@ import { localePath, stripLang, useTranslations, type Lang } from '@/i18n/ui';
 import { profile } from '@/data/profile';
 import { projects } from '@/data/projects';
 import type { Command } from '@/scripts/command-palette';
+import { cvPdfPath } from '@/lib/cv';
 
 interface Props {
   lang: Lang;
@@ -43,6 +44,13 @@ const commands: Command[] = [
     label: t('cmd.lang'),
     hint: other.toUpperCase(),
     action: { type: 'go', href: localePath(other, stripLang(Astro.url.pathname)) },
+  },
+  {
+    id: 'cv',
+    group: t('cmd.group.actions'),
+    label: t('cv.download'),
+    hint: 'PDF',
+    action: { type: 'open', href: cvPdfPath(lang) },
   },
   {
     id: 'email',

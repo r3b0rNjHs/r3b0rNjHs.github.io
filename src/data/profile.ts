@@ -159,9 +159,18 @@ export const principles: { title: L; body: L; glyph: string }[] = [
 ];
 
 export const stack: { group: L; items: string[] }[] = [
-  { group: { en: 'AI engineering', es: 'Ingeniería de IA' }, items: ['Claude Code', 'Model Context Protocol', 'LLM integration', 'Agentic pipelines', 'Evals'] },
-  { group: { en: 'Cloud & infra', es: 'Cloud e infra' }, items: ['AWS', 'Google Cloud', 'Kubernetes', 'Terraform', 'Terragrunt', 'Docker', 'CI/CD'] },
-  { group: { en: 'Languages & data', es: 'Lenguajes y datos' }, items: ['TypeScript', 'Python', 'Java', 'React', 'PostgreSQL', 'OpenSearch'] },
+  {
+    group: { en: 'AI engineering', es: 'Ingeniería de IA' },
+    items: ['Claude Code', 'Model Context Protocol', 'LLM integration', 'Agentic pipelines', 'Evals'],
+  },
+  {
+    group: { en: 'Cloud & infra', es: 'Cloud e infra' },
+    items: ['AWS', 'Google Cloud', 'Kubernetes', 'Terraform', 'Terragrunt', 'Docker', 'CI/CD'],
+  },
+  {
+    group: { en: 'Languages & data', es: 'Lenguajes y datos' },
+    items: ['TypeScript', 'Python', 'Java', 'React', 'PostgreSQL', 'OpenSearch'],
+  },
   { group: { en: 'Reliability', es: 'Fiabilidad' }, items: ['Prometheus', 'Grafana', 'CloudWatch', 'SRE'] },
   { group: { en: 'Craft', es: 'Oficio' }, items: ['Clean Architecture', 'DDD', 'TDD', 'Mentoring', 'Tech leadership'] },
 ];

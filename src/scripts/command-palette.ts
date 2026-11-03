@@ -3,10 +3,7 @@ import { fuzzyFilter } from '@/lib/fuzzy';
 import { copyToClipboard, toast, toggleTheme } from './interactions';
 
 export type CommandAction =
-  | { type: 'go'; href: string }
-  | { type: 'open'; href: string }
-  | { type: 'theme' }
-  | { type: 'copy'; value: string; message: string };
+  { type: 'go'; href: string } | { type: 'open'; href: string } | { type: 'theme' } | { type: 'copy'; value: string; message: string };
 
 export interface Command {
   id: string;

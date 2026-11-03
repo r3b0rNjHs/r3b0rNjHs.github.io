@@ -12,35 +12,39 @@ const t = useTranslations(lang);
 <section class="section path" id="path" aria-labelledby="path-title">
   <div class="container path__grid">
     <header class="path__head">
-      <span class="kicker" data-reveal>{t('path.kicker')}</span>
-      <h2 id="path-title" class="section-title" data-reveal>{t('path.title')}</h2>
+      <span class="kicker" data-reveal>
+        {t('path.kicker')}
+      </span>
+      <h2 id="path-title" class="section-title" data-reveal>
+        {t('path.title')}
+      </h2>
     </header>
 
     <ol class="timeline" role="list" data-timeline>
-      <span class="timeline__rail" aria-hidden="true"><span class="timeline__fill"></span></span>
-      {
-        experience.map((job, i) => (
-          <li class="job" data-reveal style={`--reveal-delay:${i * 50}`}>
-            <span class="job__node" aria-hidden="true" />
-            <div class="job__when mono">
-              <span>{job.period[lang]}</span>
-              {job.end === null && <span class="job__now">{t('path.present')}</span>}
-            </div>
-            <div class="job__body">
-              <h3 class="job__role">{job.role[lang]}</h3>
-              <p class="job__company">
-                <span class="serif">@</span> {job.company}
-              </p>
-              <p class="job__summary">{job.summary[lang]}</p>
-              <ul class="job__tags" role="list">
-                {job.tags.map((tag) => (
-                  <li class="tag">{tag}</li>
-                ))}
-              </ul>
-            </div>
-          </li>
-        ))
-      }
+      <span class="timeline__rail" aria-hidden="true">
+        <span class="timeline__fill"></span>
+      </span>
+      {experience.map((job, i) => (
+        <li class="job" data-reveal style={`--reveal-delay:${i * 50}`}>
+          <span class="job__node" aria-hidden="true" />
+          <div class="job__when mono">
+            <span>{job.period[lang]}</span>
+            {job.end === null && <span class="job__now">{t('path.present')}</span>}
+          </div>
+          <div class="job__body">
+            <h3 class="job__role">{job.role[lang]}</h3>
+            <p class="job__company">
+              <span class="serif">@</span> {job.company}
+            </p>
+            <p class="job__summary">{job.summary[lang]}</p>
+            <ul class="job__tags" role="list">
+              {job.tags.map((tag) => (
+                <li class="tag">{tag}</li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))}
     </ol>
   </div>
 </section>

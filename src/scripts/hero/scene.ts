@@ -21,14 +21,7 @@ import {
 } from 'three';
 import { clamp, createRng, damp } from '@/lib/math';
 import { fibonacciSphere, nearestNeighbourEdges } from '@/lib/geometry';
-import {
-  linkFragment,
-  linkVertex,
-  nodeFragment,
-  nodeVertex,
-  signalFragment,
-  signalVertex,
-} from './shaders';
+import { linkFragment, linkVertex, nodeFragment, nodeVertex, signalFragment, signalVertex } from './shaders';
 
 export interface NeuralFieldOptions {
   canvas: HTMLCanvasElement;

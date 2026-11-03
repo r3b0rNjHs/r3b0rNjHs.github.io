@@ -11,43 +11,50 @@ const t = useTranslations(lang);
 
 <section class="section contact" id="contact" aria-labelledby="contact-title">
   <div class="container">
-    <span class="kicker" data-reveal>{t('contact.kicker')}</span>
+    <span class="kicker" data-reveal>
+      {t('contact.kicker')}
+    </span>
     <h2 id="contact-title" class="contact__title" data-split>
-      <span class="split-line"><span style="--i:0">{t('contact.title.1')}</span></span>
-      <span class="split-line"><span style="--i:1">{t('contact.title.2')} <em class="serif">{t('contact.title.3')}</em></span></span>
+      <span class="split-line">
+        <span style="--i:0">{t('contact.title.1')}</span>
+      </span>
+      <span class="split-line">
+        <span style="--i:1">
+          {t('contact.title.2')} <em class="serif">{t('contact.title.3')}</em>
+        </span>
+      </span>
     </h2>
 
     <div class="contact__grid">
-      <p class="contact__lede" data-reveal>{t('contact.lede')}</p>
+      <p class="contact__lede" data-reveal>
+        {t('contact.lede')}
+      </p>
 
       <div class="contact__actions" data-reveal>
         <a class="mail" href={`mailto:${profile.email}`} data-magnetic="0.12">
           <span class="mail__label mono">Email</span>
           <span class="mail__address">{profile.email}</span>
-          <span class="mail__arrow" aria-hidden="true">↗</span>
+          <span class="mail__arrow" aria-hidden="true">
+            ↗
+          </span>
         </a>
         <button class="btn btn--ghost copy" type="button" data-copy={profile.email} data-copied={t('contact.copied')}>
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
-            ><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"></rect><path
-              d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"></path></svg
-          >
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"></rect>
+            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+          </svg>
           {t('contact.copy')}
         </button>
         <ul class="socials" role="list">
-          {
-            profile.socials.map((s) => (
-              <li>
-                <a href={s.href} target="_blank" rel="noopener me" class="social">
-                  <span>{s.label}</span>
-                  <span class="mono muted">{s.handle}</span>
-                  <span aria-hidden="true">↗</span>
-                </a>
-              </li>
-            ))
-          }
+          {profile.socials.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener me" class="social">
+                <span>{s.label}</span>
+                <span class="mono muted">{s.handle}</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

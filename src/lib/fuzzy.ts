@@ -34,8 +34,5 @@ export function fuzzyFilter<T>(items: readonly T[], query: string, text: (item: 
 }
 
 function normalise(input: string): string {
-  return input
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '');
+  return input.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 }

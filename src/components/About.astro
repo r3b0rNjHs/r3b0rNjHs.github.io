@@ -12,50 +12,62 @@ const t = useTranslations(lang);
 <section class="section about" id="about" aria-labelledby="about-title">
   <div class="container about__grid">
     <figure class="portrait" data-reveal>
-      {
-        profile.photo ? (
-          <img src={profile.photo} alt={profile.name} width="800" height="1000" loading="lazy" decoding="async" />
-        ) : (
-          <>
-            <canvas class="portrait__canvas" data-portrait width="96" height="120" aria-hidden="true" />
-            <figcaption class="portrait__label mono">
-              <span class="portrait__rec" aria-hidden="true" />
-              {t('about.portrait')} · {t('about.portrait.soon')}
-              <span class="portrait__dots" aria-hidden="true">…</span>
-            </figcaption>
-          </>
-        )
-      }
-      <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span>
-      <span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
-      <span class="portrait__meta mono" aria-hidden="true">{profile.location.coords}</span>
+      {profile.photo ? (
+        <img src={profile.photo} alt={profile.name} width="800" height="1000" loading="lazy" decoding="async" />
+      ) : (
+        <>
+          <canvas class="portrait__canvas" data-portrait width="96" height="120" aria-hidden="true" />
+          <figcaption class="portrait__label mono">
+            <span class="portrait__rec" aria-hidden="true" />
+            {t('about.portrait')} · {t('about.portrait.soon')}
+            <span class="portrait__dots" aria-hidden="true">
+              …
+            </span>
+          </figcaption>
+        </>
+      )}
+      <span class="corner tl" aria-hidden="true"></span>
+      <span class="corner tr" aria-hidden="true"></span>
+      <span class="corner bl" aria-hidden="true"></span>
+      <span class="corner br" aria-hidden="true"></span>
+      <span class="portrait__meta mono" aria-hidden="true">
+        {profile.location.coords}
+      </span>
     </figure>
 
     <div class="about__copy">
-      <span class="kicker" data-reveal>{t('about.kicker')}</span>
-      <h2 id="about-title" class="section-title" data-reveal>{t('about.title')}</h2>
+      <span class="kicker" data-reveal>
+        {t('about.kicker')}
+      </span>
+      <h2 id="about-title" class="section-title" data-reveal>
+        {t('about.title')}
+      </h2>
       <div class="about__bio">
-        {profile.bio[lang].map((p, i) => <p data-reveal style={`--reveal-delay:${i * 90}`}>{p}</p>)}
+        {profile.bio[lang].map((p, i) => (
+          <p data-reveal style={`--reveal-delay:${i * 90}`}>
+            {p}
+          </p>
+        ))}
       </div>
 
       <dl class="stats" data-reveal>
-        {
-          profile.stats.map((s) => (
-            <div class="stat">
-              <dt class="stat__label">{t(s.key)}</dt>
-              <dd class="stat__value">
-                {'prefix' in s && <span class="stat__affix">{s.prefix}</span>}
-                <span data-count={s.value}>{s.value}</span>
-                <span class="stat__affix">{s.suffix}</span>
-              </dd>
-            </div>
-          ))
-        }
+        {profile.stats.map((s) => (
+          <div class="stat">
+            <dt class="stat__label">{t(s.key)}</dt>
+            <dd class="stat__value">
+              {'prefix' in s && <span class="stat__affix">{s.prefix}</span>}
+              <span data-count={s.value}>{s.value}</span>
+              <span class="stat__affix">{s.suffix}</span>
+            </dd>
+          </div>
+        ))}
       </dl>
 
       <p class="about__edu mono" data-reveal>
         <span>{education.degree[lang]}</span>
-        <span class="muted">{education.school} · {education.period}</span>
+        <span class="muted">
+          {education.school} · {education.period}
+        </span>
       </p>
     </div>
   </div>

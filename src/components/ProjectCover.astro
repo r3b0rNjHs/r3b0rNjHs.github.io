@@ -101,7 +101,14 @@ switch (project.motif) {
 }
 ---
 
-<svg class:list={['cover', className]} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" role="img" aria-label={project.title} style={`--hue:${project.hue}`}>
+<svg
+  class:list={['cover', className]}
+  viewBox={`0 0 ${W} ${H}`}
+  preserveAspectRatio="xMidYMid slice"
+  role="img"
+  aria-label={project.title}
+  style={`--hue:${project.hue}`}
+>
   <defs>
     <radialGradient id={`${id}-glow`} cx="65%" cy="50%" r="60%">
       <stop offset="0" stop-color={`hsl(${project.hue} 90% 60% / .45)`}></stop>
@@ -115,20 +122,24 @@ switch (project.motif) {
   <rect width={W} height={H} fill={`url(#${id}-dots)`}></rect>
   <rect width={W} height={H} fill={`url(#${id}-glow)`}></rect>
   <g fill="none" stroke={`hsl(${project.hue} 95% 62%)`} stroke-width="1.4">
-    {
-      shapes.map((s) =>
-        s.d ? (
-          <path d={s.d} opacity={s.o} fill={project.motif === 'hexagon' || project.motif === 'radar' ? `hsl(${project.hue} 95% 62% / ${s.o * 0.4})` : 'none'} />
-        ) : s.r !== undefined ? (
-          <circle cx={s.cx} cy={s.cy} r={s.r} opacity={s.o} />
-        ) : (
-          <rect x={s.x} y={s.y} width={s.w} height={s.h} rx="3" opacity={s.o} fill={`hsl(${project.hue} 95% 62% / ${s.o * 0.6})`} />
-        ),
-      )
-    }
+    {shapes.map((s) =>
+      s.d ? (
+        <path
+          d={s.d}
+          opacity={s.o}
+          fill={project.motif === 'hexagon' || project.motif === 'radar' ? `hsl(${project.hue} 95% 62% / ${s.o * 0.4})` : 'none'}
+        />
+      ) : s.r !== undefined ? (
+        <circle cx={s.cx} cy={s.cy} r={s.r} opacity={s.o} />
+      ) : (
+        <rect x={s.x} y={s.y} width={s.w} height={s.h} rx="3" opacity={s.o} fill={`hsl(${project.hue} 95% 62% / ${s.o * 0.6})`} />
+      ),
+    )}
   </g>
   <g fill={`hsl(${project.hue} 95% 66%)`}>
-    {dots.map((d) => <circle cx={d.x.toFixed(1)} cy={d.y.toFixed(1)} r={d.r.toFixed(1)} opacity={d.o.toFixed(2)} />)}
+    {dots.map((d) => (
+      <circle cx={d.x.toFixed(1)} cy={d.y.toFixed(1)} r={d.r.toFixed(1)} opacity={d.o.toFixed(2)} />
+    ))}
   </g>
   <text x="40" y={H - 40} fill="currentColor" opacity=".55" font-family="var(--font-mono)" font-size="14" letter-spacing="2">
     {project.slug.toUpperCase().replace(/-/g, '_')}

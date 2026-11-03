@@ -42,7 +42,9 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {locales.map((l) => <link rel="alternate" hreflang={l} href={new URL(localePath(l, path), Astro.site)} />)}
+    {locales.map((l) => (
+      <link rel="alternate" hreflang={l} href={new URL(localePath(l, path), Astro.site)} />
+    ))}
     <link rel="alternate" hreflang="x-default" href={new URL(localePath('en', path), Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -62,7 +64,6 @@ const jsonLd = {
     <meta name="twitter:image" content={ogImage} />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-
     <!-- Resolve theme before first paint to avoid a flash; re-applied after every view transition swap. -->
     <script is:inline>
       (() => {
@@ -85,7 +86,9 @@ const jsonLd = {
     <ClientRouter fallback="swap" />
   </head>
   <body>
-    <a class="skip-link" href="#main">{t('nav.skip')}</a>
+    <a class="skip-link" href="#main">
+      {t('nav.skip')}
+    </a>
     <Nav lang={lang} />
     <main id="main">
       <slot />

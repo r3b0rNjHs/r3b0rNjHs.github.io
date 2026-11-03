@@ -17,7 +17,7 @@ const [lead, ...rest] = p.gallery;
 const ogImage = lead ? lead.src.src : undefined;
 ---
 
-<Base title={`${p.title} — Jorge Hernández`} description={p.tagline[lang]} image={ogImage}>
+<Base title={`${p.title} · Jorge Hernández`} description={p.tagline[lang]} image={ogImage}>
   <article class="project" style={`--hue:${p.hue}`}>
     <header class="project__head container">
       <a class="back mono" href={localePath(lang, '/#work')}>

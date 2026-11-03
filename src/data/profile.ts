@@ -14,14 +14,14 @@ export const profile = {
   ],
   bio: {
     en: [
-      'I’m a software architect and engineering leader based in the Canary Islands. Over the last 7+ years I’ve designed and run cloud platforms on AWS, Kubernetes and Terraform — and grown from junior developer to CTO along the way.',
-      'I founded an AI-driven adtech startup, led engineering teams for investment fund platforms, and today I build AI-native products end to end: from the infrastructure and the architecture to the agents, the MCP integrations and the pipelines that let a tiny team ship like a big one.',
-      'My foundation is Clean Architecture, DDD and TDD. My edge is putting AI to work in real engineering — not as a demo, but as part of how software gets designed, built and operated.',
+      'I’m a software architect and engineering leader based in the Canary Islands. Over the last 7+ years I’ve designed and run cloud platforms on AWS, Kubernetes and Terraform, and gone from junior developer to CTO along the way.',
+      'I founded an AI-driven adtech startup and led engineering teams for investment fund platforms. Today I build AI products myself, from the cloud infrastructure and architecture to the agents, MCP integrations and pipelines that let a small team ship a lot.',
+      'My foundation is Clean Architecture, DDD and TDD. Over the last two years most of my work has been about using AI in day-to-day engineering: coding with agents, building MCP integrations and shipping LLM features to real users.',
     ],
     es: [
-      'Soy arquitecto de software y líder técnico desde Canarias. En más de 7 años he diseñado y operado plataformas cloud en AWS, Kubernetes y Terraform — y he pasado de developer junior a CTO por el camino.',
-      'Fundé una startup de adtech basada en IA, lideré equipos de ingeniería para plataformas de fondos de inversión y hoy construyo productos nativos de IA de principio a fin: desde la infraestructura y la arquitectura hasta los agentes, las integraciones MCP y los pipelines que permiten a un equipo pequeño entregar como uno grande.',
-      'Mi base es Clean Architecture, DDD y TDD. Mi ventaja es poner la IA a trabajar en ingeniería real — no como demo, sino como parte de cómo se diseña, construye y opera el software.',
+      'Soy arquitecto de software y líder técnico desde Canarias. En más de 7 años he diseñado y operado plataformas cloud en AWS, Kubernetes y Terraform, y por el camino he pasado de developer junior a CTO.',
+      'Fundé una startup de adtech basada en IA y lideré equipos de ingeniería para plataformas de fondos de inversión. Hoy construyo productos de IA yo mismo, desde la infraestructura cloud y la arquitectura hasta los agentes, las integraciones MCP y los pipelines que permiten a un equipo pequeño sacar mucho trabajo adelante.',
+      'Mi base es Clean Architecture, DDD y TDD. En los últimos dos años casi todo mi trabajo ha girado en torno a usar la IA en la ingeniería del día a día: programar con agentes, construir integraciones MCP y llevar funcionalidades con LLMs a usuarios reales.',
     ],
   } satisfies Record<string, string[]>,
   stats: [
@@ -46,7 +46,7 @@ export const experience: Role[] = [
   {
     company: 'Trenddi',
     role: { en: 'AI & Platform Engineer', es: 'AI & Platform Engineer' },
-    period: { en: 'Nov 2024 — May 2026', es: 'Nov 2024 — May 2026' },
+    period: { en: 'Nov 2024 – May 2026', es: 'Nov 2024 – May 2026' },
     start: 2024,
     end: 2026,
     summary: {
@@ -58,7 +58,7 @@ export const experience: Role[] = [
   {
     company: 'TMC2',
     role: { en: 'Site Reliability Engineer', es: 'Site Reliability Engineer' },
-    period: { en: 'Nov 2023 — Nov 2024', es: 'Nov 2023 — Nov 2024' },
+    period: { en: 'Nov 2023 – Nov 2024', es: 'Nov 2023 – Nov 2024' },
     start: 2023,
     end: 2024,
     summary: {
@@ -70,7 +70,7 @@ export const experience: Role[] = [
   {
     company: 'Adsviu',
     role: { en: 'Founder & Software Engineer', es: 'Fundador & Software Engineer' },
-    period: { en: 'Sep 2021 — Jun 2023', es: 'Sep 2021 — Jun 2023' },
+    period: { en: 'Sep 2021 – Jun 2023', es: 'Sep 2021 – Jun 2023' },
     start: 2021,
     end: 2023,
     summary: {
@@ -82,66 +82,66 @@ export const experience: Role[] = [
   {
     company: 'Next Chance Assets',
     role: { en: 'CTO · Tech Lead · Software Architect', es: 'CTO · Tech Lead · Software Architect' },
-    period: { en: 'Oct 2018 — Jun 2023', es: 'Oct 2018 — Jun 2023' },
+    period: { en: 'Oct 2018 – Jun 2023', es: 'Oct 2018 – Jun 2023' },
     start: 2018,
     end: 2023,
     summary: {
-      en: 'Grew from junior developer to CTO in under five years. Set the technical vision and architecture for investment fund platforms and internal products — including Adgoclick, an SEO performance tool for SMEs — and built and mentored the team.',
-      es: 'Pasé de developer junior a CTO en menos de cinco años. Definí la visión técnica y la arquitectura de plataformas de fondos de inversión y productos internos — incluido Adgoclick, una herramienta de rendimiento SEO para pymes — y formé y mentoricé al equipo.',
+      en: 'Grew from junior developer to CTO in under five years. Set the technical vision and architecture for investment fund platforms and internal products, including Adgoclick, an SEO performance tool for SMEs. Built and mentored the development team.',
+      es: 'Pasé de developer junior a CTO en menos de cinco años. Definí la visión técnica y la arquitectura de plataformas de fondos de inversión y productos internos, entre ellos Adgoclick, una herramienta de rendimiento SEO para pymes. Formé y mentoricé al equipo de desarrollo.',
     },
     tags: ['Leadership', 'Architecture', 'AWS', 'Java', 'Python'],
   },
   {
     company: 'Lean Mind',
     role: { en: 'Junior Consultant', es: 'Consultor Junior' },
-    period: { en: 'Jan 2018 — Oct 2018', es: 'Ene 2018 — Oct 2018' },
+    period: { en: 'Jan 2018 – Oct 2018', es: 'Ene 2018 – Oct 2018' },
     start: 2018,
     end: 2018,
     summary: {
-      en: 'Where it started: trained in agile, TDD and clean code while supporting client projects.',
-      es: 'Donde empezó todo: formación en agile, TDD y clean code mientras apoyaba proyectos de clientes.',
+      en: 'My first job. Trained in agile, TDD and clean code while working on client projects.',
+      es: 'Mi primer trabajo. Me formé en agile, TDD y clean code trabajando en proyectos de clientes.',
     },
     tags: ['TDD', 'Clean Code', 'Agile'],
   },
 ];
 
 export const education = {
-  degree: { en: 'BSc Computer Engineering — Software Security', es: 'Grado en Ingeniería Informática — Seguridad del Software' },
+  degree: { en: 'BSc Computer Engineering, Software Security', es: 'Grado en Ingeniería Informática, mención en Seguridad del Software' },
   school: 'Universidad de Las Palmas de Gran Canaria',
-  period: '2012 — 2018',
+  period: '2012 – 2018',
 };
 
 export const principles: { title: L; body: L; glyph: string }[] = [
   {
     glyph: '01',
-    title: { en: 'Architecture is a set of bets', es: 'La arquitectura es un conjunto de apuestas' },
+    title: { en: 'Architecture is about trade-offs', es: 'La arquitectura va de compromisos' },
     body: {
-      en: 'Clean Architecture and DDD to keep the core honest; pragmatic trade-offs everywhere else. I document decisions so teams can disagree with them later.',
-      es: 'Clean Architecture y DDD para mantener el núcleo limpio; compromisos pragmáticos en todo lo demás. Documento las decisiones para que el equipo pueda cuestionarlas después.',
+      en: 'Clean Architecture and DDD where the business logic lives, pragmatic shortcuts everywhere else. I document decisions so teams can disagree with them later.',
+      es: 'Clean Architecture y DDD donde vive la lógica de negocio, atajos pragmáticos en todo lo demás. Documento las decisiones para que el equipo pueda cuestionarlas después.',
     },
   },
   {
     glyph: '02',
-    title: { en: 'Tests are the spec', es: 'Los tests son la especificación' },
+    title: { en: 'Tests first', es: 'Primero los tests' },
     body: {
-      en: 'TDD since day one. Fast feedback loops are what let both humans and AI agents change code without fear.',
-      es: 'TDD desde el primer día. Los ciclos de feedback rápidos son lo que permite a personas y agentes de IA cambiar código sin miedo.',
+      en: 'I’ve worked with TDD since my first job. A fast test suite is what lets people and coding agents change code safely.',
+      es: 'Trabajo con TDD desde mi primer empleo. Una batería de tests rápida es lo que permite a personas y agentes cambiar el código con seguridad.',
     },
   },
   {
     glyph: '03',
-    title: { en: 'AI is part of the team', es: 'La IA forma parte del equipo' },
+    title: { en: 'AI in the daily workflow', es: 'IA en el día a día' },
     body: {
-      en: 'Augmented coding, MCP servers and agentic pipelines are how I multiply small teams — with guardrails, evals and humans in the loop.',
-      es: 'Augmented coding, servidores MCP y pipelines agénticos son mi forma de multiplicar equipos pequeños — con guardarraíles, evaluaciones y personas en el bucle.',
+      en: 'I use coding agents, MCP servers and automated pipelines to get more out of small teams. Every change still goes through tests, evals and a human review.',
+      es: 'Uso agentes de código, servidores MCP y pipelines automatizados para sacar más partido a equipos pequeños. Cada cambio sigue pasando por tests, evaluaciones y revisión humana.',
     },
   },
   {
     glyph: '04',
-    title: { en: 'You build it, you run it', es: 'Si lo construyes, lo operas' },
+    title: { en: 'You build it, you run it', es: 'Quien lo construye, lo opera' },
     body: {
-      en: 'Infrastructure as code, observability from the start, and SRE habits. Shipping is the beginning of the job, not the end.',
-      es: 'Infraestructura como código, observabilidad desde el inicio y hábitos de SRE. Desplegar es el principio del trabajo, no el final.',
+      en: 'Infrastructure as code, observability from the start, and SRE habits. Once it’s deployed, it’s still my job to keep it running.',
+      es: 'Infraestructura como código, observabilidad desde el inicio y hábitos de SRE. Una vez desplegado, mantenerlo en pie sigue siendo cosa mía.',
     },
   },
 ];

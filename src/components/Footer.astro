@@ -1,0 +1,71 @@
+---
+import { profile } from '@/data/profile';
+import { useTranslations, type Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__sig" aria-hidden="true">
+      <span>Jorge</span>
+      <span class="serif">Hernández</span>
+    </p>
+    <div class="footer__row mono">
+      <span>© {year} {profile.name}</span>
+      <span class="footer__built">{t('footer.built')}</span>
+      <span class="footer__hint"><kbd>⌘K</kbd> {t('cmd.hint')}</span>
+      <a href="#main" class="link-underline">{t('footer.top')} ↑</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .footer__inner {
+    padding-block: 2rem;
+  }
+  .footer__sig {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.25em;
+    font-size: clamp(3.5rem, 15.5vw, 15rem);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    font-weight: 450;
+    color: var(--bg-elev-2);
+    user-select: none;
+  }
+  .footer__sig .serif {
+    color: color-mix(in oklab, var(--accent) 22%, var(--bg-elev-2));
+  }
+  .footer__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  kbd {
+    padding: 0.1rem 0.35rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+  @media (hover: none) {
+    .footer__hint {
+      display: none;
+    }
+  }
+</style>

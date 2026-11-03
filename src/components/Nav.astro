@@ -1,0 +1,329 @@
+---
+import { localePath, stripLang, useTranslations, type Lang } from '@/i18n/ui';
+import { profile } from '@/data/profile';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const otherLang: Lang = lang === 'en' ? 'es' : 'en';
+const path = stripLang(Astro.url.pathname);
+
+const links = [
+  { href: localePath(lang, '/#work'), label: t('nav.work') },
+  { href: localePath(lang, '/#about'), label: t('nav.about') },
+  { href: localePath(lang, '/#path'), label: t('nav.path') },
+  { href: localePath(lang, '/#contact'), label: t('nav.contact') },
+];
+---
+
+<header class="nav" data-nav>
+  <div class="nav__inner container">
+    <a class="brand" href={localePath(lang)} aria-label={`${profile.shortName} — ${t('cmd.home')}`}>
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="32" height="32">
+          <circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-opacity=".35"></circle>
+          <circle class="brand__orbit" cx="16" cy="1" r="2.2" fill="var(--accent)"></circle>
+          <text x="16" y="20.5" text-anchor="middle" font-size="11" font-family="var(--font-mono)" fill="currentColor">JH</text>
+        </svg>
+      </span>
+      <span class="brand__name">
+        <span>{profile.shortName}</span>
+        <span class="brand__role mono">AI Engineer · Architect</span>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <ul role="list">
+        {
+          links.map((link, i) => (
+            <li>
+              <a href={link.href} class="nav__link">
+                <span class="mono nav__index">0{i + 1}</span>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="nav__cmd mono" type="button" data-cmd-open aria-label={t('cmd.placeholder')}>
+        <kbd>⌘</kbd><kbd>K</kbd>
+      </button>
+      <a class="nav__icon mono" href={localePath(otherLang, path)} hreflang={otherLang} lang={otherLang} title={t('lang.switch')} aria-label={t('lang.switch')}>
+        {t('lang.short')}
+      </a>
+      <button class="nav__icon" type="button" data-theme-toggle aria-label={t('theme.toggle')} title={t('theme.toggle')}>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
+          ><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path
+            d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"></path></svg
+        >
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
+          ><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"
+          ></path></svg
+        >
+      </button>
+      <button class="nav__burger" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
+        <span class="visually-hidden">{t('nav.menu')}</span>
+        <span class="nav__burger-lines" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="menu" id="mobile-menu" hidden>
+    <nav class="container" aria-label="Mobile">
+      <ul role="list">
+        {
+          links.map((link, i) => (
+            <li style={`--i:${i}`}>
+              <a href={link.href} data-menu-link>
+                <span class="mono">0{i + 1}</span>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="menu__foot mono">
+        {profile.socials.map((s) => <a href={s.href} target="_blank" rel="noopener">{s.label} ↗</a>)}
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    transition:
+      background-color 0.4s var(--ease-out),
+      backdrop-filter 0.4s var(--ease-out),
+      border-color 0.4s var(--ease-out);
+    border-bottom: 1px solid transparent;
+  }
+  :global(.is-scrolled) .nav {
+    background: color-mix(in oklab, var(--bg) 72%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-color: var(--line);
+  }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: 4.5rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .brand__mark svg {
+    overflow: visible;
+  }
+  .brand__orbit {
+    transform-origin: 16px 16px;
+    animation: orbit 9s linear infinite;
+  }
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .brand__name {
+    display: grid;
+    line-height: 1.15;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  .brand__role {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .nav__links ul {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.3rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--bg-elev) 60%, transparent);
+  }
+  .nav__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    color: var(--fg-soft);
+    transition:
+      background-color 0.3s var(--ease-out),
+      color 0.3s var(--ease-out);
+  }
+  .nav__link:hover {
+    background: var(--bg-elev-2);
+    color: var(--fg);
+  }
+  .nav__index {
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+  .nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .nav__icon,
+  .nav__cmd,
+  .nav__burger {
+    display: inline-grid;
+    place-items: center;
+    height: 2.4rem;
+    min-width: 2.4rem;
+    padding-inline: 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    color: var(--fg-soft);
+    transition:
+      border-color 0.3s,
+      color 0.3s,
+      background-color 0.3s;
+  }
+  .nav__icon:hover,
+  .nav__cmd:hover,
+  .nav__burger:hover {
+    border-color: var(--line-strong);
+    color: var(--fg);
+    background: var(--bg-elev);
+  }
+  .nav__cmd {
+    display: inline-flex;
+    gap: 0.2rem;
+  }
+  kbd {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+  :global([data-theme='dark']) .icon-sun,
+  :global([data-theme='light']) .icon-moon {
+    display: none;
+  }
+  .nav__burger {
+    display: none;
+  }
+  .nav__burger-lines,
+  .nav__burger-lines::before {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.4s var(--ease-out);
+  }
+  .nav__burger-lines {
+    position: relative;
+    transform: translateY(-3px);
+  }
+  .nav__burger-lines::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+  }
+  [aria-expanded='true'] .nav__burger-lines {
+    transform: translateY(0) rotate(45deg);
+  }
+  [aria-expanded='true'] .nav__burger-lines::before {
+    transform: translateY(-6px) rotate(-90deg);
+  }
+
+  .menu {
+    position: fixed;
+    inset: 4.5rem 0 0;
+    background: var(--bg);
+    padding-block: 2rem;
+    overflow-y: auto;
+  }
+  .menu ul {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .menu li {
+    border-bottom: 1px solid var(--line);
+    animation: menu-in 0.7s var(--ease-out) both;
+    animation-delay: calc(var(--i) * 60ms);
+  }
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+  .menu a[data-menu-link] {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding-block: 1rem;
+    font-size: var(--step-3);
+    letter-spacing: -0.03em;
+  }
+  .menu a span {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .menu__foot {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 960px) {
+    .nav__links {
+      display: none;
+    }
+    .nav__burger {
+      display: inline-grid;
+    }
+  }
+  @media (max-width: 520px) {
+    .brand__role,
+    .nav__cmd {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Module scripts run once per session, so delegated listeners survive view-transition swaps
+  // without being registered again on every navigation.
+  const setMenu = (open: boolean) => {
+    const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+    const menu = document.getElementById('mobile-menu');
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+  };
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const toggle = target.closest('[data-menu-toggle]');
+    if (toggle) setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+    else if (target.closest('[data-menu-link]')) setMenu(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenu(false);
+  });
+  document.addEventListener('astro:before-swap', () => setMenu(false));
+</script>

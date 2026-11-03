@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getLangFromUrl, localePath, stripLang, ui, useTranslations } from '@/i18n/ui';
+import { getLangFromUrl, localeFile, localePath, stripLang, ui, useTranslations } from '@/i18n/ui';
 
 describe('locale routing', () => {
   it('detects the language from the URL', () => {
@@ -36,6 +36,13 @@ describe('locale routing', () => {
     for (const path of ['/', '/work/pet-defense/']) {
       expect(stripLang(localePath('es', path))).toBe(path);
     }
+  });
+});
+
+describe('localeFile', () => {
+  it('prefixes files for non-default languages without adding a slash', () => {
+    expect(localeFile('en', '/rss.xml')).toBe('/rss.xml');
+    expect(localeFile('es', 'rss.xml')).toBe('/es/rss.xml');
   });
 });
 

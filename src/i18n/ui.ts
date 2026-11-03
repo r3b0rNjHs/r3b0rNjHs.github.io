@@ -23,6 +23,12 @@ export function localePath(lang: Lang, path = '/'): string {
   return prefixed + suffix;
 }
 
+/** Path to a localised file such as a feed ("/rss.xml" → "/es/rss.xml"). Files never get a trailing slash. */
+export function localeFile(lang: Lang, file: string): string {
+  const clean = file.startsWith('/') ? file : `/${file}`;
+  return lang === defaultLang ? clean : `/${lang}${clean}`;
+}
+
 /** Strip the language prefix from a pathname. */
 export function stripLang(pathname: string): string {
   const stripped = pathname.replace(/^\/es(?=\/|$)/, '');
@@ -38,6 +44,7 @@ export const ui = {
     'nav.about': 'About',
     'nav.path': 'Path',
     'nav.contact': 'Contact',
+    'nav.writing': 'Writing',
     'nav.menu': 'Menu',
     'nav.close': 'Close',
     'nav.skip': 'Skip to content',
@@ -84,6 +91,14 @@ export const ui = {
     'project.status': 'Status',
     'project.gallery': 'Gallery',
     'project.next': 'Next project',
+    'writing.kicker': 'Writing',
+    'writing.title': 'Notes from building with AI.',
+    'writing.lede': 'What I’ve learned building products with language models and coding agents, using examples from my own projects.',
+    'writing.all': 'All articles',
+    'writing.minutes': 'min read',
+    'writing.back': 'All articles',
+    'writing.rss': 'RSS feed',
+    'writing.other': 'Keep reading',
     'path.kicker': 'Path',
     'path.title': 'From junior developer to CTO, and then AI.',
     'path.present': 'Present',
@@ -133,6 +148,7 @@ export const ui = {
     'nav.about': 'Sobre mí',
     'nav.path': 'Trayectoria',
     'nav.contact': 'Contacto',
+    'nav.writing': 'Artículos',
     'nav.menu': 'Menú',
     'nav.close': 'Cerrar',
     'nav.skip': 'Saltar al contenido',
@@ -179,6 +195,15 @@ export const ui = {
     'project.status': 'Estado',
     'project.gallery': 'Galería',
     'project.next': 'Siguiente proyecto',
+    'writing.kicker': 'Artículos',
+    'writing.title': 'Notas sobre construir con IA.',
+    'writing.lede':
+      'Lo que he aprendido construyendo productos con modelos de lenguaje y agentes de código, con ejemplos de mis propios proyectos.',
+    'writing.all': 'Todos los artículos',
+    'writing.minutes': 'min de lectura',
+    'writing.back': 'Todos los artículos',
+    'writing.rss': 'Feed RSS',
+    'writing.other': 'Sigue leyendo',
     'path.kicker': 'Trayectoria',
     'path.title': 'De developer junior a CTO, y después a la IA.',
     'path.present': 'Actualidad',

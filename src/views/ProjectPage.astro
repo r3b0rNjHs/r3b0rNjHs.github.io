@@ -5,6 +5,7 @@ import ProjectCover from '@/components/ProjectCover.astro';
 import { projects, type Project } from '@/data/projects';
 import { localePath, useTranslations, type Lang } from '@/i18n/ui';
 import { getArticles } from '@/data/writing';
+import { projectCardPath } from '@/lib/cards';
 
 interface Props {
   lang: Lang;
@@ -15,11 +16,10 @@ const t = useTranslations(lang);
 const index = projects.findIndex((x) => x.slug === p.slug);
 const next = projects[(index + 1) % projects.length]!;
 const [lead, ...rest] = p.gallery;
-const ogImage = lead ? lead.src.src : undefined;
 const story = p.article ? (await getArticles(lang)).find((a) => a.slug === p.article) : undefined;
 ---
 
-<Base title={`${p.title} · Jorge Hernández`} description={p.tagline[lang]} image={ogImage}>
+<Base title={`${p.title} · Jorge Hernández`} description={p.tagline[lang]} image={lead ? lead.src.src : projectCardPath(lang, p.slug)}>
   <article class="project" style={`--hue:${p.hue}`}>
     <header class="project__head container">
       <a class="back mono" href={localePath(lang, '/#work')}>

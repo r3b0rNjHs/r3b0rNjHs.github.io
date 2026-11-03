@@ -25,7 +25,7 @@ export const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '
  * SVG constellation (viewBox -1 -1 2 2). The seed changes the accents and links and `spin` rotates the
  * sphere, so each card is unique. The defaults reproduce the site's main card.
  */
-export function constellation(seed = 7, count = 260, spin = 0) {
+export function constellation(seed = 7, count = 260, spin = 0, accentColor = '#c8ff2e') {
   let s = seed;
   const rnd = () => ((s = (s * 16807) % 2147483647) - 1) / 2147483646;
   const pts = Array.from({ length: count }, (_, i) => {
@@ -43,7 +43,7 @@ export function constellation(seed = 7, count = 260, spin = 0) {
   }
   const dots = pts.map(([x, y, z]) => {
     const accent = rnd() > 0.9;
-    return `<circle cx="${x}" cy="${y}" r="${accent ? 0.012 : 0.006}" fill="${accent ? '#c8ff2e' : '#eceae4'}" opacity="${z > 0 ? 0.85 : 0.25}"/>`;
+    return `<circle cx="${x}" cy="${y}" r="${accent ? 0.012 : 0.006}" fill="${accent ? accentColor : '#eceae4'}" opacity="${z > 0 ? 0.85 : 0.25}"/>`;
   });
   return lines.join('') + dots.join('');
 }

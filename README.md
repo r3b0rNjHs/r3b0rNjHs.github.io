@@ -12,6 +12,8 @@ Live at **[r3b0rnjhs.github.io](https://r3b0rnjhs.github.io)** · English by def
 - **Interactive WebGL hero**: A "neural field" of ~7k nodes rendered with custom GLSL shaders. It bends towards the pointer, ripples on click and disperses on scroll. It loads after first paint, pauses off-screen and frees all GPU resources on navigation.
 - **Bilingual by design**: Typed EN/ES dictionaries with compile-time key parity, `hreflang` alternates, a language switch that keeps the current page, and a localised sitemap.
 - **Case studies, not thumbnails**: Each project has its own page covering the challenge, the approach, the outcome and an _AI in the loop_ section.
+- **Writing**: Bilingual articles as a Markdown content collection, with reading time, Shiki code highlighting in both themes and an RSS feed per language.
+- **CV from the same data**: `/cv/` renders the CV from the site's typed content, and CI prints it to A4 PDFs in English and Spanish on every deploy.
 - **Keyboard-first**: A `⌘K` command palette with fuzzy search, plus a skip link and visible focus states.
 - **Accessible and respectful**: WCAG 2.1 AA checked with axe in CI, `prefers-reduced-motion` and `prefers-color-scheme` honoured, and light/dark themes with no flash.
 - **Fast**: Static HTML, responsive WebP images, self-hosted variable fonts and zero runtime framework. The only heavy dependency (three.js) is loaded lazily.

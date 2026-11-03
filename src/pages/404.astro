@@ -1,0 +1,49 @@
+---
+import Base from '@/layouts/Base.astro';
+import { useTranslations } from '@/i18n/ui';
+
+const t = useTranslations('en');
+const es = useTranslations('es');
+---
+
+<Base title="404 — Signal lost">
+  <section class="lost container">
+    <p class="lost__code mono" aria-hidden="true">404</p>
+    <h1 class="lost__title">{t('404.title')} <span class="serif muted">{es('404.title')}</span></h1>
+    <p class="lost__text">{t('404.text')}</p>
+    <div class="lost__ctas">
+      <a class="btn" href="/">{t('404.home')} <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="btn btn--ghost" href="/es/">{es('404.home')}</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lost {
+    display: grid;
+    align-content: center;
+    gap: 1.5rem;
+    min-height: 90svh;
+    padding-top: 6rem;
+  }
+  .lost__code {
+    font-size: clamp(6rem, 30vw, 22rem);
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    color: var(--bg-elev-2);
+    -webkit-text-stroke: 1px var(--line-strong);
+  }
+  .lost__title {
+    font-size: var(--step-4);
+  }
+  .lost__text {
+    max-width: 32rem;
+    color: var(--muted);
+    font-size: var(--step-1);
+  }
+  .lost__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

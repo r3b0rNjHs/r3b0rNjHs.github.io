@@ -88,6 +88,33 @@ test.describe('interactions', () => {
   });
 });
 
+test.describe('cv', () => {
+  test('renders the CV page in both languages without a phone number', async ({ page }) => {
+    for (const [path, heading] of [
+      ['/cv/', 'Experience'],
+      ['/es/cv/', 'Experiencia'],
+    ] as const) {
+      await page.goto(path);
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText('Jorge Hernández Suárez');
+      await expect(page.getByRole('heading', { name: heading })).toBeVisible();
+      await expect(page.locator('body')).not.toContainText('+34');
+    }
+  });
+
+  test('serves the generated PDFs', async ({ request }) => {
+    for (const lang of ['en', 'es']) {
+      const response = await request.get(`/cv/jorge-hernandez-cv-${lang}.pdf`);
+      expect(response.status()).toBe(200);
+      expect((await response.body()).subarray(0, 5).toString()).toBe('%PDF-');
+    }
+  });
+
+  test('is linked from the home page', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('#contact a[href="/cv/jorge-hernandez-cv-en.pdf"]')).toBeVisible();
+  });
+});
+
 test.describe('progressive enhancement', () => {
   test.use({ javaScriptEnabled: false });
 
@@ -102,7 +129,7 @@ test.describe('progressive enhancement', () => {
 });
 
 test.describe('accessibility', () => {
-  for (const path of ['/', '/es/', '/work/pet-defense/', '/es/work/naruto-online-companion/']) {
+  for (const path of ['/', '/es/', '/work/pet-defense/', '/es/work/naruto-online-companion/', '/cv/']) {
     test(`${path} has no serious axe violations`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto(path);

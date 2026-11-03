@@ -1,0 +1,430 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import ProjectCover from '@/components/ProjectCover.astro';
+import { projects, type Project } from '@/data/projects';
+import { localePath, useTranslations, type Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+  project: Project;
+}
+const { lang, project: p } = Astro.props;
+const t = useTranslations(lang);
+const index = projects.findIndex((x) => x.slug === p.slug);
+const next = projects[(index + 1) % projects.length]!;
+const [lead, ...rest] = p.gallery;
+const ogImage = lead ? lead.src.src : undefined;
+---
+
+<Base title={`${p.title} — Jorge Hernández`} description={p.tagline[lang]} image={ogImage}>
+  <article class="project" style={`--hue:${p.hue}`}>
+    <header class="project__head container">
+      <a class="back mono" href={localePath(lang, '/#work')}>
+        <span aria-hidden="true">←</span>
+        {t('project.back')}
+      </a>
+      <p class="kicker" data-reveal>{p.kind[lang]}</p>
+      <h1 class="project__title" data-split>
+        <span class="split-line"><span>{p.title}</span></span>
+      </h1>
+      <p class="project__tagline" data-reveal style="--reveal-delay: 200">{p.tagline[lang]}</p>
+
+      <dl class="meta" data-reveal style="--reveal-delay: 300">
+        <div>
+          <dt>{t('project.role')}</dt>
+          <dd>{p.role[lang]}</dd>
+        </div>
+        <div>
+          <dt>{t('project.year')}</dt>
+          <dd>{p.year}</dd>
+        </div>
+        <div>
+          <dt>{t('project.status')}</dt>
+          <dd><span class="live-dot" aria-hidden="true"></span>{p.status[lang]}</dd>
+        </div>
+        {
+          p.links.length > 0 && (
+            <div>
+              <dt>{t('project.links')}</dt>
+              <dd class="meta__links">
+                {p.links.map((l) => (
+                  <a href={l.href} target="_blank" rel="noopener" class="link-underline">
+                    {l.label[lang]} ↗
+                  </a>
+                ))}
+              </dd>
+            </div>
+          )
+        }
+      </dl>
+    </header>
+
+    <figure class="project__hero container" data-reveal>
+      <div class="frame">
+        {
+          lead ? (
+            <Image src={lead.src} alt={lead.alt[lang]} widths={[800, 1280]} sizes="(max-width: 1440px) 100vw, 1380px" loading="eager" fetchpriority="high" />
+          ) : (
+            <ProjectCover project={p} />
+          )
+        }
+      </div>
+    </figure>
+
+    {
+      p.metrics && (
+        <section class="container">
+          <dl class="metrics">
+            {p.metrics.map((m, i) => (
+              <div class="metric" data-reveal style={`--reveal-delay:${i * 80}`}>
+                <dt>{m.label[lang]}</dt>
+                <dd>{m.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )
+    }
+
+    <div class="project__body container">
+      <section class="block" data-reveal>
+        <h2 class="block__label mono">{t('project.overview')}</h2>
+        <p class="block__lead">{p.overview[lang]}</p>
+      </section>
+
+      <section class="block" data-reveal>
+        <h2 class="block__label mono">{t('project.challenge')}</h2>
+        <p class="block__text">{p.challenge[lang]}</p>
+      </section>
+
+      <section class="block">
+        <h2 class="block__label mono" data-reveal>{t('project.approach')}</h2>
+        <ol class="steps" role="list">
+          {
+            p.approach.map((step, i) => (
+              <li class="step" data-reveal style={`--reveal-delay:${i * 80}`}>
+                <span class="step__n mono">{String(i + 1).padStart(2, '0')}</span>
+                <p>{step[lang]}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section class="ai" data-reveal>
+        <div class="ai__head">
+          <span class="ai__badge mono">
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"
+              ><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z" fill="currentColor"></path></svg
+            >
+            {t('project.ai')}
+          </span>
+        </div>
+        <p class="ai__text">{p.ai[lang]}</p>
+      </section>
+
+      <section class="block" data-reveal>
+        <h2 class="block__label mono">{t('project.outcome')}</h2>
+        <p class="block__lead">{p.outcome[lang]}</p>
+      </section>
+
+      <section class="block" data-reveal>
+        <h2 class="block__label mono">{t('project.stack')}</h2>
+        <ul class="stack" role="list">
+          {p.stack.map((s) => <li class="tag">{s}</li>)}
+        </ul>
+      </section>
+
+      {p.note && <p class="note mono" data-reveal>{p.note[lang]}</p>}
+    </div>
+
+    {
+      rest.length > 0 && (
+        <section class="gallery container" aria-label={t('project.gallery')}>
+          {rest.map((img, i) => (
+            <figure class="frame" data-reveal style={`--reveal-delay:${i * 80}`}>
+              <Image src={img.src} alt={img.alt[lang]} widths={[640, 1024]} sizes="(max-width: 860px) 100vw, 50vw" loading="lazy" />
+              <figcaption class="mono">{img.alt[lang]}</figcaption>
+            </figure>
+          ))}
+        </section>
+      )
+    }
+
+    <nav class="next container" aria-label={t('project.next')}>
+      <a href={localePath(lang, `/work/${next.slug}`)} class="next__link" style={`--hue:${next.hue}`} data-cursor-text={t('work.cursor')}>
+        <span class="mono muted">{t('project.next')}</span>
+        <span class="next__title">{next.title} <span class="next__arrow" aria-hidden="true">→</span></span>
+        <span class="muted">{next.tagline[lang]}</span>
+      </a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .project__head {
+    padding-top: clamp(7rem, 14vw, 10rem);
+  }
+  .back {
+    display: inline-flex;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    transition:
+      color 0.3s,
+      gap 0.4s var(--ease-out);
+  }
+  .back:hover {
+    color: var(--fg);
+    gap: 0.9rem;
+  }
+  .project .kicker::before {
+    background: hsl(var(--hue) 90% 60%);
+    box-shadow: 0 0 12px hsl(var(--hue) 90% 60% / 0.5);
+  }
+  .project__title {
+    margin-top: 1.25rem;
+    font-size: var(--step-5);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    font-weight: 450;
+  }
+  .project__tagline {
+    max-width: 46rem;
+    margin-top: 1.75rem;
+    font-size: var(--step-1);
+    color: var(--fg-soft);
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .meta dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .meta dd {
+    margin-top: 0.4rem;
+  }
+  .meta__links {
+    display: grid;
+    gap: 0.25rem;
+    justify-items: start;
+  }
+  .live-dot {
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    background: hsl(var(--hue) 90% 60%);
+    vertical-align: middle;
+  }
+
+  .project__hero {
+    margin-top: clamp(3rem, 6vw, 5rem);
+  }
+  .frame {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 4px);
+    background: var(--bg-elev);
+    overflow: hidden;
+  }
+  .project__hero .frame {
+    aspect-ratio: 16 / 9;
+  }
+  .frame :global(img),
+  .frame :global(svg) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    margin-top: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--line);
+  }
+  .metric {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 1.5rem 1.5rem 0 0;
+  }
+  .metric dd {
+    font-size: var(--step-4);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: hsl(var(--hue) 90% 62%);
+  }
+  :global([data-theme='light']) .metric dd {
+    color: hsl(var(--hue) 70% 35%);
+  }
+  .metric dt {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .project__body {
+    display: grid;
+    gap: clamp(3rem, 6vw, 5rem);
+    max-width: 62rem;
+    margin-top: clamp(4rem, 8vw, 7rem);
+  }
+  .block {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .block__label {
+    padding-top: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .block__lead {
+    font-size: var(--step-2);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+  .block__text {
+    font-size: var(--step-1);
+    color: var(--fg-soft);
+  }
+  .steps {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .block > .block__label + .steps {
+    grid-column: 2;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--fg-soft);
+  }
+  .step__n {
+    padding-top: 0.25rem;
+    font-size: 0.75rem;
+    color: hsl(var(--hue) 90% 62%);
+  }
+  .ai {
+    position: relative;
+    padding: clamp(1.75rem, 4vw, 3rem);
+    border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+    border-radius: calc(var(--radius) + 4px);
+    background:
+      radial-gradient(120% 120% at 0% 0%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 60%),
+      var(--bg-elev);
+    overflow: hidden;
+  }
+  .ai__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .ai__text {
+    margin-top: 1.25rem;
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-content: start;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    border-left: 2px solid var(--line-strong);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: clamp(4rem, 8vw, 7rem);
+  }
+  .gallery .frame {
+    aspect-ratio: 16 / 10;
+  }
+  .gallery figcaption {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    backdrop-filter: blur(8px);
+    font-size: 0.7rem;
+  }
+
+  .next {
+    margin-top: clamp(5rem, 10vw, 9rem);
+    border-top: 1px solid var(--line);
+  }
+  .next__link {
+    display: grid;
+    gap: 0.75rem;
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+  .next__title {
+    font-size: var(--step-5);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    transition: color 0.5s var(--ease-out);
+  }
+  .next__link:hover .next__title {
+    color: hsl(var(--hue) 90% 62%);
+  }
+  .next__arrow {
+    display: inline-block;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .next__link:hover .next__arrow {
+    transform: translateX(0.5rem);
+  }
+
+  @media (max-width: 860px) {
+    .meta {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .block {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .block > .block__label + .steps {
+      grid-column: 1;
+    }
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

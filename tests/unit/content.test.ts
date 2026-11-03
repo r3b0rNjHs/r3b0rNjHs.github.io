@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { locales, ui } from '@/i18n/ui';
 import { experience, principles, profile } from '@/data/profile';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { projects } from '@/data/projects';
 
 /** Recursively collect every bilingual `{ en, es }` value in an object graph. */
@@ -23,6 +25,13 @@ describe('projects', () => {
 
   it('only link to absolute https URLs', () => {
     for (const link of projects.flatMap((p) => p.links)) expect(link.href).toMatch(/^https:\/\//);
+  });
+
+  it('link to articles that exist in both languages', () => {
+    for (const p of projects.filter((x) => x.article)) {
+      for (const lang of locales)
+        expect(existsSync(join(process.cwd(), 'src/content/writing', lang, `${p.article}.md`)), `${p.slug} → ${lang}`).toBe(true);
+    }
   });
 
   it('use a valid hue', () => {

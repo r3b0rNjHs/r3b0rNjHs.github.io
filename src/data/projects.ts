@@ -42,11 +42,14 @@ export interface Project {
   ai: L;
   outcome: L;
   note?: L;
+  /** Slug of the article that tells the story behind this project, if there is one. */
+  article?: string;
 }
 
 export const projects: Project[] = [
   {
     slug: 'pet-defense',
+    article: 'shipping-a-roblox-game-with-claude-code',
     title: 'Pet Defense',
     tagline: {
       en: 'A complete Roblox game designed, built and launched by a two-person studio, with AI built into the whole production process.',
@@ -107,6 +110,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'yoqze-agents',
+    article: 'a-cheap-support-bot-that-does-not-make-things-up',
     title: 'Yoqze Agents',
     tagline: {
       en: 'An AI agent platform that handles community support, ticket triage, automated fixes and content drafts. Running in production.',
@@ -159,6 +163,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'statement-extraction-api',
+    article: 'reconciliation-as-the-eval',
     title: 'Statement Extraction API',
     tagline: {
       en: 'An API that turns bank statement PDFs into reconciled JSON. An LLM extracts the data and plain accounting checks verify it.',
@@ -215,6 +220,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'naruto-online-companion',
+    article: 'one-codebase-three-apps',
     title: 'Naruto Online Companion',
     tagline: {
       en: 'A team-building assistant that ships from a single codebase as a desktop app, a PWA and a Claude artifact.',
@@ -282,6 +288,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'aion2-companion',
+    article: 'shipping-a-desktop-app-to-gamers',
     title: 'Aion 2 Companion',
     tagline: {
       en: 'A Windows companion app with a live DPS meter, pet tracker and boss timers, built on real-time packet decoding.',

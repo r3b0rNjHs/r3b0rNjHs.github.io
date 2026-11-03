@@ -4,6 +4,7 @@ import Base from '@/layouts/Base.astro';
 import ProjectCover from '@/components/ProjectCover.astro';
 import { projects, type Project } from '@/data/projects';
 import { localePath, useTranslations, type Lang } from '@/i18n/ui';
+import { getArticles } from '@/data/writing';
 
 interface Props {
   lang: Lang;
@@ -15,6 +16,7 @@ const index = projects.findIndex((x) => x.slug === p.slug);
 const next = projects[(index + 1) % projects.length]!;
 const [lead, ...rest] = p.gallery;
 const ogImage = lead ? lead.src.src : undefined;
+const story = p.article ? (await getArticles(lang)).find((a) => a.slug === p.article) : undefined;
 ---
 
 <Base title={`${p.title} · Jorge Hernández`} description={p.tagline[lang]} image={ogImage}>
@@ -147,6 +149,16 @@ const ogImage = lead ? lead.src.src : undefined;
           ))}
         </ul>
       </section>
+
+      {story && (
+        <a class="story" href={localePath(lang, `/writing/${story.slug}/`)} data-reveal>
+          <span class="story__label mono">{t('project.story')}</span>
+          <span class="story__title">{story.title}</span>
+          <span class="story__meta mono">
+            {story.minutes} {t('writing.minutes')} <span aria-hidden="true">→</span>
+          </span>
+        </a>
+      )}
 
       {p.note && (
         <p class="note mono" data-reveal>
@@ -380,6 +392,33 @@ const ogImage = lead ? lead.src.src : undefined;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-content: start;
+  }
+  .story {
+    display: grid;
+    gap: 0.5rem;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border: 1px solid var(--line-strong);
+    border-radius: calc(var(--radius) + 4px);
+    transition:
+      border-color 0.4s,
+      background-color 0.4s;
+  }
+  .story:hover,
+  .story:focus-visible {
+    border-color: hsl(var(--hue) 80% 55%);
+    background: var(--bg-elev);
+  }
+  .story__label,
+  .story__meta {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .story__title {
+    font-size: var(--step-2);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
   .note {
     font-size: 0.78rem;

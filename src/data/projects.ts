@@ -60,7 +60,7 @@ export const projects: Project[] = [
     motif: 'orbits',
     stack: ['Luau', 'Rojo', 'Wally', 'ProfileStore', 'Python', 'Roblox Open Cloud', 'Claude Code', 'GitHub Actions'],
     metrics: [
-      { value: '32k', label: { en: 'players in pre-launch campaigns', es: 'jugadores en campañas pre-lanzamiento' } },
+      { value: '32k', label: { en: 'players reached in pre-launch campaigns', es: 'jugadores alcanzados en campañas pre-lanzamiento' } },
       { value: '138k', label: { en: 'lines of Luau', es: 'líneas de Luau' } },
       { value: '2', label: { en: 'people on the team', es: 'personas en el equipo' } },
       { value: '9', label: { en: 'architecture decision records', es: 'registros de decisiones (ADR)' } },
@@ -101,8 +101,8 @@ export const projects: Project[] = [
       es: 'Claude Code es un miembro más del equipo: comandos, reglas y plantillas del proyecto, hooks de sesión que cargan contexto, un hook de seguridad que bloquea pushes con flags de debug activos, revisiones de PR con Claude en cada pull request y un paso de CI que convierte cada merge en borradores para redes sociales a través de nuestra propia plataforma de agentes.',
     },
     outcome: {
-      en: 'A complete, live game built and operated by two people, validated with 32,000 players during pre-launch marketing campaigns — and a reusable core for the studio’s next titles.',
-      es: 'Un juego completo y en producción construido y operado por dos personas, validado con 32.000 jugadores durante las campañas de marketing previas al lanzamiento — y un núcleo reutilizable para los siguientes títulos del estudio.',
+      en: 'A complete, live game built and operated by two people, with pre-launch marketing campaigns that reached 32,000 players — and a reusable core for the studio’s next titles.',
+      es: 'Un juego completo y en producción construido y operado por dos personas, con campañas de marketing previas al lanzamiento que alcanzaron a 32.000 jugadores — y un núcleo reutilizable para los siguientes títulos del estudio.',
     },
   },
   {

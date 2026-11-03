@@ -6,6 +6,9 @@ max_retries = 3
 timeout = 30
 accept = ["200..=299", "429"]
 include_mail = false
+# Only web links. Links to files inside the build are the internal checker's job, and some of them
+# (the CV PDFs) are only generated in the deploy pipeline.
+scheme = ["https", "http"]
 
 exclude = [
   # LinkedIn answers automated requests with HTTP 999 even when the profile exists.

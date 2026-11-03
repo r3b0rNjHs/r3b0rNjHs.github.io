@@ -32,10 +32,11 @@ jobs:
         run: npm test
       - name: Build
         run: npm run build
-      - name: Generate CV PDFs
+      - name: Generate CV PDFs and article social cards
         run: |
           npx playwright install --with-deps chromium
           npm run cv
+          npm run cards
       - name: Check internal links
         run: npm run links
       - uses: actions/upload-artifact@v7

@@ -4,6 +4,7 @@ import Base from '@/layouts/Base.astro';
 import ArticleList from '@/components/ArticleList.astro';
 import { getArticles, type Article } from '@/data/writing';
 import { formatDate } from '@/lib/writing';
+import { articleCardPath } from '@/lib/frontmatter';
 import { profile } from '@/data/profile';
 import { localePath, useTranslations, type Lang } from '@/i18n/ui';
 
@@ -29,7 +30,7 @@ const jsonLd = {
 };
 ---
 
-<Base title={`${article.title} · Jorge Hernández`} description={article.description}>
+<Base title={`${article.title} · Jorge Hernández`} description={article.description} image={articleCardPath(lang, article.slug)}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <article class="post">
     <header class="post__head container">

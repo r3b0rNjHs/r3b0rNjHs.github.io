@@ -68,6 +68,7 @@ npm run dev          # http://localhost:4321
 | `npm run test:e2e` | Playwright e2e + accessibility tests against `dist/` (run `npm run build` first)      |
 | `npm run cv`       | Prints `/cv/` and `/es/cv/` to A4 PDFs in `dist/cv/` (run after `npm run build`)      |
 | `npm run links`    | Checks every internal link, image and `#fragment` in `dist/` (after `build` and `cv`) |
+| `npm run cards`    | Renders a social card per article into `dist/og/writing/` (after `npm run build`)     |
 | `npm run og`       | Regenerates `public/og.png` from code                                                 |
 | `npm run format`   | Formats the codebase with Prettier                                                    |
 
@@ -75,7 +76,7 @@ npm run dev          # http://localhost:4321
 
 Every push and pull request runs [`ci.yml`](.github/workflows/ci.yml):
 
-1. **Verify**: formatting, `astro check`, unit tests, production build, CV PDFs and an internal link check.
+1. **Verify**: formatting, `astro check`, unit tests, production build, CV PDFs, article social cards and an internal link check.
 2. **End-to-end & accessibility**: Playwright on desktop and mobile viewports against the built site, including axe WCAG 2.1 AA scans.
 3. **Deploy**: only from `main`, and only when both previous jobs are green.
 

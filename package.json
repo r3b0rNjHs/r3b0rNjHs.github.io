@@ -16,7 +16,8 @@
     "verify": "npm run format:check && npm run check && npm test && npm run build",
     "og": "node scripts/generate-og.mjs",
     "cv": "node scripts/generate-cv.mjs",
-    "links": "node scripts/check-links.mjs"
+    "links": "node scripts/check-links.mjs",
+    "cards": "node scripts/generate-cards.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

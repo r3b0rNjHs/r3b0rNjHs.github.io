@@ -117,6 +117,15 @@ test.describe('writing', () => {
     }
   });
 
+  test('gives case studies without images their own social card', async ({ page, request }) => {
+    await page.goto('/es/work/yoqze-agents/');
+    const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+    expect(image).toMatch(/\/og\/work\/es\/yoqze-agents\.png$/);
+    expect((await request.get(new URL(image!).pathname)).status()).toBe(200);
+    await page.goto('/work/pet-defense/');
+    expect(await page.locator('meta[property="og:image"]').getAttribute('content')).toMatch(/\/_astro\//);
+  });
+
   test('shows the latest articles on the home page', async ({ page }) => {
     await page.goto('/es/');
     await expect(page.locator('#writing .article')).toHaveCount(3);

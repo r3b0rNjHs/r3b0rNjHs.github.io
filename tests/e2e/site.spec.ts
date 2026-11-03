@@ -106,6 +106,17 @@ test.describe('writing', () => {
     await expect(page).toHaveURL(/\/es\/writing\/shipping-a-desktop-app-to-gamers\/$/);
   });
 
+  test('gives every article its own social card', async ({ page, request }) => {
+    for (const path of ['/writing/reconciliation-as-the-eval/', '/es/writing/one-codebase-three-apps/']) {
+      await page.goto(path);
+      const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+      expect(image).toMatch(/\/og\/writing\/(en|es)\/[a-z0-9-]+\.png$/);
+      const response = await request.get(new URL(image!).pathname);
+      expect(response.status()).toBe(200);
+      expect(response.headers()['content-type']).toContain('image/png');
+    }
+  });
+
   test('shows the latest articles on the home page', async ({ page }) => {
     await page.goto('/es/');
     await expect(page.locator('#writing .article')).toHaveCount(3);

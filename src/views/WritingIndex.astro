@@ -1,0 +1,58 @@
+---
+import Base from '@/layouts/Base.astro';
+import ArticleList from '@/components/ArticleList.astro';
+import { getArticles } from '@/data/writing';
+import { localeFile, useTranslations, type Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const articles = await getArticles(lang);
+const rss = new URL(localeFile(lang, '/rss.xml'), Astro.site).toString();
+---
+
+<Base title={`${t('writing.kicker')} · Jorge Hernández`} description={t('writing.lede')}>
+  <link slot="head" rel="alternate" type="application/rss+xml" title={`${t('writing.kicker')} · Jorge Hernández`} href={rss} />
+  <section class="section writing-index">
+    <div class="container">
+      <span class="kicker" data-reveal>
+        {t('writing.kicker')}
+      </span>
+      <h1 class="section-title" data-reveal>
+        {t('writing.title')}
+      </h1>
+      <p class="lede" data-reveal>
+        {t('writing.lede')}
+      </p>
+      <a class="rss mono" href={rss} data-reveal>
+        {t('writing.rss')} ↗
+      </a>
+      <div class="list">
+        <ArticleList lang={lang} articles={articles} headingLevel="h2" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .writing-index {
+    padding-top: clamp(8rem, 16vw, 11rem);
+  }
+  .lede {
+    max-width: 38rem;
+    margin-top: 1.5rem;
+    font-size: var(--step-1);
+    color: var(--fg-soft);
+  }
+  .rss {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--accent-text);
+  }
+  .list {
+    margin-top: clamp(3rem, 6vw, 5rem);
+  }
+</style>

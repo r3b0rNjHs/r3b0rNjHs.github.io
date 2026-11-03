@@ -1,0 +1,209 @@
+---
+import { render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import ArticleList from '@/components/ArticleList.astro';
+import { getArticles, type Article } from '@/data/writing';
+import { formatDate } from '@/lib/writing';
+import { profile } from '@/data/profile';
+import { localePath, useTranslations, type Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+  article: Article;
+}
+const { lang, article } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(article.entry);
+const others = (await getArticles(lang)).filter((a) => a.slug !== article.slug).slice(0, 2);
+const isoDate = article.date.toISOString().slice(0, 10);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: article.title,
+  description: article.description,
+  datePublished: isoDate,
+  inLanguage: lang,
+  author: { '@type': 'Person', name: profile.name, url: Astro.site?.toString() },
+  mainEntityOfPage: new URL(localePath(lang, `/writing/${article.slug}/`), Astro.site).toString(),
+};
+---
+
+<Base title={`${article.title} · Jorge Hernández`} description={article.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <article class="post">
+    <header class="post__head container">
+      <a class="back mono" href={localePath(lang, '/writing/')}>
+        <span aria-hidden="true">←</span>
+        {t('writing.back')}
+      </a>
+      <p class="post__meta mono">
+        <time datetime={isoDate}>{formatDate(article.date, lang)}</time>
+        <span aria-hidden="true">·</span>
+        <span>
+          {article.minutes} {t('writing.minutes')}
+        </span>
+      </p>
+      <h1 class="post__title">{article.title}</h1>
+      <p class="post__desc">{article.description}</p>
+      <ul class="post__tags" role="list">
+        {article.tags.map((tag) => (
+          <li class="tag">{tag}</li>
+        ))}
+      </ul>
+    </header>
+
+    <div class="prose container">
+      <Content />
+    </div>
+
+    <footer class="post__author container">
+      <span class="post__avatar mono" aria-hidden="true">
+        {profile.initials}
+      </span>
+      <p>
+        <strong>{profile.name}</strong>
+        <span class="muted">{t('hero.role')}</span>
+      </p>
+    </footer>
+  </article>
+
+  {others.length > 0 && (
+    <section class="container more" aria-labelledby="more-title">
+      <h2 id="more-title" class="kicker">
+        {t('writing.other')}
+      </h2>
+      <ArticleList lang={lang} articles={others} />
+    </section>
+  )}
+</Base>
+
+<style>
+  .post__head {
+    max-width: 52rem;
+    padding-top: clamp(7rem, 14vw, 10rem);
+  }
+  .back {
+    display: flex;
+    width: fit-content;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    transition:
+      color 0.3s,
+      gap 0.4s var(--ease-out);
+  }
+  .back:hover {
+    color: var(--fg);
+    gap: 0.9rem;
+  }
+  .post__meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .post__title {
+    margin-top: 1rem;
+    font-size: var(--step-4);
+    letter-spacing: -0.04em;
+  }
+  .post__desc {
+    margin-top: 1.5rem;
+    font-size: var(--step-1);
+    color: var(--fg-soft);
+  }
+  .post__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+  }
+
+  .prose {
+    max-width: 52rem;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--fg-soft);
+  }
+  .prose :global(> * + *) {
+    margin-top: 1.4em;
+  }
+  .prose :global(h2) {
+    margin-top: 1.9em;
+    font-size: var(--step-2);
+    color: var(--fg);
+  }
+  .prose :global(h2 + *) {
+    margin-top: 0.9em;
+  }
+  .prose :global(strong) {
+    color: var(--fg);
+  }
+  .prose :global(a) {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .prose :global(:not(pre) > code) {
+    padding: 0.12em 0.4em;
+    border-radius: 6px;
+    background: var(--bg-elev-2);
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--fg);
+  }
+  .prose :global(pre) {
+    padding: 1.25rem 1.4rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .prose :global(pre code) {
+    font-family: var(--font-mono);
+  }
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.25em;
+  }
+
+  .post__author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 52rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+  .post__author p {
+    display: grid;
+    line-height: 1.4;
+  }
+  .post__author .muted {
+    font-size: 0.85rem;
+  }
+  .post__avatar {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-size: 0.85rem;
+  }
+  .more {
+    display: grid;
+    gap: 2rem;
+    margin-top: clamp(5rem, 10vw, 8rem);
+    padding-bottom: clamp(4rem, 8vw, 6rem);
+  }
+</style>

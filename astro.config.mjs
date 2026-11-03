@@ -10,5 +10,9 @@ export default defineConfig({
       i18n: { defaultLocale: 'en', locales: { en: 'en', es: 'es' } },
     }),
   ],
+  markdown: {
+    // Dual themes: colours are emitted as CSS variables and switched with the site theme.
+    shikiConfig: { themes: { light: 'github-light', dark: 'github-dark-dimmed' }, defaultColor: false },
+  },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
 });

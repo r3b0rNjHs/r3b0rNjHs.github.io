@@ -1,0 +1,92 @@
+---
+import type { Article } from '@/data/writing';
+import { formatDate } from '@/lib/writing';
+import { localePath, useTranslations, type Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+  articles: Article[];
+  headingLevel?: 'h2' | 'h3';
+}
+const { lang, articles, headingLevel: Heading = 'h3' } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<ol class="articles" role="list">
+  {articles.map((a, i) => (
+    <li class="article" data-reveal style={`--reveal-delay:${i * 70}`}>
+      <a class="article__link" href={localePath(lang, `/writing/${a.slug}/`)} data-cursor-text={t('work.cursor')}>
+        <span class="article__meta mono">
+          <time datetime={a.date.toISOString().slice(0, 10)}>{formatDate(a.date, lang)}</time>
+          <span aria-hidden="true">·</span>
+          <span>
+            {a.minutes} {t('writing.minutes')}
+          </span>
+        </span>
+        <Heading class="article__title">{a.title}</Heading>
+        <p class="article__desc">{a.description}</p>
+        <ul class="article__tags" role="list">
+          {a.tags.map((tag) => (
+            <li class="tag">{tag}</li>
+          ))}
+        </ul>
+      </a>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .articles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .article__link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    height: 100%;
+    padding: 1.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+    transition:
+      border-color 0.4s,
+      transform 0.5s var(--ease-out);
+  }
+  .article__link:hover,
+  .article__link:focus-visible {
+    border-color: var(--line-strong);
+    transform: translateY(-4px);
+  }
+  .article__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .article__title {
+    font-size: var(--step-2);
+    line-height: 1.15;
+  }
+  .article__desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .article__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  @media (max-width: 1000px) {
+    .articles {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

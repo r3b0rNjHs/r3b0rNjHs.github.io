@@ -403,3 +403,15 @@ body::after {
   opacity: 1;
   transform: translate(-50%, 0);
 }
+
+/* ───────────────────────── Code highlighting (Shiki dual themes) ───────────────────────── */
+.astro-code,
+.astro-code span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
+:root[data-theme='light'] .astro-code,
+:root[data-theme='light'] .astro-code span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}

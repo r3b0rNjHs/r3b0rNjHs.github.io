@@ -334,7 +334,37 @@ body::after {
   transform: none;
 }
 
+/*
+ * Above-the-fold variants: pure CSS animations that start on first paint instead of waiting
+ * for JavaScript, so the largest contentful paint is never held back by script loading.
+ */
+.rise {
+  animation: rise 1s var(--ease-out) both;
+  animation-delay: calc(var(--reveal-delay, 0) * 1ms);
+}
+.split--auto .split-line > span {
+  transform: none;
+  transition: none;
+  animation: split-rise 1.1s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 60ms);
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@keyframes split-rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .rise,
+  .split--auto .split-line > span {
+    animation: none;
+  }
   [data-reveal],
   .split-line > span {
     opacity: 1 !important;

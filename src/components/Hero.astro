@@ -1,6 +1,7 @@
 ---
 import { localePath, useTranslations, type Lang } from '@/i18n/ui';
 import { profile } from '@/data/profile';
+import StaticField from './StaticField.astro';
 
 interface Props {
   lang: Lang;
@@ -28,11 +29,13 @@ const fullTitle = lines
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero__canvas" data-hero-stage aria-hidden="true">
     <canvas data-hero-canvas></canvas>
-    <div class="hero__fallback"></div>
+    <div class="hero__fallback">
+      <StaticField />
+    </div>
   </div>
 
   <div class="hero__grid container">
-    <div class="hero__top mono" data-reveal style="--reveal-delay: 100">
+    <div class="hero__top mono rise" style="--reveal-delay: 0">
       <span class="status">
         <span class="status__dot"></span>
         {t('hero.status')}
@@ -47,16 +50,16 @@ const fullTitle = lines
     </div>
 
     <div class="hero__body">
-      <p class="hero__role mono" data-reveal style="--reveal-delay: 200">
+      <p class="hero__role mono rise" style="--reveal-delay: 80">
         <span class="hero__role-line" aria-hidden="true"></span>
         {t('hero.role')}
       </p>
-      <h1 id="hero-title" class="hero__title" data-split>
+      <h1 id="hero-title" class="hero__title split--auto">
         <span class="visually-hidden">{fullTitle}</span>
         <span aria-hidden="true">
           {lines.map((line, i) => (
             <span class:list={['split-line', { dim: line.dim }]}>
-              <span style={`--i:${i}; --base-delay: 250ms`}>
+              <span style={`--i:${i}`}>
                 {line.parts
                   .filter((part) => part.text)
                   .map((part, j) => (
@@ -70,10 +73,10 @@ const fullTitle = lines
           ))}
         </span>
       </h1>
-      <p class="hero__lede" data-reveal style="--reveal-delay: 700">
+      <p class="hero__lede rise" style="--reveal-delay: 300">
         {t('hero.lede')}
       </p>
-      <div class="hero__ctas" data-reveal style="--reveal-delay: 850">
+      <div class="hero__ctas rise" style="--reveal-delay: 420">
         <a class="btn" href={localePath(lang, '/#work')} data-magnetic="0.25">
           {t('hero.cta.work')}
           <span class="arrow" aria-hidden="true">
@@ -86,7 +89,7 @@ const fullTitle = lines
       </div>
     </div>
 
-    <div class="hero__bottom mono" data-reveal style="--reveal-delay: 1100">
+    <div class="hero__bottom mono rise" style="--reveal-delay: 700">
       <span class="hero__hint">
         <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
           <circle cx="8" cy="8" r="2" fill="currentColor"></circle>
@@ -132,12 +135,16 @@ const fullTitle = lines
   }
   .hero__fallback {
     position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(40% 50% at 72% 45%, var(--accent-glow), transparent 70%),
-      radial-gradient(60% 60% at 70% 50%, color-mix(in oklab, var(--fg) 6%, transparent), transparent 70%);
-    opacity: 0.6;
+    top: 0;
+    right: -8vw;
+    width: min(78vw, 1150px);
+    height: 100%;
+    background: radial-gradient(34% 40% at 50% 50%, var(--accent-glow), transparent 70%);
     transition: opacity 1.2s var(--ease-out);
+  }
+  /* Interaction hints only make sense once the live field is running. */
+  .hero__canvas:not(.is-ready) ~ .hero__grid :is(.hero__hint, .hero__hud) {
+    visibility: hidden;
   }
   .hero__canvas.is-ready .hero__fallback {
     opacity: 0;
@@ -300,11 +307,17 @@ const fullTitle = lines
   }
 
   @media (max-width: 860px) {
-    .hero__canvas canvas {
+    .hero__canvas canvas,
+    .hero__fallback {
       inset: 0;
       right: auto;
       width: 100%;
+    }
+    .hero__canvas canvas {
       opacity: 0;
+    }
+    .hero__fallback {
+      opacity: 0.55;
     }
     .hero__canvas.is-ready canvas {
       opacity: 0.55;
@@ -330,6 +343,7 @@ const fullTitle = lines
 
 <script>
   import type { NeuralField } from '@/scripts/hero/scene';
+  import { canRenderNeuralField } from '@/scripts/hero/capabilities';
 
   let field: NeuralField | null = null;
   let onTheme: (() => void) | null = null;
@@ -339,8 +353,10 @@ const fullTitle = lines
     const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-canvas]');
     if (!stage || !canvas) return;
 
-    const { NeuralField, supportsWebGL } = await import('@/scripts/hero/scene');
-    if (!supportsWebGL() || !canvas.isConnected) return;
+    // Probe the GPU before downloading three.js; software rasterisers keep the static fallback.
+    if (!canRenderNeuralField()) return;
+    const { NeuralField } = await import('@/scripts/hero/scene');
+    if (!canvas.isConnected) return;
 
     const counter = document.querySelector<HTMLElement>('[data-pulse-count]');
     let pulses = 0;
@@ -368,7 +384,9 @@ const fullTitle = lines
     unmount();
     // Defer the WebGL boot until the browser is idle so text paints first (better LCP).
     const idle = window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 120));
-    idle(() => void mount());
+    const boot = () => idle(() => void mount(), { timeout: 2500 });
+    if (document.readyState === 'complete') boot();
+    else window.addEventListener('load', boot, { once: true });
   });
   document.addEventListener('astro:before-swap', unmount);
 </script>

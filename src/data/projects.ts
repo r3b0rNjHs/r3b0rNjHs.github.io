@@ -69,7 +69,10 @@ export const projects: Project[] = [
     gallery: [
       { src: petIsland, alt: { en: 'Pet Defense key art — tropical island biome', es: 'Arte de Pet Defense — bioma de isla tropical' } },
       { src: petTundra, alt: { en: 'Pet Defense key art — frozen tundra biome', es: 'Arte de Pet Defense — bioma de tundra helada' } },
-      { src: petAbyss, alt: { en: 'Pet Defense key art — The Abyss roguelike mode', es: 'Arte de Pet Defense — modo roguelike The Abyss' } },
+      {
+        src: petAbyss,
+        alt: { en: 'Pet Defense key art — The Abyss roguelike mode', es: 'Arte de Pet Defense — modo roguelike The Abyss' },
+      },
     ],
     overview: {
       en: 'A pet-rescue idle/simulator for Roblox: players rescue, heal and collect pets, grow a sanctuary, discover rare species and evolve them through four stages — with raids, expeditions, co-op battles, a season pass and a full live-ops economy.',
@@ -231,7 +234,10 @@ export const projects: Project[] = [
     ],
     links: [
       { label: { en: 'Open the web app', es: 'Abrir la web app' }, href: 'https://r3b0rnjhs.github.io/naruto-online-companion-web/' },
-      { label: { en: 'Windows releases', es: 'Descargas para Windows' }, href: 'https://github.com/r3b0rNjHs/noc-releases/releases/latest' },
+      {
+        label: { en: 'Windows releases', es: 'Descargas para Windows' },
+        href: 'https://github.com/r3b0rNjHs/noc-releases/releases/latest',
+      },
     ],
     gallery: [
       { src: nocHome, alt: { en: 'Home screen with personalised next steps', es: 'Pantalla de inicio con próximos pasos personalizados' } },
@@ -293,9 +299,14 @@ export const projects: Project[] = [
       { value: '10+', label: { en: 'feature screens', es: 'pantallas de funcionalidad' } },
       { value: 'SHA‑256', label: { en: 'verified self-updates', es: 'auto-actualizaciones verificadas' } },
     ],
-    links: [{ label: { en: 'Download & docs', es: 'Descarga y documentación' }, href: 'https://github.com/r3b0rNjHs/aion2-companion-releases' }],
+    links: [
+      { label: { en: 'Download & docs', es: 'Descarga y documentación' }, href: 'https://github.com/r3b0rNjHs/aion2-companion-releases' },
+    ],
     gallery: [
-      { src: aionMap, alt: { en: 'Interactive pet map with spawns and teleports', es: 'Mapa interactivo de mascotas con apariciones y teletransportes' } },
+      {
+        src: aionMap,
+        alt: { en: 'Interactive pet map with spawns and teleports', es: 'Mapa interactivo de mascotas con apariciones y teletransportes' },
+      },
       { src: aionDps, alt: { en: 'Live DPS meter by player and skill', es: 'Medidor de DPS en vivo por jugador y habilidad' } },
       { src: aionPets, alt: { en: 'Pet collection tracker', es: 'Rastreador de la colección de mascotas' } },
       { src: aionBosses, alt: { en: 'Field-boss timers per server', es: 'Temporizadores de jefes por servidor' } },
@@ -333,58 +344,6 @@ export const projects: Project[] = [
     note: {
       en: 'Unofficial fan project, not endorsed by the game’s publisher. Use at your own risk.',
       es: 'Proyecto fan no oficial, sin aval del editor del juego. Úsalo bajo tu responsabilidad.',
-    },
-  },
-  {
-    slug: 'linkedout',
-    title: 'LinkedOut API',
-    tagline: {
-      en: 'A hexagonal-architecture showcase: REST + GraphQL job-listings API with a pluggable ranking engine.',
-      es: 'Un escaparate de arquitectura hexagonal: API REST + GraphQL de ofertas de empleo con un motor de ranking extensible.',
-    },
-    kind: { en: 'Backend · Architecture', es: 'Backend · Arquitectura' },
-    year: '2026',
-    role: { en: 'Engineer', es: 'Engineer' },
-    status: { en: 'Technical showcase', es: 'Ejercicio técnico' },
-    hue: 265,
-    motif: 'grid',
-    stack: ['TypeScript', 'Express', 'Apollo GraphQL', 'Zod', 'SQLite', 'Jest', 'Supertest', 'Docker'],
-    metrics: [
-      { value: '7', label: { en: 'architecture decision records', es: 'registros de decisiones (ADR)' } },
-      { value: '2', label: { en: 'APIs over one domain', es: 'APIs sobre un mismo dominio' } },
-      { value: '2', label: { en: 'Node versions in CI matrix', es: 'versiones de Node en la matriz de CI' } },
-    ],
-    links: [],
-    gallery: [],
-    overview: {
-      en: 'A job-listings API with JWT and role-based access, full CRUD, public search with rich filters and pagination, and a configurable ranking engine — exposed both as REST (with Swagger) and GraphQL over the same domain.',
-      es: 'Una API de ofertas de empleo con JWT y control de acceso por roles, CRUD completo, búsqueda pública con filtros y paginación, y un motor de ranking configurable — expuesta como REST (con Swagger) y como GraphQL sobre el mismo dominio.',
-    },
-    challenge: {
-      en: 'Show what “production-minded” means in a small codebase: clear boundaries, decisions on record, and tests that make change cheap.',
-      es: 'Demostrar qué significa “pensado para producción” en un código pequeño: límites claros, decisiones documentadas y tests que abaratan el cambio.',
-    },
-    approach: [
-      {
-        en: 'Hexagonal architecture with ports and adapters, an application services layer and a hand-rolled DI container — so REST and GraphQL are just two adapters on one core.',
-        es: 'Arquitectura hexagonal con puertos y adaptadores, una capa de servicios de aplicación y un contenedor de DI propio — así REST y GraphQL son solo dos adaptadores sobre un mismo núcleo.',
-      },
-      {
-        en: 'A ranking engine built on the Strategy pattern: rules like recency, salary and company activity compose without touching the search code.',
-        es: 'Un motor de ranking basado en el patrón Strategy: reglas como recencia, salario o actividad de la empresa se combinan sin tocar el código de búsqueda.',
-      },
-      {
-        en: 'Seven ADRs, a scalability write-up, a self-audit, Zod validation, rate limiting, unit + integration tests and a Docker smoke test in CI.',
-        es: 'Siete ADRs, un análisis de escalabilidad, una auto-auditoría, validación con Zod, rate limiting, tests unitarios y de integración y un smoke test de Docker en CI.',
-      },
-    ],
-    ai: {
-      en: 'Developed with Claude Code under a project memory that encodes the architecture rules — AI writes faster, the boundaries keep it honest.',
-      es: 'Desarrollado con Claude Code bajo una memoria de proyecto que codifica las reglas de arquitectura — la IA escribe más rápido y los límites la mantienen honesta.',
-    },
-    outcome: {
-      en: 'A compact reference for how I structure backends: every requirement traceable to code, every trade-off written down.',
-      es: 'Una referencia compacta de cómo estructuro un backend: cada requisito trazable hasta el código, cada compromiso por escrito.',
     },
   },
 ];

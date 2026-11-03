@@ -16,7 +16,7 @@ const t = useTranslations(lang);
         <img src={profile.photo} alt={profile.name} width="800" height="1000" loading="lazy" decoding="async" />
       ) : (
         <>
-          <canvas class="portrait__canvas" data-portrait width="96" height="120" aria-hidden="true" />
+          <canvas class="portrait__canvas" data-portrait width="128" height="160" aria-hidden="true" />
           <figcaption class="portrait__label mono">
             <span class="portrait__rec" aria-hidden="true" />
             {t('about.portrait')} · {t('about.portrait.soon')}
@@ -258,11 +258,12 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-  /**
-   * Placeholder portrait: an ordered-dither (Bayer 4×4) render of drifting noise blobs —
+  import { BAYER_4, bustIntensity } from '@/lib/portrait';
+
+  /*
+   * Placeholder portrait: an ordered-dither (Bayer 4×4) render of a lit bust with a scan line —
    * a "signal acquiring" image until a real photo is set in `profile.photo`.
    */
-  const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16);
 
   let frame = 0;
 
@@ -290,25 +291,23 @@ const t = useTranslations(lang);
       const accent = hexToRgb(styles.getPropertyValue('--accent').trim()) ?? [200, 255, 46];
       const ink: [number, number, number] = light ? [17, 18, 20] : [236, 234, 228];
       const bg: [number, number, number] = light ? [233, 230, 222] : [17, 18, 22];
-      // A head-and-shoulders silhouette made from two soft fields, gently breathing.
+      // Ordered-dither a lit bust; a slow scan line sweeps through in the accent colour.
+      const scanY = (t * 0.16) % 1.4;
       for (let y = 0; y < h; y++) {
+        const ny = y / h;
+        const scan = Math.max(0, 1 - Math.abs(ny - scanY) * 22);
         for (let x = 0; x < w; x++) {
           const nx = x / w - 0.5;
-          const ny = y / h;
-          const head = 1 - Math.hypot(nx * 1.25, (ny - 0.36) * 1.0) / 0.22;
-          const shoulders = 1 - Math.hypot(nx * 0.75, (ny - 1.02) * 1.4) / 0.42;
-          const wave = Math.sin(nx * 9 + t * 1.3) * Math.cos(ny * 7 - t * 0.9) * 0.18;
-          const scan = Math.max(0, 1 - Math.abs(ny - ((t * 0.18) % 1.3)) * 18) * 0.5;
-          const v = Math.max(head, shoulders) * 0.95 + wave + scan;
-          const threshold = BAYER[(y % 4) * 4 + (x % 4)]!;
-          const on = v > threshold;
-          const useAccent = on && scan > 0.15;
-          const c = on ? (useAccent ? accent : ink) : bg;
+          const breathe = Math.sin(nx * 10 + t * 1.2) * Math.cos(ny * 8 - t * 0.8) * 0.06;
+          const base = bustIntensity(nx, ny);
+          const v = base > 0 ? base + breathe + scan * 0.35 : scan * 0.08;
+          const on = v > BAYER_4[(y % 4) * 4 + (x % 4)]!;
+          const c = on ? (scan > 0.25 ? accent : ink) : bg;
           const i = (y * w + x) * 4;
           image.data[i] = c[0];
           image.data[i + 1] = c[1];
           image.data[i + 2] = c[2];
-          image.data[i + 3] = on ? 255 : 255;
+          image.data[i + 3] = 255;
         }
       }
       ctx.putImageData(image, 0, 0);

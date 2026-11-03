@@ -8,12 +8,23 @@ const es = useTranslations('es');
 
 <Base title="404 — Signal lost">
   <section class="lost container">
-    <p class="lost__code mono" aria-hidden="true">404</p>
-    <h1 class="lost__title">{t('404.title')} <span class="serif muted">{es('404.title')}</span></h1>
+    <p class="lost__code mono" aria-hidden="true">
+      404
+    </p>
+    <h1 class="lost__title">
+      {t('404.title')} <span class="serif muted">{es('404.title')}</span>
+    </h1>
     <p class="lost__text">{t('404.text')}</p>
     <div class="lost__ctas">
-      <a class="btn" href="/">{t('404.home')} <span class="arrow" aria-hidden="true">→</span></a>
-      <a class="btn btn--ghost" href="/es/">{es('404.home')}</a>
+      <a class="btn" href="/">
+        {t('404.home')}{' '}
+        <span class="arrow" aria-hidden="true">
+          →
+        </span>
+      </a>
+      <a class="btn btn--ghost" href="/es/">
+        {es('404.home')}
+      </a>
     </div>
   </section>
 </Base>

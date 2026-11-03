@@ -10,11 +10,17 @@ export function getLangFromUrl(url: URL): Lang {
   return first === 'es' ? 'es' : 'en';
 }
 
-/** Build a path for a given language. `path` is language-agnostic, e.g. "/work/pet-defense". */
+/**
+ * Build a path for a given language. `path` is language-agnostic, e.g. "/work/pet-defense".
+ * Page paths always end with a slash (matching the directory-style build GitHub Pages serves);
+ * hashes and query strings are preserved.
+ */
 export function localePath(lang: Lang, path = '/'): string {
-  const clean = path.startsWith('/') ? path : `/${path}`;
-  if (lang === defaultLang) return clean;
-  return clean === '/' ? `/${lang}/` : `/${lang}${clean}`;
+  const [, rawPath = '/', suffix = ''] = /^([^#?]*)(.*)$/.exec(path) ?? [];
+  let clean = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
+  if (!clean.endsWith('/')) clean += '/';
+  const prefixed = lang === defaultLang ? clean : `/${lang}${clean}`;
+  return prefixed + suffix;
 }
 
 /** Strip the language prefix from a pathname. */
@@ -95,6 +101,7 @@ export const ui = {
     'footer.built': 'Designed & engineered by Jorge Hernández, with an AI pair.',
     'footer.top': 'Back to top',
     'cmd.placeholder': 'Type a command or search…',
+    'cmd.open': 'Open command palette',
     'cmd.hint': 'to open command palette',
     'cmd.empty': 'No results',
     'cmd.group.nav': 'Navigate',
@@ -179,6 +186,7 @@ export const ui = {
     'footer.built': 'Diseñado y desarrollado por Jorge Hernández, con un compañero IA.',
     'footer.top': 'Volver arriba',
     'cmd.placeholder': 'Escribe un comando o busca…',
+    'cmd.open': 'Abrir paleta de comandos',
     'cmd.hint': 'para abrir la paleta de comandos',
     'cmd.empty': 'Sin resultados',
     'cmd.group.nav': 'Navegar',

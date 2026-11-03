@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { locales } from '@/i18n/ui';
+import { locales, ui } from '@/i18n/ui';
 import { experience, principles, profile } from '@/data/profile';
 import { projects } from '@/data/projects';
 
@@ -55,5 +55,13 @@ describe('privacy', () => {
     expect(everything).not.toMatch(/tel:/i);
     // International-format numbers such as "+34 600 000 000".
     expect(everything).not.toMatch(/\+\d{1,3}[\s.-]?\d{3}[\s.-]?\d{3}[\s.-]?\d{3}/);
+  });
+});
+
+describe('copy style', () => {
+  it('uses no em dashes in user-facing text', () => {
+    const everything = JSON.stringify({ ui, profile, experience, principles, projects });
+    const offenders = everything.match(/[^"]{0,40}\u2014[^"]{0,40}/g) ?? [];
+    expect(offenders).toEqual([]);
   });
 });

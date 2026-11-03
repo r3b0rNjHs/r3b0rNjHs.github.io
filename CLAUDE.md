@@ -5,10 +5,10 @@ Read this before changing anything; it is the contract for humans and AI agents 
 
 ## Commands
 
-- `npm run dev` — local dev server
-- `npm run verify` — formatting + type-check + unit tests + build (must pass before every commit)
-- `npm run test:e2e` — Playwright e2e and axe accessibility suite (needs a build in `dist/`)
-- `npm run og` — regenerate `public/og.png` after changing the headline or brand
+- `npm run dev`: local dev server
+- `npm run verify`: formatting + type-check + unit tests + build (must pass before every commit)
+- `npm run test:e2e`: Playwright e2e and axe accessibility suite (needs a build in `dist/`)
+- `npm run og`: regenerate `public/og.png` after changing the headline or brand
 
 ## Architecture rules
 
@@ -33,6 +33,7 @@ Read this before changing anything; it is the contract for humans and AI agents 
 - Never publish a phone number, private repository links, client or partner names, internal hostnames or business metrics that are not public.
 - Fan projects must keep the "unofficial, not affiliated" note.
 - Metrics must be traceable to a source (CV, public store page or repository).
+- Copy reads like Jorge wrote it: first person, plain and specific. No em dashes (`—`), no slogans and no stock phrases ("end to end", "not X but Y", "all the way down"). Date ranges use an en dash (`2018 – 2023`). A unit test enforces the em-dash rule.
 
 ## Definition of done
 

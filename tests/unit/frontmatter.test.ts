@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { articleCardPath, readFrontmatter } from '@/lib/frontmatter';
+import { readFrontmatter } from '@/lib/frontmatter';
+import { articleCardPath, projectCardPath } from '@/lib/cards';
 
 describe('readFrontmatter', () => {
   it('reads strings, quoted values and lists', () => {
@@ -17,8 +18,9 @@ describe('readFrontmatter', () => {
   });
 });
 
-describe('articleCardPath', () => {
-  it('builds the card path per language', () => {
+describe('card paths', () => {
+  it('builds article and project card paths per language', () => {
     expect(articleCardPath('es', 'my-post')).toBe('/og/writing/es/my-post.png');
+    expect(projectCardPath('en', 'pet-defense')).toBe('/og/work/en/pet-defense.png');
   });
 });

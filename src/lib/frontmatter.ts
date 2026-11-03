@@ -21,6 +21,3 @@ function unquote(value: string): string {
   const v = value.trim();
   return /^(['"]).*\1$/.test(v) ? v.slice(1, -1) : v;
 }
-
-/** Social card path for an article, shared by the page's meta tags and the card generator. */
-export const articleCardPath = (lang: string, slug: string): string => `/og/writing/${lang}/${slug}.png`;

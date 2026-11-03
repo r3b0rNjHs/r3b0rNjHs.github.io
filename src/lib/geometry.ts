@@ -63,3 +63,23 @@ export function nearestNeighbourEdges(
   }
   return [...edges.values()];
 }
+
+/**
+ * Rotate unit-sphere points (Y axis, then X axis) and return them as [x, y, depth] triples,
+ * ready for an orthographic 2D projection. Used to pre-render the static hero constellation.
+ */
+export function rotatePoints(points: Float32Array, rotX: number, rotY: number): Float32Array {
+  const out = new Float32Array(points.length);
+  const [cy, sy, cx, sx] = [Math.cos(rotY), Math.sin(rotY), Math.cos(rotX), Math.sin(rotX)];
+  for (let i = 0; i < points.length; i += 3) {
+    const x = points[i]!;
+    const y = points[i + 1]!;
+    const z = points[i + 2]!;
+    const x1 = x * cy + z * sy;
+    const z1 = -x * sy + z * cy;
+    out[i] = x1;
+    out[i + 1] = y * cx - z1 * sx;
+    out[i + 2] = y * sx + z1 * cx;
+  }
+  return out;
+}

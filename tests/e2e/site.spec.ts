@@ -88,6 +88,36 @@ test.describe('interactions', () => {
   });
 });
 
+test.describe('writing', () => {
+  test('lists articles and opens one in both languages', async ({ page }) => {
+    await page.goto('/writing/');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Notes from building with AI.');
+    await page.locator('.article__link').first().click();
+    await expect(page).toHaveURL(/\/writing\/[a-z0-9-]+\/$/);
+    await expect(page.locator('.prose h2').first()).toBeVisible();
+    await page.getByRole('link', { name: /Leer en español/ }).click();
+    await expect(page).toHaveURL(/\/es\/writing\/[a-z0-9-]+\/$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+  });
+
+  test('shows the latest articles on the home page', async ({ page }) => {
+    await page.goto('/es/');
+    await expect(page.locator('#writing .article')).toHaveCount(3);
+  });
+
+  test('publishes an RSS feed per language', async ({ request }) => {
+    for (const [path, lang] of [
+      ['/rss.xml', 'en-GB'],
+      ['/es/rss.xml', 'es-ES'],
+    ]) {
+      const body = await (await request.get(path)).text();
+      expect(body).toContain('<rss');
+      expect(body).toContain(`<language>${lang}</language>`);
+      expect(body).toContain('/writing/');
+    }
+  });
+});
+
 test.describe('cv', () => {
   test('renders the CV page in both languages without a phone number', async ({ page }) => {
     for (const [path, heading] of [
@@ -129,7 +159,15 @@ test.describe('progressive enhancement', () => {
 });
 
 test.describe('accessibility', () => {
-  for (const path of ['/', '/es/', '/work/pet-defense/', '/es/work/naruto-online-companion/', '/cv/']) {
+  for (const path of [
+    '/',
+    '/es/',
+    '/work/pet-defense/',
+    '/es/work/naruto-online-companion/',
+    '/cv/',
+    '/writing/',
+    '/es/writing/reconciliation-as-the-eval/',
+  ]) {
     test(`${path} has no serious axe violations`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto(path);

@@ -8,6 +8,7 @@ Read this before changing anything; it is the contract for humans and AI agents 
 - `npm run dev`: local dev server
 - `npm run verify`: formatting + type-check + unit tests + build (must pass before every commit)
 - `npm run test:e2e`: Playwright e2e and axe accessibility suite (needs a build in `dist/`)
+- `npm run cv`: print the CV pages to PDF in `dist/cv/` (after a build; CI does this on every deploy)
 - `npm run og`: regenerate `public/og.png` after changing the headline or brand
 
 ## Architecture rules

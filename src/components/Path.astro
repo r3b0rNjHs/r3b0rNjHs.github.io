@@ -1,0 +1,177 @@
+---
+import { experience } from '@/data/profile';
+import { useTranslations, type Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="section path" id="path" aria-labelledby="path-title">
+  <div class="container path__grid">
+    <header class="path__head">
+      <span class="kicker" data-reveal>{t('path.kicker')}</span>
+      <h2 id="path-title" class="section-title" data-reveal>{t('path.title')}</h2>
+    </header>
+
+    <ol class="timeline" role="list" data-timeline>
+      <span class="timeline__rail" aria-hidden="true"><span class="timeline__fill"></span></span>
+      {
+        experience.map((job, i) => (
+          <li class="job" data-reveal style={`--reveal-delay:${i * 50}`}>
+            <span class="job__node" aria-hidden="true" />
+            <div class="job__when mono">
+              <span>{job.period[lang]}</span>
+              {job.end === null && <span class="job__now">{t('path.present')}</span>}
+            </div>
+            <div class="job__body">
+              <h3 class="job__role">{job.role[lang]}</h3>
+              <p class="job__company">
+                <span class="serif">@</span> {job.company}
+              </p>
+              <p class="job__summary">{job.summary[lang]}</p>
+              <ul class="job__tags" role="list">
+                {job.tags.map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .path__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+  }
+  .path__head {
+    position: sticky;
+    top: 7rem;
+    align-self: start;
+  }
+  .timeline {
+    position: relative;
+    display: grid;
+    gap: 0;
+    padding-left: 2.5rem;
+  }
+  .timeline__rail {
+    position: absolute;
+    left: 0.45rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: var(--line-strong);
+  }
+  .timeline__fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(var(--accent), color-mix(in oklab, var(--accent) 30%, transparent));
+    transform-origin: top;
+    transform: scaleY(var(--progress, 0));
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .job {
+    position: relative;
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .job__node {
+    position: absolute;
+    left: calc(-2.5rem + 0.45rem - 5px);
+    top: 0.35rem;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid var(--line-strong);
+    transition:
+      border-color 0.5s,
+      background-color 0.5s,
+      box-shadow 0.5s;
+  }
+  .job.is-lit .job__node {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 0 5px color-mix(in oklab, var(--accent) 18%, transparent);
+  }
+  .job__when {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .job__now {
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .job__role {
+    margin-top: 0.75rem;
+    font-size: var(--step-2);
+  }
+  .job__company {
+    margin-top: 0.35rem;
+    font-size: var(--step-1);
+    color: var(--fg-soft);
+  }
+  .job__company .serif {
+    color: var(--accent-text);
+  }
+  .job__summary {
+    margin-top: 1rem;
+    max-width: 38rem;
+    color: var(--muted);
+  }
+  .job__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .path__grid {
+      grid-template-columns: 1fr;
+    }
+    .path__head {
+      position: static;
+    }
+  }
+</style>
+
+<script>
+  import { clamp } from '@/lib/math';
+
+  // Scroll-linked rail fill + node lighting. One rAF-throttled scroll handler, cleaned up on swap.
+  document.addEventListener('astro:page-load', () => {
+    const timeline = document.querySelector<HTMLElement>('[data-timeline]');
+    if (!timeline) return;
+    const jobs = [...timeline.querySelectorAll<HTMLElement>('.job')];
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const rect = timeline.getBoundingClientRect();
+      const focus = window.innerHeight * 0.6;
+      const progress = clamp((focus - rect.top) / rect.height);
+      timeline.style.setProperty('--progress', progress.toFixed(4));
+      for (const job of jobs) job.classList.toggle('is-lit', job.getBoundingClientRect().top < focus);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('astro:before-swap', () => window.removeEventListener('scroll', onScroll), { once: true });
+  });
+</script>

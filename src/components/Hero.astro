@@ -8,13 +8,21 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
+interface TitlePart {
+  text: string;
+  serif?: boolean;
+}
+
 // Three visual lines: lead-in · highlighted concept (+ optional trailing word) · muted payoff.
-const lines = [
+const lines: { parts: TitlePart[]; dim?: boolean }[] = [
   { parts: [{ text: t('hero.title.1') }] },
   { parts: [{ text: t('hero.title.2'), serif: true }, { text: t('hero.title.3') }] },
   { parts: [{ text: t('hero.title.4') }], dim: true },
 ];
-const fullTitle = lines.flatMap((l) => l.parts.map((p) => p.text)).filter(Boolean).join(' ');
+const fullTitle = lines
+  .flatMap((l) => l.parts.map((p) => p.text))
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -25,11 +33,16 @@ const fullTitle = lines.flatMap((l) => l.parts.map((p) => p.text)).filter(Boolea
 
   <div class="hero__grid container">
     <div class="hero__top mono" data-reveal style="--reveal-delay: 100">
-      <span class="status"><span class="status__dot"></span>{t('hero.status')}</span>
+      <span class="status">
+        <span class="status__dot"></span>
+        {t('hero.status')}
+      </span>
       <span class="hero__meta">
         <span>{profile.location.coords}</span>
         <span aria-hidden="true">·</span>
-        <span>{t('hero.local')} <time data-clock={profile.location.tz}>--:--</time></span>
+        <span>
+          {t('hero.local')} <time data-clock={profile.location.tz}>--:--</time>
+        </span>
       </span>
     </div>
 
@@ -41,8 +54,7 @@ const fullTitle = lines.flatMap((l) => l.parts.map((p) => p.text)).filter(Boolea
       <h1 id="hero-title" class="hero__title" data-split>
         <span class="visually-hidden">{fullTitle}</span>
         <span aria-hidden="true">
-        {
-          lines.map((line, i) => (
+          {lines.map((line, i) => (
             <span class:list={['split-line', { dim: line.dim }]}>
               <span style={`--i:${i}; --base-delay: 250ms`}>
                 {line.parts
@@ -55,15 +67,18 @@ const fullTitle = lines.flatMap((l) => l.parts.map((p) => p.text)).filter(Boolea
                   ))}
               </span>
             </span>
-          ))
-        }
+          ))}
         </span>
       </h1>
-      <p class="hero__lede" data-reveal style="--reveal-delay: 700">{t('hero.lede')}</p>
+      <p class="hero__lede" data-reveal style="--reveal-delay: 700">
+        {t('hero.lede')}
+      </p>
       <div class="hero__ctas" data-reveal style="--reveal-delay: 850">
         <a class="btn" href={localePath(lang, '/#work')} data-magnetic="0.25">
           {t('hero.cta.work')}
-          <span class="arrow" aria-hidden="true">→</span>
+          <span class="arrow" aria-hidden="true">
+            →
+          </span>
         </a>
         <a class="btn btn--ghost" href={localePath(lang, '/#contact')} data-magnetic="0.25">
           {t('hero.cta.contact')}
@@ -73,18 +88,15 @@ const fullTitle = lines.flatMap((l) => l.parts.map((p) => p.text)).filter(Boolea
 
     <div class="hero__bottom mono" data-reveal style="--reveal-delay: 1100">
       <span class="hero__hint">
-        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"
-          ><circle cx="8" cy="8" r="2" fill="currentColor"></circle><circle
-            cx="8"
-            cy="8"
-            r="6"
-            fill="none"
-            stroke="currentColor"
-            stroke-opacity=".5"></circle></svg
-        >
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+          <circle cx="8" cy="8" r="2" fill="currentColor"></circle>
+          <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-opacity=".5"></circle>
+        </svg>
         {t('hero.hint')}
       </span>
-      <span class="hero__hud" aria-hidden="true">signals&nbsp;<span data-pulse-count>000</span></span>
+      <span class="hero__hud" aria-hidden="true">
+        signals&nbsp;<span data-pulse-count>000</span>
+      </span>
       <a class="hero__scroll" href={localePath(lang, '/#about')}>
         {t('hero.scroll')}
         <span class="hero__scroll-bar" aria-hidden="true"></span>

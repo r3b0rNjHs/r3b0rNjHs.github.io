@@ -24,11 +24,17 @@ const ogImage = lead ? lead.src.src : undefined;
         <span aria-hidden="true">←</span>
         {t('project.back')}
       </a>
-      <p class="kicker" data-reveal>{p.kind[lang]}</p>
+      <p class="kicker" data-reveal>
+        {p.kind[lang]}
+      </p>
       <h1 class="project__title" data-split>
-        <span class="split-line"><span>{p.title}</span></span>
+        <span class="split-line">
+          <span>{p.title}</span>
+        </span>
       </h1>
-      <p class="project__tagline" data-reveal style="--reveal-delay: 200">{p.tagline[lang]}</p>
+      <p class="project__tagline" data-reveal style="--reveal-delay: 200">
+        {p.tagline[lang]}
+      </p>
 
       <dl class="meta" data-reveal style="--reveal-delay: 300">
         <div>
@@ -41,51 +47,55 @@ const ogImage = lead ? lead.src.src : undefined;
         </div>
         <div>
           <dt>{t('project.status')}</dt>
-          <dd><span class="live-dot" aria-hidden="true"></span>{p.status[lang]}</dd>
+          <dd>
+            <span class="live-dot" aria-hidden="true"></span>
+            {p.status[lang]}
+          </dd>
         </div>
-        {
-          p.links.length > 0 && (
-            <div>
-              <dt>{t('project.links')}</dt>
-              <dd class="meta__links">
-                {p.links.map((l) => (
-                  <a href={l.href} target="_blank" rel="noopener" class="link-underline">
-                    {l.label[lang]} ↗
-                  </a>
-                ))}
-              </dd>
-            </div>
-          )
-        }
+        {p.links.length > 0 && (
+          <div>
+            <dt>{t('project.links')}</dt>
+            <dd class="meta__links">
+              {p.links.map((l) => (
+                <a href={l.href} target="_blank" rel="noopener" class="link-underline">
+                  {l.label[lang]} ↗
+                </a>
+              ))}
+            </dd>
+          </div>
+        )}
       </dl>
     </header>
 
     <figure class="project__hero container" data-reveal>
       <div class="frame">
-        {
-          lead ? (
-            <Image src={lead.src} alt={lead.alt[lang]} widths={[800, 1280]} sizes="(max-width: 1440px) 100vw, 1380px" loading="eager" fetchpriority="high" />
-          ) : (
-            <ProjectCover project={p} />
-          )
-        }
+        {lead ? (
+          <Image
+            src={lead.src}
+            alt={lead.alt[lang]}
+            widths={[800, 1280]}
+            sizes="(max-width: 1440px) 100vw, 1380px"
+            loading="eager"
+            fetchpriority="high"
+          />
+        ) : (
+          <ProjectCover project={p} />
+        )}
       </div>
     </figure>
 
-    {
-      p.metrics && (
-        <section class="container">
-          <dl class="metrics">
-            {p.metrics.map((m, i) => (
-              <div class="metric" data-reveal style={`--reveal-delay:${i * 80}`}>
-                <dt>{m.label[lang]}</dt>
-                <dd>{m.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      )
-    }
+    {p.metrics && (
+      <section class="container">
+        <dl class="metrics">
+          {p.metrics.map((m, i) => (
+            <div class="metric" data-reveal style={`--reveal-delay:${i * 80}`}>
+              <dt>{m.label[lang]}</dt>
+              <dd>{m.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    )}
 
     <div class="project__body container">
       <section class="block" data-reveal>
@@ -99,25 +109,25 @@ const ogImage = lead ? lead.src.src : undefined;
       </section>
 
       <section class="block">
-        <h2 class="block__label mono" data-reveal>{t('project.approach')}</h2>
+        <h2 class="block__label mono" data-reveal>
+          {t('project.approach')}
+        </h2>
         <ol class="steps" role="list">
-          {
-            p.approach.map((step, i) => (
-              <li class="step" data-reveal style={`--reveal-delay:${i * 80}`}>
-                <span class="step__n mono">{String(i + 1).padStart(2, '0')}</span>
-                <p>{step[lang]}</p>
-              </li>
-            ))
-          }
+          {p.approach.map((step, i) => (
+            <li class="step" data-reveal style={`--reveal-delay:${i * 80}`}>
+              <span class="step__n mono">{String(i + 1).padStart(2, '0')}</span>
+              <p>{step[lang]}</p>
+            </li>
+          ))}
         </ol>
       </section>
 
       <section class="ai" data-reveal>
         <div class="ai__head">
           <span class="ai__badge mono">
-            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"
-              ><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z" fill="currentColor"></path></svg
-            >
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+              <path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z" fill="currentColor"></path>
+            </svg>
             {t('project.ai')}
           </span>
         </div>
@@ -132,30 +142,39 @@ const ogImage = lead ? lead.src.src : undefined;
       <section class="block" data-reveal>
         <h2 class="block__label mono">{t('project.stack')}</h2>
         <ul class="stack" role="list">
-          {p.stack.map((s) => <li class="tag">{s}</li>)}
+          {p.stack.map((s) => (
+            <li class="tag">{s}</li>
+          ))}
         </ul>
       </section>
 
-      {p.note && <p class="note mono" data-reveal>{p.note[lang]}</p>}
+      {p.note && (
+        <p class="note mono" data-reveal>
+          {p.note[lang]}
+        </p>
+      )}
     </div>
 
-    {
-      rest.length > 0 && (
-        <section class="gallery container" aria-label={t('project.gallery')}>
-          {rest.map((img, i) => (
-            <figure class="frame" data-reveal style={`--reveal-delay:${i * 80}`}>
-              <Image src={img.src} alt={img.alt[lang]} widths={[640, 1024]} sizes="(max-width: 860px) 100vw, 50vw" loading="lazy" />
-              <figcaption class="mono">{img.alt[lang]}</figcaption>
-            </figure>
-          ))}
-        </section>
-      )
-    }
+    {rest.length > 0 && (
+      <section class="gallery container" aria-label={t('project.gallery')}>
+        {rest.map((img, i) => (
+          <figure class="frame" data-reveal style={`--reveal-delay:${i * 80}`}>
+            <Image src={img.src} alt={img.alt[lang]} widths={[640, 1024]} sizes="(max-width: 860px) 100vw, 50vw" loading="lazy" />
+            <figcaption class="mono">{img.alt[lang]}</figcaption>
+          </figure>
+        ))}
+      </section>
+    )}
 
     <nav class="next container" aria-label={t('project.next')}>
       <a href={localePath(lang, `/work/${next.slug}`)} class="next__link" style={`--hue:${next.hue}`} data-cursor-text={t('work.cursor')}>
         <span class="mono muted">{t('project.next')}</span>
-        <span class="next__title">{next.title} <span class="next__arrow" aria-hidden="true">→</span></span>
+        <span class="next__title">
+          {next.title}{' '}
+          <span class="next__arrow" aria-hidden="true">
+            →
+          </span>
+        </span>
         <span class="muted">{next.tagline[lang]}</span>
       </a>
     </nav>
@@ -326,14 +345,16 @@ const ogImage = lead ? lead.src.src : undefined;
     font-size: 0.75rem;
     color: hsl(var(--hue) 90% 62%);
   }
+  :global([data-theme='light']) .step__n,
+  :global([data-theme='light']) .next__link:hover .next__title {
+    color: hsl(var(--hue) 70% 32%);
+  }
   .ai {
     position: relative;
     padding: clamp(1.75rem, 4vw, 3rem);
     border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
     border-radius: calc(var(--radius) + 4px);
-    background:
-      radial-gradient(120% 120% at 0% 0%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 60%),
-      var(--bg-elev);
+    background: radial-gradient(120% 120% at 0% 0%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 60%), var(--bg-elev);
     overflow: hidden;
   }
   .ai__badge {

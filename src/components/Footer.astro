@@ -12,15 +12,22 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container footer__inner">
+    <!-- Decorative signature rendered via generated content so it stays out of the accessibility tree. -->
     <p class="footer__sig" aria-hidden="true">
-      <span>Jorge</span>
-      <span class="serif">Hernández</span>
+      <span data-text="Jorge"></span>
+      <span class="serif" data-text="Hernández"></span>
     </p>
     <div class="footer__row mono">
-      <span>© {year} {profile.name}</span>
+      <span>
+        © {year} {profile.name}
+      </span>
       <span class="footer__built">{t('footer.built')}</span>
-      <span class="footer__hint"><kbd>⌘K</kbd> {t('cmd.hint')}</span>
-      <a href="#main" class="link-underline">{t('footer.top')} ↑</a>
+      <span class="footer__hint">
+        <kbd>⌘K</kbd> {t('cmd.hint')}
+      </span>
+      <a href="#main" class="link-underline">
+        {t('footer.top')} ↑
+      </a>
     </div>
   </div>
 </footer>
@@ -43,6 +50,9 @@ const year = new Date().getFullYear();
     font-weight: 450;
     color: var(--bg-elev-2);
     user-select: none;
+  }
+  .footer__sig span::before {
+    content: attr(data-text);
   }
   .footer__sig .serif {
     color: color-mix(in oklab, var(--accent) 22%, var(--bg-elev-2));

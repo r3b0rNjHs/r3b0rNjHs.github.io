@@ -1,0 +1,285 @@
+---
+import { Image } from 'astro:assets';
+import { projects } from '@/data/projects';
+import { localePath, useTranslations, type Lang } from '@/i18n/ui';
+import ProjectCover from './ProjectCover.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="section work" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <header class="work__head">
+      <span class="kicker" data-reveal>{t('work.kicker')}</span>
+      <h2 id="work-title" class="section-title" data-reveal>{t('work.title')}</h2>
+    </header>
+
+    <ol class="work__list" role="list" data-work-list>
+      {
+        projects.map((p, i) => (
+          <li class="row" data-reveal style={`--hue:${p.hue}; --reveal-delay:${i * 60}`}>
+            <a class="row__link" href={localePath(lang, `/work/${p.slug}`)} data-preview={p.slug} data-cursor-text={t('work.cursor')}>
+              <span class="row__index mono">{String(i + 1).padStart(2, '0')}</span>
+              <span class="row__main">
+                <span class="row__title">{p.title}</span>
+                <span class="row__tagline">{p.tagline[lang]}</span>
+              </span>
+              <span class="row__kind mono">{p.kind[lang]}</span>
+              <span class="row__year mono">{p.year}</span>
+              <span class="row__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22">
+                  <path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+              </span>
+              <span class="row__media" aria-hidden="true">
+                {p.gallery[0] ? (
+                  <Image src={p.gallery[0].src} alt="" widths={[480, 800]} sizes="(max-width: 860px) 100vw, 420px" loading="lazy" />
+                ) : (
+                  <ProjectCover project={p} />
+                )}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <!-- Floating preview that follows the pointer on desktop. -->
+  <div class="preview" data-preview-stage aria-hidden="true">
+    {
+      projects.map((p) => (
+        <div class="preview__item" data-preview-item={p.slug}>
+          {p.gallery[0] ? <Image src={p.gallery[0].src} alt="" widths={[640]} sizes="420px" loading="lazy" /> : <ProjectCover project={p} />}
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .work__head {
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .work__list {
+    border-top: 1px solid var(--line);
+  }
+  .row {
+    border-bottom: 1px solid var(--line);
+  }
+  .row__link {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr) 14rem 4rem 2.5rem;
+    align-items: center;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+    isolation: isolate;
+  }
+  .row__link::before {
+    content: '';
+    position: absolute;
+    inset: 0 calc(var(--gutter) * -0.5);
+    z-index: -1;
+    border-radius: var(--radius);
+    background: linear-gradient(90deg, hsl(var(--hue) 90% 60% / 0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-out);
+  }
+  .row__link:hover::before,
+  .row__link:focus-visible::before {
+    opacity: 1;
+  }
+  .row__index,
+  .row__kind,
+  .row__year {
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .row__main {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .row__title {
+    font-size: var(--step-3);
+    font-weight: 450;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    transition: transform 0.6s var(--ease-out);
+  }
+  .row__tagline {
+    max-width: 46rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+    transition: color 0.4s;
+  }
+  .row__link:hover .row__title {
+    transform: translateX(0.75rem);
+  }
+  .row__link:hover .row__tagline {
+    color: var(--fg-soft);
+  }
+  .row__arrow {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    transition:
+      background-color 0.4s var(--ease-out),
+      color 0.4s var(--ease-out),
+      transform 0.5s var(--ease-out);
+  }
+  .row__link:hover .row__arrow {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: var(--accent);
+    transform: rotate(45deg);
+  }
+  .row__media {
+    display: none;
+  }
+
+  .preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    width: 420px;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius);
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(0.85) rotate(var(--r, 0deg));
+    transition:
+      opacity 0.35s var(--ease-out),
+      transform 0.2s linear;
+    box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.6);
+  }
+  .preview.is-active {
+    opacity: 1;
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(1) rotate(var(--r, 0deg));
+  }
+  .preview__item {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.35s var(--ease-out);
+  }
+  .preview__item.is-current {
+    opacity: 1;
+  }
+  .preview__item :global(img),
+  .row__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  @media (hover: none), (max-width: 860px) {
+    .preview {
+      display: none;
+    }
+    .row__link {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        'media media'
+        'main arrow'
+        'kind year';
+      gap: 1rem;
+    }
+    .row__media {
+      grid-area: media;
+      display: block;
+      aspect-ratio: 16 / 10;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-elev);
+    }
+    .row__index {
+      display: none;
+    }
+    .row__main {
+      grid-area: main;
+    }
+    .row__arrow {
+      grid-area: arrow;
+      align-self: start;
+    }
+    .row__kind {
+      grid-area: kind;
+    }
+    .row__year {
+      grid-area: year;
+      text-align: right;
+    }
+    .row__link:hover .row__title {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import { damp } from '@/lib/math';
+
+  let frame = 0;
+  document.addEventListener('astro:page-load', () => {
+    cancelAnimationFrame(frame);
+    const stage = document.querySelector<HTMLElement>('[data-preview-stage]');
+    const list = document.querySelector<HTMLElement>('[data-work-list]');
+    if (!stage || !list || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const items = new Map([...stage.querySelectorAll<HTMLElement>('[data-preview-item]')].map((el) => [el.dataset.previewItem!, el]));
+    let tx = 0,
+      ty = 0,
+      x = 0,
+      y = 0,
+      last = performance.now(),
+      active = false;
+
+    const tick = (now: number) => {
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      const px = x;
+      x = damp(x, tx, 10, dt);
+      y = damp(y, ty, 10, dt);
+      const rotation = Math.max(-8, Math.min(8, (x - px) * 0.6));
+      stage.style.setProperty('--x', `${x}px`);
+      stage.style.setProperty('--y', `${y}px`);
+      stage.style.setProperty('--r', `${rotation}deg`);
+      if (active || Math.abs(x - tx) > 0.5) frame = requestAnimationFrame(tick);
+    };
+
+    list.addEventListener('pointermove', (e) => {
+      const link = (e.target as HTMLElement).closest<HTMLElement>('[data-preview]');
+      tx = e.clientX + 32;
+      ty = e.clientY - stage.offsetHeight / 2;
+      if (!active) {
+        x = tx;
+        y = ty;
+      }
+      if (link) {
+        const slug = link.dataset.preview!;
+        items.forEach((el, key) => el.classList.toggle('is-current', key === slug));
+        if (!active) {
+          active = true;
+          stage.classList.add('is-active');
+          last = performance.now();
+          frame = requestAnimationFrame(tick);
+        }
+      }
+    });
+    list.addEventListener('pointerleave', () => {
+      active = false;
+      stage.classList.remove('is-active');
+    });
+  });
+</script>

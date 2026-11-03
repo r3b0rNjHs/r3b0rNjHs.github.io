@@ -20,12 +20,14 @@ const links = [
 
 <header class="nav" data-nav>
   <div class="nav__inner container">
-    <a class="brand" href={localePath(lang)} aria-label={`${profile.shortName} — ${t('cmd.home')}`}>
+    <a class="brand" href={localePath(lang)}>
       <span class="brand__mark" aria-hidden="true">
         <svg viewBox="0 0 32 32" width="32" height="32">
           <circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-opacity=".35"></circle>
           <circle class="brand__orbit" cx="16" cy="1" r="2.2" fill="var(--accent)"></circle>
-          <text x="16" y="20.5" text-anchor="middle" font-size="11" font-family="var(--font-mono)" fill="currentColor">JH</text>
+          <text x="16" y="20.5" text-anchor="middle" font-size="11" font-family="var(--font-mono)" fill="currentColor">
+            JH
+          </text>
         </svg>
       </span>
       <span class="brand__name">
@@ -36,38 +38,46 @@ const links = [
 
     <nav class="nav__links" aria-label="Primary">
       <ul role="list">
-        {
-          links.map((link, i) => (
-            <li>
-              <a href={link.href} class="nav__link">
-                <span class="mono nav__index">0{i + 1}</span>
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
+        {links.map((link, i) => (
+          <li>
+            <a href={link.href} class="nav__link">
+              <span class="mono nav__index">0{i + 1}</span>
+              {link.label}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
 
     <div class="nav__actions">
-      <button class="nav__cmd mono" type="button" data-cmd-open aria-label={t('cmd.placeholder')}>
-        <kbd>⌘</kbd><kbd>K</kbd>
+      <button class="nav__cmd mono" type="button" data-cmd-open title={t('cmd.open')}>
+        <kbd>⌘</kbd>
+        <kbd>K</kbd>
+        <span class="visually-hidden">{t('cmd.open')}</span>
       </button>
-      <a class="nav__icon mono" href={localePath(otherLang, path)} hreflang={otherLang} lang={otherLang} title={t('lang.switch')} aria-label={t('lang.switch')}>
+      <a class="nav__icon mono" href={localePath(otherLang, path)} hreflang={otherLang} lang={otherLang} title={t('lang.switch')}>
         {t('lang.short')}
+        <span class="visually-hidden">— {t('lang.switch')}</span>
       </a>
       <button class="nav__icon" type="button" data-theme-toggle aria-label={t('theme.toggle')} title={t('theme.toggle')}>
-        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
-          ><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+          <path
             d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"
             stroke="currentColor"
             stroke-width="1.5"
-            stroke-linecap="round"></path></svg
-        >
-        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
-          ><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"
-          ></path></svg
-        >
+            stroke-linecap="round"
+          ></path>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path
+            d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
       </button>
       <button class="nav__burger" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
         <span class="visually-hidden">{t('nav.menu')}</span>
@@ -79,19 +89,21 @@ const links = [
   <div class="menu" id="mobile-menu" hidden>
     <nav class="container" aria-label="Mobile">
       <ul role="list">
-        {
-          links.map((link, i) => (
-            <li style={`--i:${i}`}>
-              <a href={link.href} data-menu-link>
-                <span class="mono">0{i + 1}</span>
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
+        {links.map((link, i) => (
+          <li style={`--i:${i}`}>
+            <a href={link.href} data-menu-link>
+              <span class="mono">0{i + 1}</span>
+              {link.label}
+            </a>
+          </li>
+        ))}
       </ul>
       <div class="menu__foot mono">
-        {profile.socials.map((s) => <a href={s.href} target="_blank" rel="noopener">{s.label} ↗</a>)}
+        {profile.socials.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener">
+            {s.label} ↗
+          </a>
+        ))}
       </div>
     </nav>
   </div>

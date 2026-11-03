@@ -1,0 +1,52 @@
+---
+import ArticleList from './ArticleList.astro';
+import { getArticles } from '@/data/writing';
+import { localePath, useTranslations, type Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const latest = (await getArticles(lang)).slice(0, 3);
+---
+
+{latest.length > 0 && (
+  <section class="section writing" id="writing" aria-labelledby="writing-title">
+    <div class="container">
+      <header class="writing__head">
+        <div>
+          <span class="kicker" data-reveal>
+            {t('writing.kicker')}
+          </span>
+          <h2 id="writing-title" class="section-title" data-reveal>
+            {t('writing.title')}
+          </h2>
+        </div>
+        <a class="btn btn--ghost" href={localePath(lang, '/writing/')} data-reveal>
+          {t('writing.all')}
+          <span class="arrow" aria-hidden="true">
+            →
+          </span>
+        </a>
+      </header>
+      <ArticleList lang={lang} articles={latest} />
+    </div>
+  </section>
+)}
+
+<style>
+  .writing__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (max-width: 720px) {
+    .writing__head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

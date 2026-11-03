@@ -4,6 +4,7 @@ import { profile } from '@/data/profile';
 import { projects } from '@/data/projects';
 import type { Command } from '@/scripts/command-palette';
 import { cvPdfPath } from '@/lib/cv';
+import { getArticles } from '@/data/writing';
 
 interface Props {
   lang: Lang;
@@ -30,6 +31,20 @@ const commands: Command[] = [
     hint: '#contact',
     action: { type: 'go', href: localePath(lang, '/#contact') },
   },
+  {
+    id: 'writing',
+    group: t('cmd.group.nav'),
+    label: t('nav.writing'),
+    hint: '/writing',
+    action: { type: 'go', href: localePath(lang, '/writing/') },
+  },
+  ...(await getArticles(lang)).map<Command>((a) => ({
+    id: `article-${a.slug}`,
+    group: t('writing.kicker'),
+    label: a.title,
+    hint: `${a.minutes} ${t('writing.minutes')}`,
+    action: { type: 'go', href: localePath(lang, `/writing/${a.slug}/`) },
+  })),
   ...projects.map<Command>((p) => ({
     id: `project-${p.slug}`,
     group: t('work.kicker'),

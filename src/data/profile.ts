@@ -14,12 +14,12 @@ export const profile = {
   ],
   bio: {
     en: [
-      'I’m a software architect and engineering leader based in the Canary Islands. Over the last 7+ years I’ve designed and run cloud platforms on AWS, Kubernetes and Terraform, and gone from junior developer to CTO along the way.',
+      'I’m a full stack software architect and engineering leader based in the Canary Islands. Over the last 7+ years I’ve built and run products across the whole stack, from React frontends and Node.js backends to cloud platforms on AWS, Kubernetes and Terraform, and gone from junior developer to CTO along the way.',
       'I founded an AI-driven adtech startup and led engineering teams for investment fund platforms. Today I build AI products myself, from the cloud infrastructure and architecture to the agents, MCP integrations and pipelines that let a small team ship a lot.',
       'My foundation is Clean Architecture, DDD and TDD. Over the last two years most of my work has been about using AI in day-to-day engineering: coding with agents, building MCP integrations and shipping LLM features to real users.',
     ],
     es: [
-      'Soy arquitecto de software y líder técnico desde Canarias. En más de 7 años he diseñado y operado plataformas cloud en AWS, Kubernetes y Terraform, y por el camino he pasado de developer junior a CTO.',
+      'Soy arquitecto de software full stack y líder técnico desde Canarias. En más de 7 años he construido y operado productos en todo el stack, desde frontends en React y backends en Node.js hasta plataformas cloud en AWS, Kubernetes y Terraform, y por el camino he pasado de developer junior a CTO.',
       'Fundé una startup de adtech basada en IA y lideré equipos de ingeniería para plataformas de fondos de inversión. Hoy construyo productos de IA yo mismo, desde la infraestructura cloud y la arquitectura hasta los agentes, las integraciones MCP y los pipelines que permiten a un equipo pequeño sacar mucho trabajo adelante.',
       'Mi base es Clean Architecture, DDD y TDD. En los últimos dos años casi todo mi trabajo ha girado en torno a usar la IA en la ingeniería del día a día: programar con agentes, construir integraciones MCP y llevar funcionalidades con LLMs a usuarios reales.',
     ],
@@ -94,10 +94,10 @@ export const experience: Role[] = [
     start: 2018,
     end: 2023,
     summary: {
-      en: 'Grew from junior developer to CTO in under five years. Set the technical vision and architecture for investment fund platforms and internal products, including Adgoclick, an SEO performance tool for SMEs. Built and mentored the development team.',
-      es: 'Pasé de developer junior a CTO en menos de cinco años. Definí la visión técnica y la arquitectura de plataformas de fondos de inversión y productos internos, entre ellos Adgoclick, una herramienta de rendimiento SEO para pymes. Formé y mentoricé al equipo de desarrollo.',
+      en: 'Grew from junior developer to CTO in under five years. Set the technical vision and architecture for investment fund platforms and internal products, including Adgoclick, an SEO performance tool for SMEs. Stayed hands-on across the full stack, from React frontends to backend services and infrastructure, while building and mentoring the development team.',
+      es: 'Pasé de developer junior a CTO en menos de cinco años. Definí la visión técnica y la arquitectura de plataformas de fondos de inversión y productos internos, entre ellos Adgoclick, una herramienta de rendimiento SEO para pymes. Seguí programando en todo el stack, desde frontends en React hasta servicios backend e infraestructura, mientras formaba y mentorizaba al equipo de desarrollo.',
     },
-    tags: ['Leadership', 'Architecture', 'AWS', 'Java', 'Python'],
+    tags: ['Leadership', 'Architecture', 'React', 'AWS', 'Java', 'Python'],
   },
   {
     company: 'Lean Mind',
@@ -164,8 +164,8 @@ export const stack: { group: L; items: string[] }[] = [
     items: ['AWS', 'Google Cloud', 'Kubernetes', 'Terraform', 'Terragrunt', 'Docker', 'CI/CD'],
   },
   {
-    group: { en: 'Languages & data', es: 'Lenguajes y datos' },
-    items: ['TypeScript', 'Python', 'Java', 'React', 'PostgreSQL', 'OpenSearch'],
+    group: { en: 'Full stack', es: 'Full stack' },
+    items: ['TypeScript', 'Node.js', 'Express', 'React', 'REST APIs', 'Python', 'Java', 'PostgreSQL', 'OpenSearch'],
   },
   { group: { en: 'Reliability', es: 'Fiabilidad' }, items: ['Prometheus', 'Grafana', 'CloudWatch', 'SRE'] },
   { group: { en: 'Craft', es: 'Oficio' }, items: ['Clean Architecture', 'DDD', 'TDD', 'Mentoring', 'Tech leadership'] },

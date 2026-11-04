@@ -1,54 +1,52 @@
 ---
 title: The cheapest habit that makes coding agents useful
-description: Architecture decision records are a 2011 idea that became more valuable with AI. Why agents need the "why" of your code, and how to write ADRs that help.
+description: Architecture decision records are a 2011 idea that became more valuable with AI. Why agents need the "why" of your code, and how I write ADRs that help.
 date: 2026-11-05
 draft: true
 tags: [Architecture, Claude Code, Workflow]
 ---
 
-If you look at the repositories I've worked on this year, you'll find the same folder in almost all of them: `docs/adr`. Nine records in the Roblox game, eight in the bank statement API, five in this portfolio. It's the habit I'd recommend first to any team that starts working with coding agents, and it costs almost nothing.
+Most of the repositories I worked on this year have a folder of architecture decision records. Nine in the Roblox game, eight in the bank statement API I'm building (in `docs/decisions`), seven in a backend exercise and five in this portfolio. If a team asked me for one habit to adopt before working with coding agents, it would be this one.
 
 ## What an ADR is
 
-An architecture decision record is a short document that captures one decision: what you decided, why, and what it costs you. The idea comes from Michael Nygard, who proposed it in a blog post in November 2011. His format is still the one most people use.
+An architecture decision record is a short document about one decision: what you decided, why, and what it costs you. The lightweight format most teams use comes from Michael Nygard, who described it in a blog post in November 2011. His sections are:
 
-- **Title**, with a number. "ADR 3. Server owns all game state."
-- **Status**. Proposed, accepted, replaced by another one.
+- **Title**, with a number. "ADR 2. Server-authoritative game state."
 - **Context**. The situation and the forces at play.
-- **Decision**. What we're doing, in one or two sentences.
+- **Decision**. What we're doing.
+- **Status**. Proposed, accepted, or superseded by a later one.
 - **Consequences**. What gets easier, what gets harder, what we're accepting.
 
-They live in the repository, next to the code they describe, as plain Markdown files. That detail turned out to matter a lot.
+They live in the repository, next to the code they describe, as plain Markdown. That detail turned out to matter more than I expected.
 
 ## Why agents need them
 
-A coding agent can read your entire codebase in seconds. What it can't read is the reasoning behind it. Code tells you what the system does. It almost never tells you why it does it that way, or which alternatives somebody already tried and dropped.
+A coding agent can read a whole codebase in seconds. What it can't read is the reasoning behind it. Code tells you what the system does. It rarely tells you why it does it that way, or which alternatives were already tried and dropped.
 
-Without that, an agent does what a smart new hire would do. It sees something that looks odd and "fixes" it. It sees a pattern and assumes it's an accident. It suggests the obvious solution that you rejected six months ago for a good reason nobody wrote down.
+Without that, an agent behaves like a smart new hire on their first day. Something looks odd, so it tidies it up. A constraint looks accidental, so it removes it. It suggests the obvious solution that was rejected months ago for a reason nobody wrote down.
 
-With ADRs in the repo, the reasoning is right there. In the game, our first ADR split the code into a reusable core and a game layer. The second made the server the owner of all state, to prevent cheating. If an agent proposes letting the client update a player's coins directly, because it's simpler, the answer is one line: read ADR 2. No debate, and no explaining the same thing again in every session.
+In the game, ADR 2 makes the server the owner of all game state, so a modified client can't give itself coins or items. It's the kind of rule that looks like overhead when you only see the code, because letting the client update a value directly is always simpler. With the record in the repository, the reasoning is one file away, and I don't have to explain it again at the start of every session.
 
-I also reference the ADR folder from the project's `CLAUDE.md`, the file Claude Code reads first. That way the agent knows where the decisions are before it starts touching anything.
+The project's `CLAUDE.md`, the file Claude Code reads first, points to the ADR folder, and some of the per-folder rules for server code mention specific records by number. So the agent finds the decisions before it changes anything, not after.
 
-## Writing ADRs that actually help
+## How I write them
 
-After a year of writing them with and for agents, a few things make the difference.
+A few things make the difference, after a year of writing them for people and agents.
 
-**Keep them short.** One page at most. If it needs more, it's probably two decisions.
+**Short is relative.** Nygard aimed for a page or two. Mine are often longer, the longest one in the game is about 1,200 words, because a hard decision has a lot of context. What I keep strict is that each record covers one decision.
 
-**Write the consequences honestly.** The bad ones too. "This makes local development slower" is exactly the kind of sentence that stops someone from undoing the decision without thinking.
+**Write the consequences honestly.** The bad ones too. "This makes local testing slower" is exactly the sentence that stops someone, or something, from undoing the decision without thinking.
 
-**One decision per record.** It's tempting to write "the architecture document". Don't. Small records are easier to find, to link and to replace.
+**Supersede instead of rewriting.** When a decision changes, write a new record and mark the old one as superseded, so the history of why you changed your mind survives. I'll admit I don't always do it. When we moved player data to ProfileStore, I marked ADR 5 as superseded and added the update as a section inside the same file instead of writing ADR 10. It works, because the reasoning is still there, but it's harder to find than a new record would be.
 
-**Replace, don't edit.** When a decision changes, write a new ADR that supersedes the old one and mark the old one as replaced. The history of why you changed your mind is useful too.
-
-**Write them when you decide, not later.** Later never comes. The best moment is the same pull request that introduces the change, and an agent can draft the first version for you from the discussion.
+**Write them in the same pull request as the change.** Later never comes. An agent can draft the first version from the discussion, and I edit it, because the reasoning has to be mine.
 
 ## Beyond agents
 
-Everything I just said was true before AI. ADRs help new people join a team, help you remember why you did something a year ago and make architecture reviews faster. Agents just made the cost of not having them visible very quickly, because an agent asks "why" a hundred times a day without saying it.
+None of this is new. ADRs helped people join teams and helped teams remember their reasons long before AI. Agents just made the cost of not having them visible very quickly, because an agent effectively asks "why is it like this" every time it opens a file, without saying so.
 
-It's the cheapest habit I know with this kind of return. A folder, a template and five minutes per decision.
+A folder, a template and the discipline to write one each time a decision is hard to reverse. I don't know a cheaper habit with this kind of return.
 
 ## Sources
 

@@ -1,61 +1,55 @@
 ---
 title: Hacia dónde nos lleva la IA y cómo usarla en una empresa de producto digital
-description: Casi todas las empresas usan IA y pocas ven resultados. Qué separa a unas de otras, y un mapa práctico de dónde compensa hoy en un equipo de producto.
+description: Lo que un estudio de dos personas le dejó a la IA este año, lo que hizo falta para que funcionara y una lista para empresas de producto que quieren resultados y no demos.
 date: 2026-11-05
 draft: true
 tags: [IA, Producto, Estrategia]
 ---
 
-Hay dos cifras a las que vuelvo siempre que me preguntan por la IA en una empresa.
+Este año cofundé un estudio de videojuegos pequeño. Dos personas construimos y lanzamos un juego de Roblox, Pet Defense, cuyas campañas previas al lanzamiento llegaron a 32.000 jugadores. Un equipo de ese tamaño no puede contratar soporte, comunidad, QA ni marketing, así que dejamos en manos de la IA todo lo que pudimos. Parte funcionó muy bien. Otra parte necesitó mucha más estructura de la que esperaba.
 
-La primera es del informe State of AI de McKinsey, publicado en noviembre de 2025: el 88% de las organizaciones ya usa IA en al menos un área de negocio, diez puntos más que el año anterior. La segunda es del mismo informe: solo el 39% puede señalar algún efecto en sus beneficios, y en la mayoría de los casos es inferior al 5%.
+Esa experiencia marca lo que respondo cuando una empresa de producto me pregunta por dónde empezar con la IA. Este es el mapa, con lo que hizo funcionar cada pieza.
 
-Casi todo el mundo la usa. Muy pocos le sacan mucho partido. Así que la pregunta interesante es qué hacen distinto las empresas de ese grupo pequeño.
+## Lo que le dejamos a la IA
 
-## La trampa del piloto
+**Escribir código, con reglas.** Claude Code trabajaba en el juego a diario, pero nunca sin estructura. El repositorio tiene reglas que se cargan por carpeta, así que el código de servidor siempre sigue las normas anti-trampas. Hay comandos propios para empezar y cerrar cada sesión siempre igual, un hook que bloquea cualquier push mientras el modo debug está activo y una revisión con IA en cada pull request antes de que la mire uno de nosotros. Sin eso, un agente en un código de 138.000 líneas habría sido rápido y peligroso.
 
-Un informe del MIT de mediados de 2025 lo dijo de forma más directa. Según sus datos, alrededor del 95% de los pilotos de IA generativa que analizó no producían un retorno medible. La muestra era pequeña y la cifra se citó mucho más allá de lo que puede sostener, pero la explicación de los autores me parece acertada. El problema normalmente no era el modelo. Era cómo intentaban usarlo las empresas.
+**Responder a los jugadores.** Un asistente en Discord responde preguntas con conocimiento generado a partir de los propios ficheros de configuración del juego, así que siempre está al día de lo que hay publicado y no puede desvelar contenido que aún no ha salido. Dos niveles de modelo lo mantienen barato: uno pequeño y rápido para las preguntas habituales y Claude Sonnet para las difíciles. Cada llamada se registra con tokens, coste y latencia.
 
-He visto el patrón. Alguien consigue acceso a un chatbot, monta una demo que impresiona a todo el mundo en una reunión y después no cambia nada. La demo no está conectada a un flujo de trabajo real, nadie se hace responsable y no hay forma de saber si sus respuestas son correctas. Seis meses después es una diapositiva en una presentación.
+**Moderación, sin IA.** Los enlaces de estafa y los patrones tóxicos de siempre se detectan con expresiones regulares, sin coste de API. Merece la pena decirlo, porque a veces la mejor decisión sobre IA es no usarla.
 
-La investigación DORA de Google encontró algo parecido en equipos de software. La IA amplifica lo que ya existe. Los equipos con una arquitectura clara y feedback rápido van más rápido. Los que tienen sistemas desordenados se desordenan más. La IA no arregla tu forma de trabajar. La hace más visible.
+**Triaje y arreglos.** Los tickets de soporte se clasifican y se convierten en issues de GitHub. Claude investiga cada issue y deja sus conclusiones en un comentario, sin tocar el código. Si estamos de acuerdo, al añadir una etiqueta un agente crea una rama, escribe el arreglo y abre una pull request, que revisa una persona como cualquier otra.
 
-## Dónde compensa en una empresa de producto
+**Borradores de contenido.** Cada merge en main genera borradores de publicaciones sobre lo que ha cambiado. Una persona los edita antes de que salga nada.
 
-Estos son los sitios donde he visto que la IA se gana el sueldo en equipos de producto pequeños, la mayoría en proyectos que he construido yo.
+## Qué hizo que funcionara
 
-**Dentro de ingeniería.** Los agentes de código son la ganancia más evidente, pero solo con una estructura alrededor. En el juego de Roblox que construí con otra persona, Claude Code trabajaba a diario con reglas del proyecto, comandos propios, hooks que bloquean pushes peligrosos y revisiones con IA en cada pull request. Sin esas protecciones habría sido un caos muy rápido.
+Mirando atrás, las piezas que funcionaron tenían tres cosas en común. Estaban pegadas a trabajo que ya hacíamos muchas veces por semana. Cada una tenía una forma de comprobar el resultado: una batería de tests, una revisión humana, una etiqueta que alguien tenía que añadir. Y cada una tenía un responsable claro, algo fácil en un equipo de dos pero que en una empresa más grande es lo primero que se pierde.
 
-**Soporte y comunidad.** Un asistente en Discord que responde a los jugadores con conocimiento generado a partir de los propios ficheros de configuración del juego. Dos niveles de modelo lo mantienen barato: uno pequeño para las preguntas habituales y otro más potente para las difíciles. La moderación la hacen expresiones regulares, gratis. Un estudio de dos personas no puede dedicar a nadie al soporte, y esto cubrió la mayor parte.
-
-**Operaciones.** Tickets de soporte clasificados por IA y convertidos en issues de GitHub, investigados por un agente que deja sus conclusiones en un comentario y, si estamos de acuerdo, abre una pull request con el arreglo. Una persona sigue revisando cada cambio.
-
-**Funcionalidades con comprobación.** Una API que lee extractos bancarios con un LLM y verifica cada resultado con aritmética normal. Esta es la parte en la que más insistiría. Las funcionalidades con IA funcionan cuando tienes una forma barata y fiable de saber si la respuesta es correcta.
-
-**Contenido.** Borradores para redes sociales generados a partir de lo que de verdad se ha publicado esa semana. Alguien los sigue editando, pero nadie empieza con la página en blanco.
+Coincide con lo que muestran los estudios grandes. El informe State of AI de McKinsey de noviembre de 2025 dice que el 88% de las organizaciones usa IA en al menos un área, pero solo el 39% nota algún efecto en los beneficios a nivel de empresa, y en la mayoría es inferior al 5%. Un informe del MIT muy citado, de mediados de 2025, afirmaba que el 95% de los pilotos de IA generativa no tenía un retorno medible. Su método era endeble y el titular fue mucho más allá de los datos, pero su diagnóstico me parece acertado: el problema rara vez era el modelo y casi siempre la forma de ponerlo a trabajar. La investigación DORA de Google describe la IA como un amplificador de lo que ya es un equipo, y es exactamente lo que vi. Nuestra arquitectura clara hizo útiles a los agentes. Una desordenada los habría convertido en un riesgo.
 
 ## Una lista antes de empezar
 
-Si tuviera que ayudar a una empresa de producto a elegir su primer proyecto serio de IA, buscaría algo que cumpla todo esto.
+Si tuviera que ayudar a una empresa de producto a elegir su primer proyecto serio de IA, buscaría uno que cumpla estas cinco cosas.
 
-1. **Un flujo de trabajo real y con volumen.** Algo que la gente ya hace muchas veces por semana, no una idea nueva que además de IA necesite que alguien la adopte.
-2. **Un resultado que se pueda comprobar.** Un test, un total que tiene que cuadrar, un paso de aprobación humana. Si no puedes medir si está bien, no puedes mejorarlo.
-3. **Una persona responsable.** Alguien que responda de que funcione dentro de seis meses, no un comité.
-4. **Un coste por tarea.** Registra tokens, coste y latencia desde el primer día. Es la única forma de elegir modelos con criterio y de saber cuándo el barato es suficiente.
-5. **Una persona en el circuito donde los errores salen caros.** Los borradores, las sugerencias y las pull requests son un buen sitio para empezar, porque alguien decide antes de que nada llegue a un cliente.
+1. **Un flujo de trabajo con volumen.** Algo que la gente ya hace muchas veces por semana. Una idea nueva necesita que alguien la adopte además de la IA, y eso son dos problemas a la vez.
+2. **Un resultado que se pueda comprobar.** Un test, un total que tiene que cuadrar, un paso de aprobación. Si no sabes si está bien, no puedes mejorarlo.
+3. **Un responsable.** Una persona que responda de ello dentro de seis meses, no un comité.
+4. **Un coste por tarea.** Registra tokens, coste y latencia desde el primer día. Es lo que te permite elegir modelos con datos. En uno de mis proyectos, medir mostró que el modelo más caro no mejoraba nada a casi el doble de precio, así que no lo usamos.
+5. **Una persona antes de cualquier cosa cara.** Los borradores, las sugerencias y las pull requests son buenos primeros objetivos, porque alguien decide antes de que un cliente vea nada.
 
-## Hacia dónde nos lleva
+## Hacia dónde va esto
 
-No sé dónde acaba esto, y desconfío de quien dice saberlo. Pero hay algunas cosas que ya me parecen claras.
+Desconfío de las predicciones, así que me quedo con lo que ya he visto pasar.
 
-Los agentes asumirán cadenas de trabajo cada vez más largas. El mismo informe de McKinsey dice que el 62% de las organizaciones al menos está experimentando con ellos y que el 23% ya los está escalando en alguna parte. Estándares abiertos como MCP hacen más fácil conectarlos con tus propias herramientas y datos.
+Los agentes están asumiendo cadenas de trabajo más largas. Nuestro flujo de tickets va desde el mensaje de un jugador hasta una pull request revisada con solo dos decisiones humanas por medio. Hace un año no me habría fiado de algo así. Los datos de McKinsey dicen que el 62% de las organizaciones al menos está experimentando con agentes y que el 23% ya los está escalando en alguna parte.
 
-Los equipos pequeños seguirán haciendo lo que antes necesitaba equipos grandes. Lo he vivido con un juego hecho por dos personas. Cambia lo que una startup necesita contratar y lo que una empresa más grande debería esperar de cada equipo.
+Las conexiones se están estandarizando. Protocolos como MCP hacen que una integración que construyes para un asistente funcione con otros, y eso abarata mucho darles a los agentes acceso a tus propias herramientas.
 
-Y el cuello de botella cambia de sitio. Cuando construir sale barato, lo escaso pasa a ser el criterio, el gusto, conocer a tu cliente y saber qué problemas merece la pena resolver. Es una buena noticia para las empresas de producto que ya cuidan esas cosas, y una mala para las que esperan que la IA piense por ellas.
+Y el cuello de botella está cambiando de sitio. En nuestro estudio, escribir el código rara vez era lo que nos frenaba. Lo que nos frenaba era decidir qué necesitaba el juego y probar esas decisiones con jugadores reales. Espero que más empresas de producto descubran lo mismo: cuando construir sale barato, la ventaja es para los equipos que saben qué merece la pena construir.
 
 ## Fuentes
 
 - [McKinsey: The state of AI in 2025: Agents, innovation, and transformation](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai)
 - [Fortune: el informe del MIT según el cual el 95% de los pilotos de IA generativa fracasan](https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/)
-- [Google: cómo usan la IA los desarrolladores, informe DORA 2025](https://blog.google/technology/developers/dora-report-2025/)
+- [Google Cloud: presentación del informe DORA 2025](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report)

@@ -1,53 +1,49 @@
 ---
 title: Qué significa ser ingeniero de software en 2026
-description: Casi todos los desarrolladores usan IA y la mayoría no se fía de ella. Qué queda del oficio cuando escribir código deja de ser la parte difícil.
+description: Escribir código se ha abaratado. Saber que está bien, no. Lo que creo que es hoy este trabajo, después de construir con agentes a diario.
 date: 2026-11-05
 draft: true
 tags: [Ingeniería, IA, Carrera]
 ---
 
-Cuando empecé en Lean Mind en 2018, ser un buen ingeniero era algo bastante concreto. Conocías bien tu lenguaje, escribías código limpio, lo testeabas y sabías explicarle tu diseño a otra persona. Escribir el código era una parte grande del trabajo, así que ser rápido y preciso importaba.
+Este año hice una evaluación para una API que estoy construyendo y que lee extractos bancarios con un modelo de lenguaje. Comparé tres modelos de Claude con los mismos documentos. El más barato devolvía un JSON limpio y bien estructurado para cada extracto, y parecía perfecto. Sin embargo, en dos de los seis extractos que el modelo más potente resolvía bien, los movimientos del barato sencillamente no cuadraban.
 
-Ocho años después, casi todo el código que publico pasa antes por un agente. Y no soy un caso raro. En la encuesta de Stack Overflow de 2025, el 84% de los desarrolladores decía usar o tener pensado usar herramientas de IA, y alrededor de la mitad de los profesionales las usa a diario. El informe DORA de Google del mismo año sitúa el uso de IA en el trabajo en torno al 90%.
+Nada en la respuesta parecía incorrecto. Las fechas eran válidas, los importes eran razonables y el formato era justo el que había pedido. Si me di cuenta fue por unas pocas líneas de aritmética que comprueban que el saldo inicial más todos los movimientos da el saldo final.
 
-Así que la pregunta es razonable: si un modelo puede escribir el código, ¿para qué sirve exactamente un ingeniero?
+Eso cambió cómo describo mi trabajo. Escribir código, o conseguir que un modelo lo escriba, ahora es barato. Lo caro es saber que el resultado está bien, y creo que ahí es donde un ingeniero se gana el sueldo en 2026.
 
-## Todo el mundo la usa y casi nadie se fía
+## Los datos apuntan en la misma dirección
 
-Las mismas encuestas que enseñan la adopción enseñan algo menos cómodo. En los datos de Stack Overflow, hay más desarrolladores que desconfían de la precisión de la IA (46%) que los que confían en ella (33%), y solo un 3% confía mucho. La frustración más habitual, elegida por el 66%, son las respuestas que están casi bien, pero no del todo.
+No soy el único que lo nota. En la encuesta de Stack Overflow de 2025, el 84% de los desarrolladores decía usar o tener pensado usar herramientas de IA, y alrededor de la mitad de los profesionales las usa a diario. En la misma encuesta hay más gente que desconfía de su precisión (46%) que gente que confía en ella (33%). La queja más habitual, elegida por dos de cada tres, son las respuestas que están casi bien, pero no del todo.
 
-Ese "casi bien" es toda la historia. El código que está claramente roto sale barato, porque falla enseguida. El código que parece correcto y tiene un fallo sutil sale caro, porque falla más tarde, en producción y delante de alguien.
-
-También hay una diferencia entre lo rápidos que nos sentimos y lo rápidos que somos. En julio de 2025, METR hizo un ensayo aleatorizado con 16 desarrolladores open source con experiencia, trabajando en sus propios repositorios. Cuando podían usar IA, tardaron un 19% más en terminar sus tareas. Antes de empezar esperaban ir un 24% más rápido, y al terminar seguían creyendo que habían ido un 20% más rápido. Es un estudio pequeño, con límites claros, y las herramientas han mejorado desde entonces, pero lo que más se me quedó fue esa diferencia de percepción. Si no somos capaces de notarla, necesitamos algo más que nuestra sensación para medirla.
+Nuestra sensación de velocidad tampoco es buena guía. En 2025, METR hizo un estudio aleatorizado con 16 desarrolladores open source con experiencia. Cuando podían usar IA tardaban un 19% más en sus tareas y, al terminar, creían haber ido un 20% más rápido. METR ha marcado después esos resultados como desactualizados y cree que con las herramientas actuales los desarrolladores probablemente van más rápido, algo que coincide con mi experiencia. Lo que se me quedó es lo lejos que pueden estar la sensación de ir rápido y la velocidad real. Hace falta algo distinto de la sensación para medirla.
 
 ## En qué consiste ahora el trabajo
 
-Tal como lo veo, el trabajo ha pasado de producir código a responder de lo que hace ese código. Siempre fueron el mismo trabajo, pero escribir ocupaba tanto tiempo que tapaba el resto. Ahora el resto es casi todo el día.
+Yo lo diría así: el trabajo ha pasado de producir código a responder de lo que hace ese código. Siempre fueron las dos cosas. Lo que pasa es que escribir ocupaba tanto tiempo que tapaba la segunda mitad.
 
-En la práctica eso significa varias cosas.
+En mi trabajo, esa segunda mitad tiene cuatro partes.
 
-**Plantear bien el problema.** Un agente resuelve encantado el problema que le describes. Si describes el equivocado, obtienes una respuesta rápida y bien escrita a la pregunta equivocada. Saber qué construir, qué dejar fuera y qué significa "terminado" vale más que nunca, porque construir lo equivocado se ha abaratado y por eso lo hacemos más.
+**Decidir qué construir.** Un agente resuelve el problema que le describes, rápido y con seguridad. Si describes el problema equivocado, obtienes una respuesta pulida a la pregunta equivocada. Construir se ha abaratado, así que casi todo el coste de construir lo que no toca está ahora en la decisión.
 
-**Verificar.** Tests, evaluaciones, conciliaciones, una revisión humana. Cuando construí una API que lee extractos bancarios con un LLM, la pieza de código más importante no fue la extracción. Fue la aritmética aburrida que comprueba que las cifras cuadran, porque es lo que permite que alguien se fíe del resultado. Cualquier sistema que use IA necesita su propia versión de esa comprobación.
+**Hacerlo comprobable.** En la API de extractos es la conciliación. En otros sistemas son tests, evaluaciones o una persona que aprueba el cambio. Mi regla es que cualquier cosa que produzca una IA necesita una comprobación que no dependa de la IA.
 
-**Diseñar el sistema.** La conclusión principal de DORA en 2025 fue que la IA amplifica lo que ya es un equipo. Los equipos con arquitecturas poco acopladas y ciclos de feedback rápidos son los que más partido le sacan. Los que tienen sistemas enredados y procesos lentos apenas notan beneficio, o ganan inestabilidad. La arquitectura ya no es algo para más adelante. Es lo que decide si la IA ayuda o perjudica.
+**Diseñar para que los cambios sean seguros.** En Pet Defense, el juego de Roblox que construí con otra persona, el servidor es el dueño de todo el estado del juego y el contenido vive en ficheros de configuración. Lo decidimos para evitar trampas. Además sirvió para que los cambios de los agentes no se extendieran, porque un error en una funcionalidad no podía corromper en silencio los datos de un jugador desde el cliente. El informe DORA de Google de 2025 vio lo mismo en muchos equipos: los sistemas poco acoplados y con feedback rápido sacan beneficios reales de la IA, y los muy acoplados y con procesos lentos sacan poco o nada.
 
-**Leer más de lo que escribes.** Hoy leo mucho más código que cuando era junior, y casi todo no lo he escrito yo. Saber leer un diff rápido y ver qué falla en él es ya una habilidad básica, no un extra de senior.
+**Mantenerlo en marcha.** Un año como SRE me enseñó que publicar es donde empieza el trabajo. Los agentes hacen que publicar sea más rápido, así que la parte del trabajo que consiste en operar, observar y pagar lo que has publicado no para de crecer.
 
-**Mantenerlo en marcha.** Publicar es más fácil que nunca. Mantener algo vivo, observable y barato de operar no lo es. Todo lo que aprendí como SRE importa más ahora, no menos.
+## Si estás empezando
 
-## Lo que le digo a quien empieza
+Aprende a programar bien. No escribirás la mayor parte del código, pero serás quien diga si está bien, y eso no se puede hacer con algo que no entiendes. Aprende cómo viaja una petición por un sistema, cómo guarda los datos una base de datos y cómo escribir un test que falle por el motivo correcto.
 
-Me preguntan si sigue teniendo sentido aprender a programar. Creo que tiene más sentido que nunca, pero el motivo ha cambiado. Se aprende para saber cuándo el modelo se equivoca y para diseñar cosas fáciles de comprobar.
+Usa agentes desde el primer día, con una regla: antes de aceptar un cambio, explícatelo a ti mismo. Si no puedes, sigue tirando del hilo hasta que puedas.
 
-Así que aprende bien los fundamentos. Estructuras de datos, cómo viaja una petición por un sistema, cómo guarda de verdad las cosas una base de datos, cómo escribir un test que falle por el motivo correcto. Usa los agentes desde el primer día, pero oblígate a explicar cada cambio que hagan antes de aceptarlo. Si no sabes explicarlo, todavía no es tuyo.
+## Entonces, ¿a qué me dedico?
 
-## Mismo nombre, otro trabajo
-
-Lo seguimos llamando ingeniería de software, y creo que el nombre encaja mejor ahora que antes. La ingeniería nunca consistió en poner ladrillos. Consiste en decidir qué construir, asegurarse de que aguanta y responder cuando no aguanta. La IA nos ha quitado buena parte de los ladrillos. El resto sigue siendo cosa nuestra.
+Cuando alguien me pregunta a qué me dedico ahora, mi respuesta sincera es que decido qué debe existir, me aseguro de que haya una forma de saber que funciona y respondo cuando no funciona. Buena parte del código que hay entre medias lo escribo con un agente.
 
 ## Fuentes
 
 - [Encuesta de Stack Overflow 2025, sección de IA](https://survey.stackoverflow.co/2025/ai)
-- [METR: impacto de la IA de principios de 2025 en la productividad de desarrolladores open source con experiencia](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
-- [Google: cómo usan la IA los desarrolladores, informe DORA 2025](https://blog.google/technology/developers/dora-report-2025/)
+- [METR: impacto de la IA de principios de 2025 en desarrolladores open source con experiencia](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/), y [la actualización de METR de febrero de 2026](https://metr.org/blog/2026-02-24-uplift-update/)
+- [Google Cloud: presentación del informe DORA 2025](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report)

@@ -1,64 +1,70 @@
 ---
 title: MCP, explained for people who build products
-description: What the Model Context Protocol is, why every major AI company adopted it in a year, and how to start using it without opening a security hole.
+description: What the Model Context Protocol is, why it spread so fast, where I'd use it first in a product company, and what to lock down before you do.
 date: 2026-11-05
 draft: true
 tags: [MCP, AI agents, Product]
 ---
 
-A big part of my work at Trenddi was getting MCP integrations into the way the engineering team worked. Since then, I get asked the same question by people on the product side: what is MCP, really, and should we care?
+At Trenddi part of my job was bringing MCP integrations into the way the engineering team worked. Since then, people on the product side keep asking me the same thing: what is MCP, really, and should we care?
 
-The short answer is yes. Here's the slightly longer one.
+My answer is yes, with a few conditions. Here's why, and what the conditions are.
 
 ## The problem it solves
 
-A language model on its own only knows what was in its training data and what you put in the prompt. To be useful inside a company it needs to reach things: the ticket tracker, the database, the docs, the deploy pipeline, the CRM.
+A language model on its own only knows what was in its training data and what you put in the prompt. To be useful inside a company it has to reach things: the ticket tracker, the database, the docs, the CI status.
 
-Before MCP, every AI product connected to every tool in its own way. If you wanted your internal docs available in three different assistants, you built three different integrations. If a new assistant came out, you started again.
+Until recently there was no shared way to do that. Each AI product connected to each tool in its own way. If you wanted your internal docs in three assistants, you built three integrations, and when a new assistant came along you started again.
 
 ## What MCP is
 
 The Model Context Protocol is an open standard for connecting AI applications to tools and data. Anthropic published it in November 2024.
 
-There are two sides. An **MCP server** exposes something: a set of tools the model can call (search tickets, run a query, create a draft), resources it can read (files, records) and reusable prompts. An **MCP client** is the AI application that connects to those servers, like a chat assistant, an IDE or a coding agent.
+There are two sides. An **MCP server** exposes something: tools the model can call (search tickets, run a query, create a draft), resources it can read (files, records) and reusable prompts. An **MCP client** is the AI application that connects to those servers, like a chat assistant, an IDE or a coding agent.
 
-You write the server once. Any client that speaks MCP can use it.
+You write the server once, and any client that speaks MCP can use it.
 
-## Why it took over so fast
+## Why it spread so fast
 
-What surprised me was how quickly the rest of the industry adopted it. In March 2025, OpenAI announced MCP support, starting with its Agents SDK and then its desktop app and API. Google, Microsoft and others followed. In December 2025, Anthropic donated MCP to the new Agentic AI Foundation under the Linux Foundation, co-founded with OpenAI and Block, so no single company controls it anymore.
+In March 2025 OpenAI announced MCP support, starting with its Agents SDK. Most of the main AI vendors and developer tools support it now. In December 2025 Anthropic donated the protocol to the Agentic AI Foundation, under the Linux Foundation, so it no longer belongs to one company.
 
-For a product team, that matters more than any technical detail. It means an integration you build today isn't tied to one vendor's assistant. If you change models or tools next year, your MCP servers come with you.
+For a product team that matters more than any technical detail. An integration you build today isn't tied to one vendor. If you change models or assistants next year, your servers come with you.
 
-## Where it's useful in a product company
+## Where I'd start
 
-The best first uses I've seen are boring in a good way.
+These are the first uses I'd recommend to a product company, roughly in order of how easy they are to make safe.
 
-**Internal knowledge.** A read-only server over your docs, ADRs and runbooks, so people can ask questions and get answers that cite the actual source.
+**Internal knowledge.** A read-only server over your docs, decision records and runbooks, so people get answers that point to the real source.
 
-**Engineering workflows.** Letting a coding agent read tickets, logs or the CI status, so it works with the same context a developer would.
+**Engineering context.** Letting a coding agent read tickets, logs and CI results, so it works with the same information a developer would look up.
 
-**Support.** Giving an assistant safe, scoped access to order status or account data, instead of pasting screenshots into a chat.
+**Support.** Scoped, read-only access to things like order status, instead of people pasting screenshots into a chat.
 
-**Your own product.** If your customers use AI assistants, an MCP server can become a new way for them to use your product from wherever they already work.
+**Your own product.** If your customers already work inside AI assistants, an MCP server can be a new way for them to use your product from there. This one needs the most care, because now the users are outside your company.
 
-## What to be careful with
+## What to lock down
 
-MCP makes it very easy to give a model access to things. That's the point, and it's also the risk.
+MCP makes it very easy to give a model access to things. That's the point, and it's also the risk. These are the rules I'd set before the first server goes live.
 
-**Start read-only.** Reading data is much easier to make safe than changing it. Add write tools later, one at a time.
+**Treat tool output as untrusted.** If a tool returns text written by someone else, like a ticket, an email or a web page, that text can contain instructions aimed at the model. This is prompt injection, and an agent that reads a malicious ticket and then has write access is the case to worry about.
 
-**Put people in front of writes.** For anything that changes data, sends a message or spends money, require a human approval step. Drafts and suggestions first, actions later.
+**Only install servers you trust.** A server's tool descriptions go straight into the model's context. A malicious or careless one can steer the model as easily as a malicious ticket can. Review third-party servers like any other dependency, and pin their versions.
 
-**Scope the access.** A server should see what the task needs and nothing more. Treat it like any other service account.
+**Act as the user, not as an admin.** Where the server talks to a real system, use each person's own credentials, for example through OAuth, so the agent can never see more than the person asking.
 
-**Log every call.** Which tool, with what input, for which user. You'll need it to debug, and you'll need it the first time something goes wrong.
+**Start read-only, and put a person in front of writes.** Reading is much easier to make safe than changing. When you add tools that change data, send messages or spend money, require an approval step.
 
-**Check what the model actually does with tools.** In one of my own projects, a small, cheap model sometimes skipped the tool and answered from memory. I ended up giving that model no tools at all and putting the knowledge straight into its prompt. Tools are only as reliable as the model calling them, so test with the model you'll really use.
+**Log every call.** Which tool, which input, for which user. You'll need it to debug, and you'll need it the first time something goes wrong.
 
-## Should you care?
+## Test with the model you'll really use
 
-If your company builds or uses AI features, yes. MCP turns integrations into something you build once and reuse, and the whole industry has agreed on it. That's rare, and it's worth taking advantage of.
+This one isn't specific to MCP, but it's the lesson that cost me the most time. In the Discord assistant for our game, the cheap tier was supposed to call tools to look things up. Plain function calling through the Vercel AI SDK, not MCP, but the problem is the same. Gemini Flash often skipped the tool and answered from memory. Llama 4 Scout called it, but with malformed arguments. In the end the cheap tier got no tools at all. I put the knowledge it needed straight into its prompt, and only the stronger model uses tools.
+
+A tool is only as reliable as the model calling it. Before building a server, check that the model you'll pay for can use it properly.
+
+## When it's too much
+
+If one application needs to talk to one internal API, a normal function call in your own code is simpler and easier to secure. MCP pays off when several clients need the same capability, or when you want people to bring their own assistant. Below that, it's one more moving part.
 
 ## Sources
 

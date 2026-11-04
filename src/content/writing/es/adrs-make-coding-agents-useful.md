@@ -1,54 +1,52 @@
 ---
 title: El hábito más barato para que los agentes de código sirvan de verdad
-description: Los registros de decisiones de arquitectura son una idea de 2011 que con la IA vale más que nunca. Por qué los agentes necesitan el "porqué" de tu código y cómo escribir ADRs que ayuden.
+description: Los registros de decisiones de arquitectura son una idea de 2011 que con la IA vale más que nunca. Por qué los agentes necesitan el "porqué" de tu código y cómo escribo ADRs que ayuden.
 date: 2026-11-05
 draft: true
 tags: [Arquitectura, Claude Code, Flujo de trabajo]
 ---
 
-Si miras los repositorios en los que he trabajado este año, encontrarás la misma carpeta en casi todos: `docs/adr`. Nueve registros en el juego de Roblox, ocho en la API de extractos bancarios y cinco en este portfolio. Es el hábito que recomendaría primero a cualquier equipo que empiece a trabajar con agentes de código, y no cuesta casi nada.
+La mayoría de los repositorios en los que he trabajado este año tienen una carpeta de registros de decisiones de arquitectura. Nueve en el juego de Roblox, ocho en la API de extractos bancarios que estoy construyendo (en `docs/decisions`), siete en un ejercicio de backend y cinco en este portfolio. Si un equipo me pidiera un solo hábito antes de empezar a trabajar con agentes de código, sería este.
 
 ## Qué es un ADR
 
-Un registro de decisión de arquitectura (ADR, por sus siglas en inglés) es un documento corto que recoge una decisión: qué se decidió, por qué y qué te cuesta. La idea es de Michael Nygard, que la propuso en un artículo de su blog en noviembre de 2011. Su formato sigue siendo el que usa casi todo el mundo.
+Un registro de decisión de arquitectura es un documento corto sobre una decisión: qué decidiste, por qué y qué te cuesta. El formato ligero que usan la mayoría de equipos viene de Michael Nygard, que lo describió en un post de noviembre de 2011. Sus apartados son:
 
-- **Título**, con un número. "ADR 3. El servidor es el dueño de todo el estado del juego."
-- **Estado**. Propuesto, aceptado o sustituido por otro.
+- **Título**, con número. "ADR 2. Estado del juego controlado por el servidor."
 - **Contexto**. La situación y las fuerzas en juego.
-- **Decisión**. Qué vamos a hacer, en una o dos frases.
-- **Consecuencias**. Qué se vuelve más fácil, qué se vuelve más difícil y qué estamos aceptando.
+- **Decisión**. Qué vamos a hacer.
+- **Estado**. Propuesto, aceptado o sustituido por uno posterior.
+- **Consecuencias**. Qué se vuelve más fácil, qué más difícil y qué aceptamos.
 
-Viven en el repositorio, junto al código que describen, como ficheros Markdown normales. Ese detalle resultó importar mucho.
+Viven en el repositorio, junto al código que describen, en Markdown normal. Ese detalle resultó importar más de lo que esperaba.
 
 ## Por qué los agentes los necesitan
 
-Un agente de código puede leer todo tu código en segundos. Lo que no puede leer es el razonamiento que hay detrás. El código te dice qué hace el sistema. Casi nunca te dice por qué lo hace así, ni qué alternativas alguien ya probó y descartó.
+Un agente de código puede leerse un repositorio entero en segundos. Lo que no puede leer es el razonamiento que hay detrás. El código dice qué hace el sistema. Casi nunca dice por qué lo hace así, ni qué alternativas ya se probaron y se descartaron.
 
-Sin eso, un agente hace lo mismo que haría una persona nueva y muy lista. Ve algo que parece raro y lo "arregla". Ve un patrón y da por hecho que es casualidad. Propone la solución obvia que descartasteis hace seis meses por un buen motivo que nadie dejó por escrito.
+Sin eso, un agente se comporta como alguien listo en su primer día. Ve algo raro y lo ordena. Ve una restricción que parece accidental y la quita. Propone la solución obvia que se descartó hace meses por un motivo que nadie dejó escrito.
 
-Con los ADRs en el repo, el razonamiento está ahí mismo. En el juego, nuestro primer ADR separó el código en un núcleo reutilizable y una capa de juego. El segundo hizo al servidor dueño de todo el estado, para evitar trampas. Si un agente propone dejar que el cliente actualice directamente las monedas de un jugador, porque es más sencillo, la respuesta cabe en una línea: lee el ADR 2. Sin debate, y sin volver a explicar lo mismo en cada sesión.
+En el juego, el ADR 2 hace que el servidor sea el dueño de todo el estado, para que un cliente modificado no pueda darse monedas ni objetos. Es el tipo de regla que parece un estorbo cuando solo ves el código, porque dejar que el cliente actualice un valor directamente siempre es más sencillo. Con el registro en el repositorio, el razonamiento está a un fichero de distancia y no tengo que explicarlo otra vez al empezar cada sesión.
 
-Además, enlazo la carpeta de ADRs desde el `CLAUDE.md` del proyecto, el fichero que Claude Code lee primero. Así el agente sabe dónde están las decisiones antes de empezar a tocar nada.
+El `CLAUDE.md` del proyecto, el fichero que Claude Code lee primero, apunta a la carpeta de ADRs, y algunas de las reglas por carpeta del código de servidor mencionan registros concretos por su número. Así el agente encuentra las decisiones antes de cambiar nada, no después.
 
-## Cómo escribir ADRs que ayuden de verdad
+## Cómo los escribo
 
-Después de un año escribiéndolos con agentes y para agentes, hay algunas cosas que marcan la diferencia.
+Después de un año escribiéndolos para personas y para agentes, hay unas pocas cosas que marcan la diferencia.
 
-**Que sean cortos.** Una página como mucho. Si necesita más, probablemente son dos decisiones.
+**Lo de cortos es relativo.** Nygard apuntaba a una o dos páginas. Los míos suelen ser más largos, el más largo del juego tiene unas 1.200 palabras, porque una decisión difícil tiene mucho contexto. Lo que sí mantengo estricto es que cada registro trate una sola decisión.
 
-**Escribe las consecuencias con honestidad.** También las malas. "Esto hace más lento el desarrollo en local" es justo el tipo de frase que evita que alguien deshaga la decisión sin pensarlo.
+**Escribe las consecuencias con honestidad.** También las malas. "Esto hace más lentas las pruebas en local" es justo la frase que impide que alguien, o algo, deshaga la decisión sin pensar.
 
-**Una decisión por registro.** Tienta escribir "el documento de arquitectura". No lo hagas. Los registros pequeños son más fáciles de encontrar, enlazar y sustituir.
+**Sustituye en lugar de reescribir.** Cuando una decisión cambia, escribe un registro nuevo y marca el antiguo como sustituido, para que sobreviva la historia de por qué cambiaste de opinión. Reconozco que no siempre lo hago. Cuando pasamos los datos de los jugadores a ProfileStore, marqué el ADR 5 como sustituido y añadí la actualización como una sección dentro del mismo fichero, en lugar de escribir el ADR 10. Funciona, porque el razonamiento sigue ahí, pero es más difícil de encontrar de lo que sería un registro nuevo.
 
-**Sustituye en vez de editar.** Cuando una decisión cambia, escribe un ADR nuevo que reemplace al anterior y marca el viejo como sustituido. La historia de por qué cambiaste de idea también es útil.
-
-**Escríbelos cuando decides, no después.** El después nunca llega. El mejor momento es la misma pull request que introduce el cambio, y un agente puede redactarte la primera versión a partir de la discusión.
+**Escríbelos en la misma pull request que el cambio.** Luego nunca llega. Un agente puede redactar la primera versión a partir de la discusión, y yo la edito, porque el razonamiento tiene que ser mío.
 
 ## Más allá de los agentes
 
-Todo lo que acabo de contar ya era verdad antes de la IA. Los ADRs ayudan a que la gente nueva se incorpore a un equipo, a recordar por qué hiciste algo hace un año y a que las revisiones de arquitectura sean más rápidas. Los agentes solo han hecho muy visible, muy deprisa, lo que cuesta no tenerlos, porque un agente pregunta "por qué" cien veces al día sin decirlo.
+Nada de esto es nuevo. Los ADRs ayudaban a la gente a incorporarse a un equipo y a los equipos a recordar sus motivos mucho antes de la IA. Los agentes solo han hecho visible muy rápido lo que cuesta no tenerlos, porque un agente en la práctica pregunta "¿por qué está así?" cada vez que abre un fichero, aunque no lo diga.
 
-Es el hábito más barato que conozco con este retorno. Una carpeta, una plantilla y cinco minutos por decisión.
+Una carpeta, una plantilla y la disciplina de escribir uno cada vez que una decisión es difícil de deshacer. No conozco un hábito más barato con este retorno.
 
 ## Fuentes
 

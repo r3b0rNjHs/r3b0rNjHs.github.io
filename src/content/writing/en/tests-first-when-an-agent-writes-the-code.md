@@ -6,53 +6,51 @@ draft: true
 tags: [TDD, Claude Code, Engineering]
 ---
 
-I learned TDD at my first job, in 2018, and I've used it ever since. When coding agents got good, a common take was that TDD had run its course. If the agent writes the code, why spend time writing tests first?
+This portfolio has a unit test that fails if any text on the site contains an em dash. It sounds like a joke, but I wrote it for a real reason. I wanted the copy to read like me, and I don't write em dashes. Language models use them constantly. Telling an agent "please don't use em dashes" works for a while and then quietly stops working. A test that turns CI red doesn't stop working.
 
-I write more tests now than I did before. Here's why.
+That small test sums up how I use TDD now that an agent writes most of my code.
 
-## Tests are the clearest prompt you can write
+## A test is less ambiguous than a sentence
 
-When I ask an agent for a feature in plain language, I get its interpretation of what I said. Sometimes that's exactly what I meant. Often it's a reasonable reading of an ambiguous sentence.
+I learned TDD at my first job, in 2018. When coding agents got good, I heard more than once that TDD had run its course: if the agent writes the code, why write tests first?
 
-A failing test has no ambiguity. It says: given this input, I expect this output, and it doesn't work yet. When I give an agent a red test and ask it to make it pass, the conversation about what "done" means is already over. The test is the spec.
+Because when I describe a feature in plain language, I get the agent's reading of what I said. Often it's exactly what I meant. Sometimes it's a reasonable reading of an ambiguous sentence, and I only find out later.
 
-Kent Beck, who created TDD, wrote about this in 2025. He separates "vibe coding", where you stop caring about the code and just accept what comes out, from what he calls augmented coding, where you still care about the code, its complexity, the tests and their coverage. I'm firmly in the second camp, and tests are what make it possible.
+A failing test is far less ambiguous than a sentence. Given this input, I expect this output, and right now it doesn't work. When I hand an agent a red test and ask it to make it pass, most of the discussion about what "done" means is already settled.
 
-## Feelings are a bad metric
-
-In 2025, METR ran a study with experienced open source developers. With AI tools, they were 19% slower on their tasks, and afterwards they believed they had been 20% faster. Whatever you think of that particular study, it shows how unreliable our sense of progress is when an agent produces a lot of code very quickly.
-
-A test suite doesn't care how productive you feel. It's green or it isn't.
-
-Google's DORA research found something related at the team level: teams with fast feedback loops are the ones who get the most out of AI. A fast, trustworthy test suite is the most basic feedback loop there is.
+Kent Beck, who developed and popularised TDD, wrote about this in 2025. He separates vibe coding, where you stop caring about the code and accept whatever comes out, from augmented coding, where you still care about the code, its complexity, the tests and their coverage. That's the way I want to work, and tests are what make it possible.
 
 ## How I work with an agent
 
 My loop is close to classic TDD, with the agent doing most of the typing.
 
-1. **I write the failing test**, or I ask the agent to write it and I read it carefully before going on. This is the step I never skip, because it's where I decide what the behaviour should be.
+1. **The failing test comes first.** I write it, or I ask the agent to write it and read it carefully before going on. This is the step I never skip, because it's where I decide what the behaviour should be.
 2. **The agent makes it pass.** I don't care much how at this stage.
-3. **I read the diff.** Not the whole codebase, just what changed. With a green test, I'm reviewing the design, not checking whether it works.
-4. **We refactor with the tests as a safety net.** This is where agents are genuinely great. They can restructure code fast, and the tests tell both of us if something broke.
+3. **I read the diff.** With a green test, I spend most of my review on the design, and on whether the test actually covers enough. A passing test only proves what it checks.
+4. **We refactor with the tests as a safety net.** This is where agents are very good. They restructure code quickly, and the tests tell both of us if something broke.
 
 ## The trap to watch for
 
-Agents want to finish the task. If a test is hard to pass, sometimes the easiest route is to change the test. A weakened assertion, a skipped case, an expected value quietly updated to match the wrong output.
+An agent wants to finish the task. When a test is hard to pass, the easiest route is sometimes to change the test: a weaker assertion, a skipped case, an expected value updated to match the wrong output.
 
-So I treat test changes differently from code changes. When a diff touches tests, I read those lines first and on their own. If the agent changed what a test expects, it has to be because the requirement changed, not because the code didn't work.
+So I read test changes separately from code changes. When a diff touches a test, I look at those lines first. If the expected value changed, it has to be because the requirement changed, not because the code didn't work.
 
-## Tests beyond code
+## Tests for things that aren't code
 
-The idea goes further than unit tests. In the bank statement API I built, the most important "test" runs in production on every single request: it checks that the opening balance plus all the transactions equals the closing balance. In this portfolio, there are tests that check every piece of text exists in both languages, that every internal link works and that every page passes an accessibility scan. One even fails the build if I write an em dash.
+The idea goes further than unit tests for functions. Most of the tests in this portfolio check things I care about that aren't logic at all:
 
-They all do the same job. They turn something I care about into something a machine can check, so I don't have to remember it, and neither does the agent.
+- every piece of text exists in both English and Spanish;
+- no phone number ever ends up in the published data;
+- every internal link, image and anchor in the built site resolves;
+- the main pages pass an automated accessibility scan with no serious violations;
+- and the em dash one.
 
-## So, still worth it?
+None of these are hard to write. Each one turns something I would otherwise have to remember into something a machine checks on every push. That helps me, and it helps the agent even more, because the agent doesn't remember anything between sessions.
 
-More than ever. When typing code is cheap, the expensive part is knowing that the code is right. Tests written first are the cheapest way I know to get there, and they happen to be the best instructions you can give an agent.
+## The cheapest instructions I can give
+
+When I start a session today, I don't write long instructions about what I want. I write, or ask for, the test that will fail until the feature exists. Then the agent works until it passes, and I review what it did. The test stays in the repository afterwards, so the next session starts with the same rule already in place.
 
 ## Sources
 
 - [Kent Beck: Augmented Coding: Beyond the Vibes](https://tidyfirst.substack.com/p/augmented-coding-beyond-the-vibes)
-- [METR: Measuring the impact of early-2025 AI on experienced open-source developer productivity](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
-- [Google: How are developers using AI? Inside our 2025 DORA report](https://blog.google/technology/developers/dora-report-2025/)

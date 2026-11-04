@@ -1,56 +1,49 @@
 ---
 title: Qué significa ser full stack y por qué lo eres sin serlo
-description: Ya nadie domina todas las capas, y nunca fue esa la idea. Una definición más útil de full stack, y por qué la IA la hace más importante.
+description: Nadie domina todas las capas, y nunca fue esa la idea. Qué debería significar la etiqueta, qué añade a "senior" y por qué la IA la hace más importante.
 date: 2026-11-05
 draft: true
 tags: [Ingeniería, Full stack, Carrera]
 ---
 
-Hace poco puse "full stack" en mi CV y dudé antes de hacerlo. Es verdad, pero la palabra se ha estirado tanto que puede significar casi cualquier cosa. Para algunos reclutadores significa React y Node. Para otros, alguien que además hace el diseño, la base de datos y el clúster de Kubernetes, a ser posible con sueldo de junior.
+Cuando este mes añadí "full stack" a mi CV, dudé. Es verdad, pero la palabra significa cosas muy distintas según a quién preguntes. Para muchos reclutadores es React más Node. Para algunas empresas es una sola persona que hace diseño, backend, base de datos y el clúster de Kubernetes, a ser posible con sueldo de junior.
 
-Así que quiero explicar qué quiero decir cuando la uso, y por qué creo que la mayoría de buenos ingenieros son full stack de una forma que no tiene nada que ver con saberlo todo.
+Así que te cuento qué quiero decir yo con ella, a partir de lo más full stack que he publicado este año.
 
-## De dónde viene la palabra
+## Una app, todas las capas
 
-El término se suele atribuir a Carlos Bueno, ingeniero de Facebook, que escribió alrededor de 2010 un texto bastante conocido sobre "el full stack". La idea era sencilla. Facebook quería ingenieros capaces de trabajar en cualquier nivel del sistema, desde la interfaz hasta los servidores, y que entendieran cómo un cambio en una capa afectaba a las demás.
+Aion 2 Companion es una app de Windows para jugadores de un juego online. Para sacarla escribí el código en Python que decodifica en tiempo real el tráfico de red del juego, la interfaz en Preact que corre dentro de WebView2, un lanzador en C de unas sesenta líneas para que Windows muestre la app con su propio nombre e icono, el instalador, un actualizador que comprueba un hash SHA-256 y un pipeline de CI que instala una versión antigua en un Windows real, la actualiza y comprueba que el progreso del jugador sigue ahí.
 
-En aquel momento el stack era algo que se podía visualizar. Un navegador, un servidor web, una aplicación, una base de datos y una máquina. Conocerlo todo bien era difícil, pero posible.
+En la mayoría de esas capas no soy experto. Tengo mucha profundidad en arquitectura, backend e infraestructura. En frontend me defiendo bien, sin ser brillante. Nunca había escrito un lanzador para Windows. Y aun así la app funciona, porque podía seguir cada problema desde la captura de red hasta el píxel en pantalla y decidir qué hacer con él.
 
-## El stack no paró de crecer
+Esa es mi definición: **un ingeniero full stack es capaz de seguir un problema por todas las capas de un sistema y está dispuesto a publicar el arreglo en una capa que no es su especialidad.**
 
-Hoy, el stack con el que trabajo en un proyecto normal incluye el framework de frontend, una API, una o dos bases de datos, una cola, contenedores, infraestructura como código, pipelines de CI, observabilidad, un proveedor cloud con doscientos servicios y, cada vez más a menudo, un modelo de lenguaje con sus propios costes, latencias y formas de fallar.
+## Qué añade la etiqueta a "senior"
 
-Nadie es experto en todo eso. He diseñado y operado plataformas en AWS y Kubernetes, he construido frontends en React y backends en Node.js, he trabajado como SRE y he liderado equipos como CTO. Tengo mucha profundidad en arquitectura, backend e infraestructura. En frontend me defiendo bien, y no soy la persona que quieres eligiendo la tipografía. Si full stack significa "experto en todas las capas", no lo soy. Nadie lo es.
+La objeción razonable es que "seguir un problema por todo el sistema" es simplemente lo que hace un buen senior. La mitad, sí. Muchos seniors son capaces de diagnosticar un fallo en otra capa y después pasárselo a otra persona.
 
-## Una definición más útil
+Lo que añade la etiqueta es la segunda mitad: publicarlo tú. Escribir el CSS, la migración de SQL o el cambio de Terraform tú mismo, con un nivel decente, y responder de ello después. En un equipo pequeño, eso suele marcar la diferencia entre que algo salga esta semana o el mes que viene.
 
-La definición que me ha servido es esta: un ingeniero full stack es capaz de seguir un problema por todas las capas del sistema y hacerse cargo del resultado.
+También reconozco que el mercado no usa la palabra así. La mayoría de ofertas quieren decir "frontend y backend en JavaScript". Cuando la uso yo, me refiero a la versión amplia, e intento dejarlo claro.
 
-Cuando algo se rompe, no se para en el borde de su propio código. Sabe abrir la pestaña de red del navegador, leer los logs de la API, mirar el plan de una consulta, revisar el despliegue y encontrar dónde se ha roto de verdad. Puede que no arregle cada capa de la mejor forma posible, pero sabe lo suficiente para hacerle la pregunta correcta a la persona correcta, o para aplicar un arreglo sensato y avisar.
+## Un poco de historia
 
-Se parece mucho a la vieja idea de los perfiles en forma de T, que viene como mínimo de 1991 y que popularizó después Tim Brown en IDEO. Profundidad en una o dos áreas y la amplitud suficiente para trabajar con todos los demás. Ser full stack es la forma de T aplicada a un sistema de software.
+El término se suele atribuir a Carlos Bueno, que entonces trabajaba en Facebook y escribió en 2010 sobre el "programador full stack": un generalista que entiende cada capa lo suficiente para ver cómo un cambio en una afecta a las demás. La idea se parece mucho al perfil "en forma de T", que viene como mínimo de finales de los años setenta y que más tarde popularizó Tim Brown en IDEO. Profundidad en una o dos áreas y amplitud suficiente para trabajar en el resto.
 
-## Por qué lo eres sin serlo
+Lo que ha cambiado desde 2010 es el tamaño del stack. Hoy incluye además contenedores, infraestructura como código, CI, observabilidad, un proveedor cloud con cientos de servicios y, cada vez más, un modelo de lenguaje con sus propios costes y formas de fallar. Ser experto en todo eso no es realista. Ser capaz de trabajar en todo eso sigue siéndolo.
 
-De ahí sale el título de este artículo. La mayoría de ingenieros con experiencia que conozco dirían "yo no soy realmente full stack, soy más de backend". Y luego los ves depurar una incidencia en producción y pasan por CSS, SQL, DNS y un plan de Terraform sin pestañear.
+## Por qué la IA lo hace más importante
 
-Son full stack. Lo que pasa es que se miden con la vara equivocada. Se comparan con el especialista de cada capa y, claro, pierden esa comparación en todas las capas menos en la suya. Pero el valor nunca estuvo en ganarle al especialista. Está en ser quien ve el camino completo que recorre una petición y detecta dónde se tuerce.
+Esta web la he construido con un agente de código, y una parte es una escena WebGL escrita con shaders GLSL, una capa en la que nunca había trabajado. El agente la dejó bonita en una tarde. Luego pasé Lighthouse con un perfil de móvil y el rendimiento salió en 54. En dispositivos sin GPU de verdad, la escena bloqueaba el navegador unos cuatro segundos y medio.
 
-Si sabes hacer eso, eres full stack, aunque nunca lo pongas en tu CV.
+El agente no lo vio, y mis ojos en un portátil rápido tampoco. Lo vio la medición. El arreglo tocó tres capas: una pequeña comprobación de la GPU antes de cargar siquiera la librería 3D, una versión estática de la escena en SVG generada al compilar y pasar la animación del titular a CSS puro para que no esperara a JavaScript. La puntuación subió a 97.
 
-## La IA lo hace más importante
+Ese es el patrón que veo ahora. Los agentes amplían tu alcance a capas que no conoces bien. Que ese alcance sea útil depende de entender cómo se conectan las capas, para darte cuenta de cuándo algo que funciona por separado rompe el sistema que tiene alrededor.
 
-Los agentes de código cambian la ecuación de una forma curiosa. Hacen mucho más fácil trabajar en una capa que no conoces bien. Puedo pedirle a un agente una animación en CSS o una función en Rust y tener algo decente en minutos.
+## Cómo respondo en una entrevista
 
-Lo que no te dan es el criterio para saber si está bien. Un agente amplía tu alcance. Tu comprensión del sistema decide si ese alcance es útil o peligroso. Los ingenieros que más partido le sacan a la IA son los que ya entienden cómo encajan las capas, porque detectan cuándo la respuesta del agente funciona por separado pero rompe algo dos capas más allá.
-
-Por eso creo que ser full stack vale cada vez más. Menos como una lista de frameworks que conoces y más como entender el sistema completo lo bastante bien para dirigir el trabajo, lo escriba una persona o un agente.
-
-## Cómo lo contaría en una entrevista
-
-Si alguien me pregunta si soy full stack, no le enumero tecnologías. Le digo algo así: donde más fuerte soy es en arquitectura, backend e infraestructura, me siento cómodo construyendo y publicando frontends, y puedo seguir cualquier problema desde el navegador hasta la base de datos y el cloud, y arreglarlo o encontrar a quien deba hacerlo. Es una respuesta honesta y, en mi experiencia, es lo que de verdad te están preguntando.
+Si alguien me pregunta si soy full stack, no le enumero frameworks. Le digo que donde más fuerte soy es en arquitectura, backend e infraestructura, que me siento cómodo publicando trabajo de frontend y que puedo seguir cualquier problema desde el navegador hasta la base de datos y el cloud, y arreglarlo o saber exactamente quién debe hacerlo. Y después le cuento lo del lanzador.
 
 ## Fuentes
 
 - [Perfiles en forma de T (T-shaped skills), Wikipedia](https://en.wikipedia.org/wiki/T-shaped_skills)
-- [Encuesta de Stack Overflow 2025](https://survey.stackoverflow.co/2025/)

@@ -12,6 +12,8 @@ scheme = ["https", "http"]
 exclude = [
   # LinkedIn answers automated requests with HTTP 999 even when the profile exists.
   '^https://(www\.)?linkedin\.com/',
+  # McKinsey blocks automated requests; the report link was checked by hand.
+  '^https://www\.mckinsey\.com/',
   # Schema and feed namespaces, not pages.
   '^https://schema\.org',
 ]

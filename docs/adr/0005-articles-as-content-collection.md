@@ -12,6 +12,7 @@ The site gained a writing section. Long-form text is painful to maintain as type
 - Articles are Markdown files in an Astro content collection, validated by a Zod schema (`src/content.config.ts`).
 - Each translation lives in `src/content/writing/<lang>/<slug>.md`. Both languages share the slug, so the language switch maps one article to the other with no lookup table.
 - Pages, the home page teaser, the command palette and one RSS feed per language all read from `getArticles()` in `src/data/writing.ts`. Drafts never reach the build.
+- Articles can be scheduled: one with a future `date` stays out of the build until that day, and a daily scheduled run of the CI/CD workflow publishes it that morning. `PREVIEW_DRAFTS=1 npm run build` shows drafts and future articles locally for review.
 - Code blocks use Shiki with light and dark themes, emitted as CSS variables and switched with the site theme.
 - A unit test checks that every article exists in both languages and keeps the house style: no em dashes, no en dashes in prose and none of a short list of stock phrases.
 

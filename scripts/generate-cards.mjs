@@ -8,6 +8,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { constellation, esc, fontFaces, openRenderer, root } from './og-shared.mjs';
 import { readFrontmatter } from '../src/lib/frontmatter.ts';
+import { isPublished } from '../src/lib/schedule.ts';
 import { articleCardPath, PROJECT_CARDS_DATA, projectCardPath } from '../src/lib/cards.ts';
 
 const labels = {
@@ -84,7 +85,7 @@ for (const lang of Object.keys(labels)) {
   const dir = join(root, 'src/content/writing', lang);
   for (const file of (await readdir(dir)).filter((f) => f.endsWith('.md')).sort()) {
     const meta = readFrontmatter(await readFile(join(dir, file), 'utf8'));
-    if (meta.draft === 'true') continue;
+    if (!isPublished({ date: String(meta.date), draft: meta.draft === 'true' }, new Date(), process.env.PREVIEW_DRAFTS === '1')) continue;
     const slug = file.replace(/\.md$/, '');
     const out = join(root, 'dist', articleCardPath(lang, slug));
     await renderer.render(card({ lang, title: String(meta.title), date: String(meta.date) }, slug), out);

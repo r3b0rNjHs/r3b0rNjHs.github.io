@@ -12,6 +12,7 @@ Read this before changing anything; it is the contract for humans and AI agents 
 - `npm run links`: check every internal link, image and `#fragment` in `dist/` (after `build` and `cv`; CI runs it before deploying)
 - `npm run links:external`: list external links in `dist/` into `external-links.md` (the weekly lychee job checks that list)
 - `npm run cards`: render social cards for every article (`dist/og/writing/`) and for case studies without images (`dist/og/work/`), after a build; CI does this on every deploy
+- `PREVIEW_DRAFTS=1 npm run build`: build including drafts and future-dated articles, to review them before they go live
 - `npm run og`: regenerate `public/og.png` after changing the headline or brand
 
 ## Architecture rules

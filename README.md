@@ -2,7 +2,7 @@
 
 [![CI/CD](https://github.com/r3b0rNjHs/r3b0rNjHs.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/r3b0rNjHs/r3b0rNjHs.github.io/actions/workflows/ci.yml)
 
-Personal site of **Jorge Hernández Suárez**, AI Engineer & Systems Architect.
+Personal site of **Jorge Hernández Suárez**, Full Stack AI Engineer & Systems Architect.
 Live at **[r3b0rnjhs.github.io](https://r3b0rnjhs.github.io)** · English by default, Spanish at [`/es/`](https://r3b0rnjhs.github.io/es/).
 
 ![Social preview](public/og.png)

@@ -26,7 +26,7 @@ const html = /* html */ `<!doctype html>
   <div class="glow"></div>
   <svg width="560" height="560" viewBox="-1 -1 2 2">${constellation(7)}</svg>
   <div class="wrap">
-    <p class="kicker">AI Engineer &amp; Systems Architect</p>
+    <p class="kicker">Full Stack · AI Engineer &amp; Systems Architect</p>
     <h1>I design <em>AI‑native</em> systems<br /><span>and ship them.</span></h1>
     <div class="foot"><b>Jorge Hernández</b><span>r3b0rnjhs.github.io</span></div>
   </div>

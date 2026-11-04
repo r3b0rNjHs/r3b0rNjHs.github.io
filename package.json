@@ -17,7 +17,8 @@
     "og": "node scripts/generate-og.mjs",
     "cv": "node scripts/generate-cv.mjs",
     "links": "node scripts/check-links.mjs",
-    "cards": "node scripts/generate-cards.mjs"
+    "cards": "node scripts/generate-cards.mjs",
+    "links:external": "node scripts/list-external-links.mjs > external-links.md"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

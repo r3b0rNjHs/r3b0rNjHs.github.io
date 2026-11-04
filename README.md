@@ -61,16 +61,17 @@ npm install
 npm run dev          # http://localhost:4321
 ```
 
-| Script             | What it does                                                                                                  |
-| ------------------ | ------------------------------------------------------------------------------------------------------------- |
-| `npm run verify`   | Formatting, type-check, unit tests and build (same gate as CI)                                                |
-| `npm test`         | Unit tests (Vitest)                                                                                           |
-| `npm run test:e2e` | Playwright e2e + accessibility tests against `dist/` (run `npm run build` first)                              |
-| `npm run cv`       | Prints `/cv/` and `/es/cv/` to A4 PDFs in `dist/cv/` (run after `npm run build`)                              |
-| `npm run links`    | Checks every internal link, image and `#fragment` in `dist/` (after `build` and `cv`)                         |
-| `npm run cards`    | Renders social cards for articles and for case studies without images into `dist/og/` (after `npm run build`) |
-| `npm run og`       | Regenerates `public/og.png` from code                                                                         |
-| `npm run format`   | Formats the codebase with Prettier                                                                            |
+| Script                   | What it does                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `npm run verify`         | Formatting, type-check, unit tests and build (same gate as CI)                                                |
+| `npm test`               | Unit tests (Vitest)                                                                                           |
+| `npm run test:e2e`       | Playwright e2e + accessibility tests against `dist/` (run `npm run build` first)                              |
+| `npm run cv`             | Prints `/cv/` and `/es/cv/` to A4 PDFs in `dist/cv/` (run after `npm run build`)                              |
+| `npm run links`          | Checks every internal link, image and `#fragment` in `dist/` (after `build` and `cv`)                         |
+| `npm run links:external` | Lists every external link in `dist/` (the input of the weekly lychee check)                                   |
+| `npm run cards`          | Renders social cards for articles and for case studies without images into `dist/og/` (after `npm run build`) |
+| `npm run og`             | Regenerates `public/og.png` from code                                                                         |
+| `npm run format`         | Formats the codebase with Prettier                                                                            |
 
 ## CI/CD
 

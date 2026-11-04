@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { candidateFiles, extractIds, extractLinks } from '@/lib/links';
+import { candidateFiles, extractAbsoluteLinks, extractIds, extractLinks } from '@/lib/links';
 
 describe('extractLinks', () => {
   const html = `
@@ -21,6 +21,22 @@ describe('extractLinks', () => {
       '/search/#',
       '/_astro/a-480.webp#',
       '/_astro/a-800.webp#',
+    ]);
+  });
+});
+
+describe('extractAbsoluteLinks', () => {
+  it('returns absolute http(s) hrefs and skips relative and mail links', () => {
+    const html = `
+      <a href="https://github.com/r3b0rNjHs">gh</a>
+      <link rel="canonical" href="https://r3b0rnjhs.github.io/">
+      <a href="/writing/">internal</a>
+      <a href="mailto:a@b.c">mail</a>
+      <a href="https://example.com/?a=1&amp;b=2">q</a>`;
+    expect(extractAbsoluteLinks(html).map(String)).toEqual([
+      'https://github.com/r3b0rNjHs',
+      'https://r3b0rnjhs.github.io/',
+      'https://example.com/?a=1&b=2',
     ]);
   });
 });

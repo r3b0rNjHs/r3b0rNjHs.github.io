@@ -10,6 +10,7 @@ Read this before changing anything; it is the contract for humans and AI agents 
 - `npm run test:e2e`: Playwright e2e and axe accessibility suite (needs a build in `dist/`)
 - `npm run cv`: print the CV pages to PDF in `dist/cv/` (after a build; CI does this on every deploy)
 - `npm run links`: check every internal link, image and `#fragment` in `dist/` (after `build` and `cv`; CI runs it before deploying)
+- `npm run links:external`: list external links in `dist/` into `external-links.md` (the weekly lychee job checks that list)
 - `npm run cards`: render social cards for every article (`dist/og/writing/`) and for case studies without images (`dist/og/work/`), after a build; CI does this on every deploy
 - `npm run og`: regenerate `public/og.png` after changing the headline or brand
 

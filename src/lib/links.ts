@@ -31,6 +31,11 @@ export function extractLinks(html: string, pagePath: string): PageLink[] {
   return links;
 }
 
+/** Absolute http(s) URLs in a page's href attributes (links, canonical and alternates alike). */
+export function extractAbsoluteLinks(html: string): URL[] {
+  return [...html.matchAll(/\shref="(https?:\/\/[^"]+)"/g)].map((m) => new URL(decodeEntities(m[1]!)));
+}
+
 /** All element ids in a page, used to validate "#fragment" links. */
 export function extractIds(html: string): Set<string> {
   return new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]!));

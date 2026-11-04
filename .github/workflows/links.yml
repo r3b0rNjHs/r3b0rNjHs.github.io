@@ -22,11 +22,13 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: List external links
+        run: npm run links:external
       - name: Check external links
         id: lychee
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --config lychee.toml 'dist/**/*.html'
+          args: --config lychee.toml external-links.md
           fail: false
           output: lychee-report.md
       - name: Report broken links as an issue

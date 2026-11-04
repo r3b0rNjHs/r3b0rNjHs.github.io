@@ -1,20 +1,17 @@
 # Settings for the weekly external link check (.github/workflows/links.yml).
-# Internal links are checked on every build by scripts/check-links.mjs instead.
 
 max_concurrency = 8
 max_retries = 3
 timeout = 30
 accept = ["200..=299", "429"]
 include_mail = false
-# Only web links. Links to files inside the build are the internal checker's job, and some of them
-# (the CV PDFs) are only generated in the deploy pipeline.
+# Input is the list from `npm run links:external`, which already leaves out pages of this site
+# (those are checked on every deploy by scripts/check-links.mjs).
 scheme = ["https", "http"]
 
 exclude = [
   # LinkedIn answers automated requests with HTTP 999 even when the profile exists.
   '^https://(www\.)?linkedin\.com/',
-  # Our own domain: covered by the internal checker against the build itself.
-  '^https://r3b0rnjhs\.github\.io/',
   # Schema and feed namespaces, not pages.
   '^https://schema\.org',
 ]

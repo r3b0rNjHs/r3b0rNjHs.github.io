@@ -1,8 +1,7 @@
 ---
 title: Hacia dónde nos lleva la IA y cómo usarla en una empresa de producto digital
 description: Lo que un estudio de dos personas le dejó a la IA este año, lo que hizo falta para que funcionara y una lista para empresas de producto que quieren resultados y no demos.
-date: 2026-11-05
-draft: true
+date: 2026-11-09
 tags: [IA, Producto, Estrategia]
 ---
 

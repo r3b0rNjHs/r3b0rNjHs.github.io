@@ -1,8 +1,7 @@
 ---
 title: MCP explicado para quien construye producto
 description: Qué es el Model Context Protocol, por qué se extendió tan rápido, dónde lo usaría primero en una empresa de producto y qué hay que cerrar antes.
-date: 2026-11-05
-draft: true
+date: 2026-11-12
 tags: [MCP, Agentes de IA, Producto]
 ---
 

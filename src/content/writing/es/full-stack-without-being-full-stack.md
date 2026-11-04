@@ -1,8 +1,7 @@
 ---
 title: Qué significa ser full stack y por qué lo eres sin serlo
 description: Nadie domina todas las capas, y nunca fue esa la idea. Qué debería significar la etiqueta, qué añade a "senior" y por qué la IA la hace más importante.
-date: 2026-11-05
-draft: true
+date: 2026-11-06
 tags: [Ingeniería, Full stack, Carrera]
 ---
 

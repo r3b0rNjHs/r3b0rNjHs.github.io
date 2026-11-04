@@ -2,7 +2,6 @@
 title: What it means to be a software engineer in 2026
 description: Writing code got cheap. Knowing that it's right didn't. What I think the job is now, from building with agents every day.
 date: 2026-11-05
-draft: true
 tags: [Engineering, AI, Career]
 ---
 

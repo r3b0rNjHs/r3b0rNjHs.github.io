@@ -1,8 +1,7 @@
 ---
 title: El hábito más barato para que los agentes de código sirvan de verdad
 description: Los registros de decisiones de arquitectura son una idea de 2011 que con la IA vale más que nunca. Por qué los agentes necesitan el "porqué" de tu código y cómo escribo ADRs que ayuden.
-date: 2026-11-05
-draft: true
+date: 2026-11-11
 tags: [Arquitectura, Claude Code, Flujo de trabajo]
 ---
 

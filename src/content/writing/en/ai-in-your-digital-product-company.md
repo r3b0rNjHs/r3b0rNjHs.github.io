@@ -1,8 +1,7 @@
 ---
 title: Where AI is taking us, and how to use it in a digital product company
 description: What a two-person studio handed to AI this year, what it took to make it work, and a checklist for product companies that want results instead of demos.
-date: 2026-11-05
-draft: true
+date: 2026-11-09
 tags: [AI, Product, Strategy]
 ---
 

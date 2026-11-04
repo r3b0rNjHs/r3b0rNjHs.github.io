@@ -1,8 +1,7 @@
 ---
 title: The cheapest habit that makes coding agents useful
 description: Architecture decision records are a 2011 idea that became more valuable with AI. Why agents need the "why" of your code, and how I write ADRs that help.
-date: 2026-11-05
-draft: true
+date: 2026-11-11
 tags: [Architecture, Claude Code, Workflow]
 ---
 

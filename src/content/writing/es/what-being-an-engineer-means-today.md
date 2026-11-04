@@ -2,7 +2,6 @@
 title: Qué significa ser ingeniero de software en 2026
 description: Escribir código se ha abaratado. Saber que está bien, no. Lo que creo que es hoy este trabajo, después de construir con agentes a diario.
 date: 2026-11-05
-draft: true
 tags: [Ingeniería, IA, Carrera]
 ---
 

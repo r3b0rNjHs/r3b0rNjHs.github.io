@@ -1,8 +1,7 @@
 ---
 title: Por qué sigo escribiendo los tests primero aunque el código lo escriba un agente
 description: Parecía que el TDD iba a ser una víctima de la IA. En mi experiencia es al revés. Los tests son cómo le dices a un agente lo que quieres, y cómo sabes que lo ha hecho.
-date: 2026-11-05
-draft: true
+date: 2026-11-10
 tags: [TDD, Claude Code, Ingeniería]
 ---
 

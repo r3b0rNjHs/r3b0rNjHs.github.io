@@ -1,8 +1,7 @@
 ---
 title: What full stack means, and why you're one without being one
 description: Nobody masters every layer, and that was never the point. What the label should mean, what it adds to "senior", and why AI makes it matter more.
-date: 2026-11-05
-draft: true
+date: 2026-11-06
 tags: [Engineering, Full stack, Career]
 ---
 

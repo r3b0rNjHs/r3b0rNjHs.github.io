@@ -1,8 +1,7 @@
 ---
 title: Why I still write tests first when an agent writes the code
 description: TDD looked like a casualty of AI coding. In my experience it's the opposite. Tests are how you tell an agent what you want, and how you know it did it.
-date: 2026-11-05
-draft: true
+date: 2026-11-10
 tags: [TDD, Claude Code, Engineering]
 ---
 

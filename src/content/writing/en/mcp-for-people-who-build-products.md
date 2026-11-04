@@ -1,8 +1,7 @@
 ---
 title: MCP, explained for people who build products
 description: What the Model Context Protocol is, why it spread so fast, where I'd use it first in a product company, and what to lock down before you do.
-date: 2026-11-05
-draft: true
+date: 2026-11-12
 tags: [MCP, AI agents, Product]
 ---
 

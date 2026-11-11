@@ -99,7 +99,7 @@ const workUrl = (slug: string) => new URL(localePath(lang, `/work/${slug}/`), As
       <section class="block">
         <h2>{t('cv.summary')}</h2>
         <div class="prose">
-          {profile.bio[lang].map((p) => (
+          {profile.cvSummary[lang].map((p) => (
             <p>{p}</p>
           ))}
         </div>
@@ -147,14 +147,13 @@ const workUrl = (slug: string) => new URL(localePath(lang, `/work/${slug}/`), As
 
       <section class="block">
         <h2>{t('cv.skills')}</h2>
-        <dl class="skills">
+        <ul class="skills" role="list">
           {stack.map((group) => (
-            <div>
-              <dt>{group.group[lang]}</dt>
-              <dd>{group.items.join(', ')}</dd>
-            </div>
+            <li>
+              <strong>{group.group[lang]}:</strong> {group.items.join(', ')}
+            </li>
           ))}
-        </dl>
+        </ul>
       </section>
 
       <section class="block">
@@ -396,20 +395,17 @@ const workUrl = (slug: string) => new URL(localePath(lang, `/work/${slug}/`), As
     font-size: 7.5pt;
     color: var(--ink-muted) !important;
   }
+  /* One line of text per group (label inline, not in its own column) so ATS parsers read each label with its items. */
   .skills {
     display: grid;
     gap: 1.2mm;
-  }
-  .skills div {
-    display: grid;
-    grid-template-columns: 34mm 1fr;
-    gap: 3mm;
-  }
-  .skills dt {
-    font-weight: 600;
-  }
-  .skills dd {
+    padding: 0;
+    list-style: none;
     color: var(--ink-soft);
+  }
+  .skills strong {
+    font-weight: 600;
+    color: var(--ink);
   }
 
   @media (max-width: 720px) {
@@ -441,10 +437,6 @@ const workUrl = (slug: string) => new URL(localePath(lang, `/work/${slug}/`), As
       position: static;
       width: auto;
       margin-bottom: 0.5rem;
-    }
-    .skills div {
-      grid-template-columns: 1fr;
-      gap: 0.25rem;
     }
     .entry__head {
       flex-direction: column;

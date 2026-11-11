@@ -24,6 +24,17 @@ export const profile = {
       'Mi base es Clean Architecture, DDD y TDD. En los últimos dos años casi todo mi trabajo ha girado en torno a usar la IA en la ingeniería del día a día: programar con agentes, construir integraciones MCP y llevar funcionalidades con LLMs a usuarios reales.',
     ],
   } satisfies Record<string, string[]>,
+  /** Shorter summary for the printed CV: who, specialty and scale in the first sentence, as recruiters and ATS scan it. */
+  cvSummary: {
+    en: [
+      'Full stack AI engineer and systems architect with 7+ years building production systems, from junior developer to CTO in under five years. I ship LLM features, agents and MCP integrations, and the AWS, Kubernetes and Terraform platforms they run on.',
+      'I founded an AI-driven adtech startup and led engineering for investment fund platforms. My foundation is Clean Architecture, DDD and TDD, and for the last two years most of my work has been building with coding agents and shipping LLM features to real users.',
+    ],
+    es: [
+      'Ingeniero de IA full stack y arquitecto de sistemas con más de 7 años construyendo sistemas en producción, de developer junior a CTO en menos de cinco años. Llevo a producción funcionalidades con LLMs, agentes e integraciones MCP, y las plataformas en AWS, Kubernetes y Terraform sobre las que corren.',
+      'Fundé una startup de adtech basada en IA y lideré la ingeniería de plataformas para fondos de inversión. Mi base es Clean Architecture, DDD y TDD, y en los últimos dos años casi todo mi trabajo ha sido construir con agentes de código y llevar funcionalidades con LLMs a usuarios reales.',
+    ],
+  } satisfies Record<string, string[]>,
   languages: {
     en: 'Spanish (native) · English (C1, professional working proficiency)',
     es: 'Español (nativo) · Inglés (C1, nivel profesional)',

@@ -9,6 +9,9 @@ import aionMap from '@/assets/projects/aion2-companion/map.jpg';
 import aionDps from '@/assets/projects/aion2-companion/dps.jpg';
 import aionPets from '@/assets/projects/aion2-companion/pets.jpg';
 import aionBosses from '@/assets/projects/aion2-companion/bosses.jpg';
+import hanyoLibrary from '@/assets/projects/hanyo/library.jpg';
+import hanyoDiscover from '@/assets/projects/hanyo/discover.jpg';
+import hanyoOffline from '@/assets/projects/hanyo/offline.jpg';
 import petAbyss from '@/assets/projects/pet-defense/thumb-1.png';
 import petTundra from '@/assets/projects/pet-defense/thumb-2.png';
 import petIsland from '@/assets/projects/pet-defense/thumb-3.png';
@@ -216,6 +219,96 @@ export const projects: Project[] = [
     note: {
       en: 'Codename. The product is being rebranded ahead of launch.',
       es: 'Nombre en clave. El producto se está renombrando antes del lanzamiento.',
+    },
+  },
+  {
+    slug: 'hanyo',
+    title: 'Hanyo',
+    tagline: {
+      en: 'A self-hosted library and offline reader for manhwa and manga, installed on the iPhone as a PWA, with accounts for a few invited people.',
+      es: 'Una biblioteca autoalojada y lector offline de manhwa y manga, instalada en el iPhone como PWA, con cuentas para unas pocas personas invitadas.',
+    },
+    kind: { en: 'PWA · Offline-first', es: 'PWA · Offline-first' },
+    year: '2026',
+    role: { en: 'Creator', es: 'Creador' },
+    status: { en: 'In daily use', es: 'En uso a diario' },
+    hue: 255,
+    motif: 'grid',
+    stack: [
+      'TypeScript',
+      'SvelteKit 2',
+      'Svelte 5',
+      'Hono',
+      'SQLite',
+      'sharp',
+      'Service Worker',
+      'IndexedDB',
+      'Web Push',
+      'Playwright',
+      'Caddy',
+      'PM2',
+      'Docker',
+    ],
+    metrics: [
+      { value: '~80%', label: { en: 'smaller downloads after re-encoding', es: 'menos peso en descargas tras recodificar' } },
+      { value: '13', label: { en: 'architecture decision records', es: 'registros de decisiones de arquitectura' } },
+      { value: '87', label: { en: 'unit and end-to-end tests', es: 'tests unitarios y end-to-end' } },
+    ],
+    links: [],
+    gallery: [
+      {
+        src: hanyoLibrary,
+        alt: { en: 'Library on desktop, with new-chapter badges', es: 'Biblioteca en escritorio, con avisos de capítulos nuevos' },
+      },
+      {
+        src: hanyoDiscover,
+        alt: { en: 'New chapters, Explore and a series page on the phone', es: 'Novedades, Explorar y la ficha de una serie en el móvil' },
+      },
+      {
+        src: hanyoOffline,
+        alt: {
+          en: 'Downloaded series, next chapter ready and downloads, on demo data',
+          es: 'Serie descargada, siguiente capítulo listo y descargas, con datos de demo',
+        },
+      },
+    ],
+    overview: {
+      en: 'A reading app I built for myself and use every day. It searches several sources at once, keeps every series in one library, sends a push notification when a new chapter comes out and downloads chapters to read with no connection. Each account has its own library, lists, progress and stats, and new people join through single-use invite links.',
+      es: 'Una app de lectura que construí para mí y que uso a diario. Busca en varias fuentes a la vez, reúne todas las series en una biblioteca, avisa con una notificación push cuando sale un capítulo nuevo y descarga capítulos para leer sin conexión. Cada cuenta tiene su propia biblioteca, listas, progreso y estadísticas, y la gente nueva entra con enlaces de invitación de un solo uso.',
+    },
+    challenge: {
+      en: 'Making a web app feel native on an iPhone with no Mac and no App Store: reading has to work in airplane mode, iOS kills tabs that hold too many decoded images, and a webtoon chapter can weigh close to 40 MB. On top of that, the same series exists under different titles and chapter ids on each source.',
+      es: 'Conseguir que una app web se sienta nativa en un iPhone sin Mac ni App Store: la lectura tiene que funcionar en modo avión, iOS cierra las pestañas que guardan demasiadas imágenes decodificadas y un capítulo de webtoon puede pesar cerca de 40 MB. Además, la misma serie existe con títulos e ids de capítulo distintos en cada fuente.',
+    },
+    approach: [
+      {
+        en: 'Offline first. Downloaded pages are stored in Cache Storage under the same URLs the reader uses online, so the reader code is identical in both cases. Progress made offline is queued in IndexedDB and synced later.',
+        es: 'Offline primero. Las páginas descargadas se guardan en Cache Storage con las mismas URLs que usa el lector online, así que el código del lector es idéntico en los dos casos. El progreso que haces sin conexión se guarda en una cola en IndexedDB y se sincroniza después.',
+      },
+      {
+        en: 'The strip reader only mounts a window of pages around the current one, with sized placeholders for the rest, and corrects the scroll when a page above the screen learns its real height. That keeps long chapters inside the memory iOS allows.',
+        es: 'El lector vertical solo monta una ventana de páginas alrededor de la actual, con huecos del tamaño correcto para el resto, y corrige el scroll cuando una página por encima de la pantalla descubre su altura real. Así los capítulos largos caben en la memoria que permite iOS.',
+      },
+      {
+        en: 'The server re-encodes pages with sharp to WebP, or mozjpeg for strips taller than WebP allows. Measured on real chapters, downloads are about 80% smaller with no visible difference. Online reading never waits for it: the original is served and the compact version is built in the background.',
+        es: 'El servidor recodifica las páginas con sharp a WebP, o a mozjpeg en las tiras más altas de lo que admite WebP. Medido en capítulos reales, las descargas pesan alrededor de un 80% menos sin diferencia visible. La lectura online nunca lo espera: se sirve el original y la versión compacta se genera en segundo plano.',
+      },
+      {
+        en: 'Every source sits behind one provider interface, with MangaDex’s official API as the native one. Progress is stored per chapter number instead of per source chapter, and AniList’s alternative titles merge search results, so switching sources never loses your place.',
+        es: 'Todas las fuentes están detrás de una misma interfaz de proveedor, con la API oficial de MangaDex como proveedor nativo. El progreso se guarda por número de capítulo y no por capítulo de cada fuente, y los títulos alternativos de AniList unifican los resultados de búsqueda, así que cambiar de fuente nunca te hace perder por dónde ibas.',
+      },
+    ],
+    ai: {
+      en: 'I worked as the product owner and Claude Code wrote most of the code, in feature branches with a pull request each. A CLAUDE.md with the product principles, thirteen ADRs and a status file kept every session consistent, and an end-to-end suite running the real API against an offline demo source had to pass in CI before anything merged.',
+      es: 'Yo hice de product owner y Claude Code escribió la mayor parte del código, en ramas de funcionalidad con una pull request cada una. Un CLAUDE.md con los principios del producto, trece ADRs y un fichero de estado mantuvieron coherentes todas las sesiones, y una batería end-to-end que ejecuta la API real contra una fuente de demo sin red tenía que pasar en CI antes de integrar nada.',
+    },
+    outcome: {
+      en: 'It runs on a small VPS behind Caddy and I read with it every day, including in airplane mode. Accounts share the catalogue and the image cache, so a series one person opens is already linked and cached for the next, while libraries, progress and notifications stay private. Passwords are scrypt hashes and logins are rate-limited.',
+      es: 'Funciona en un VPS pequeño detrás de Caddy y leo con ella a diario, también en modo avión. Las cuentas comparten el catálogo y la caché de imágenes, así que una serie que abre una persona ya está enlazada y en caché para la siguiente, mientras que bibliotecas, progreso y notificaciones son privados. Las contraseñas se guardan como hashes scrypt y los inicios de sesión tienen límite de intentos.',
+    },
+    note: {
+      en: 'Private and invite-only. It hosts no content of its own. Screenshots of the offline flow use the app’s generated demo data.',
+      es: 'Privada y solo por invitación. No aloja contenido propio. Las capturas del flujo offline usan los datos de demo que genera la propia app.',
     },
   },
   {

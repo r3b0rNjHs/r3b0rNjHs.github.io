@@ -7,7 +7,7 @@ test.describe('home', () => {
     await expect(page).toHaveTitle(/AI Engineer & Systems Architect/);
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('AI‑native');
-    await expect(page.locator('#work li')).toHaveCount(5);
+    await expect(page.locator('#work li')).toHaveCount(6);
   });
 
   test('serves the Spanish version under /es/', async ({ page }) => {
